@@ -79,6 +79,11 @@ You can open these notebooks directly in [Google Colab](./notebooks/google-colab
 
 **[Notebook/Kernel](https://www.kaggle.com/neomatrix369/nlp-profiler-simple-dataset)** | [Script](https://www.kaggle.com/neomatrix369/nlp-profiler-class) | [Other related links](https://www.kaggle.com/general/166954)
 
+## Screenshots
+
+![Importing the library](https://user-images.githubusercontent.com/1570917/92324238-ccea5c00-f037-11ea-9369-89b0e034ef16.png)
+![Pandas describe() function](https://user-images.githubusercontent.com/1570917/92324242-cf4cb600-f037-11ea-9c5a-e22806b4be5b.png)
+
 # Contributing
 
 Contributions are very welcome, please share back with the wider community (and get credited for it)!
