@@ -19,4 +19,10 @@ docker run -it                                       \
            --workdir ${TARGET_FOLDER}                \
            python:3.7                                \
            /bin/bash
+
+echo "~~~ Removing folders created during testing of installation of the library."
+rm -fr ${MOUNT_VOLUME}/build \
+       ${MOUNT_VOLUME}/dist  \
+       ${MOUNT_VOLUME}/nlp_profiler.egg-info
+
 echo "~~~ Exited docker container."
