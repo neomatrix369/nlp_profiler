@@ -1,14 +1,16 @@
 # NLP Profiler [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This is a simple NLP library allows profiling datasets with one or more text columns. 
+A simple NLP library allows profiling datasets with one or more text columns. 
 
-When given a dataset and a column name with text data, NLP Profiler will return either high-level insights about the text or low-level/granular statistical information about the same text. 
+When given a dataset and a column name containing text data, NLP Profiler will return either high-level insights or low-level/granular statistical information about the text in that column. 
 
-Think of it as using the pandas.describe() function or running Pandas Profiling on your data frame, but for datasets containing text columns rather than columnar datasets.
+Think of it as using the `pandas.describe()` function or running [Pandas Profiling](https://github.com/pandas-profiling/pandas-profiling) on your data frame, but for datasets containing text columns rather than the usual columnar datasets.
 
-Under the hood it does make use of a number of libraries that are popular in the AI and ML communities.
+Under the hood it does make use of a number of libraries that are popular in the AI and ML communities, but we can extend it's functionality by replacing or adding other libraries as well.
 
 A simple notebook have been provided to illustrate the usage of the library.
+
+**Note:** this is it's inception and so it's not probably capable of doing many things, including running at _scale_. Many of these are opportunities we can work on as we go along using it.
 
 ## Requirements
 
