@@ -15,9 +15,18 @@ A simple notebook have been provided to illustrate the usage of the library.
 ## Requirements
 
 - Python 3.7.x or higher
-- Dependencies described in the requirements.txt
+- Dependencies described in the `requirements.txt`
+- (Optional)
+  - Jupyter Lab (on your local machine)
+  - Google Colab account  
+  - Kaggle account
 
 ## Get started
+
+### Demo
+
+Take a look at this short demo of the NLP Profiler library by clicking on the below image: 
+[![Demo of the NLP Profiler library](https://user-images.githubusercontent.com/1570917/88474968-8fb48980-cf23-11ea-944d-0a1069174ede.png)](https://youtu.be/sdPOyqMfK7M?t=2274)or you find the rest of the [talk here](https://www.youtube.com/watch?v=sdPOyqMfK7M).
 
 ### Notebooks
 
@@ -33,12 +42,12 @@ You can open these notebooks directly in [Google Colab](./notebooks/google-colab
 
 **[Notebook/Kernel](https://www.kaggle.com/neomatrix369/nlp-profiler-simple-dataset)** | [Script](https://www.kaggle.com/neomatrix369/nlp-profiler-class) | [Other related links](https://www.kaggle.com/general/166954)
 
-![](https://user-images.githubusercontent.com/1570917/88474968-8fb48980-cf23-11ea-944d-0a1069174ede.png)
-
 ## Installation
 
+Install directly from the GitHub repo:
+
 ```bash
-pip install git+https://github.com/neomatrix369/nlp-profiler.git@master
+pip install git+https://github.com/neomatrix369/nlp_profiler.git@master
 ```
 
 ## Usage
