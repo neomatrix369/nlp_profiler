@@ -13,7 +13,7 @@ More detail: so what do you get from the library:
   - low-level/granular: number of characters in the sentence, number of words, number of emojis, number of words, etc...
 - from the above numerical data in the resulting dataframe descriptive statistics can be drawn using the `pandas.describe()` on the dataframe
 
-See [screenshot](#Jupyter) under the [Notebooks](#Notebooks) section for further illustration.
+See screenshots under the [Jupyter](#Jupyter) section and also under [Screenshots](#Screenshots) for further illustrations.
 
 Under the hood it does make use of a number of libraries that are popular in the AI and ML communities, but we can extend it's functionality by replacing or adding other libraries as well.
 
