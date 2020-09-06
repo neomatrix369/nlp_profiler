@@ -5,3 +5,4 @@ __pycache__/
 build
 dist
 nlp_profiler.egg*
+.ipynb_checkpoints/
