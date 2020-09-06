@@ -3,6 +3,8 @@
 from setuptools import setup
 from setuptools import find_packages
 
+import nlp_profiler
+
 with open("README.md", encoding='utf8') as readme:
     long_description = readme.read()
 
@@ -11,7 +13,7 @@ with open("requirements.txt", encoding='utf8') as requirements_txt:
 
 setup(
     name="nlp_profiler",
-    version='0.1',
+    version=nlp_profiler.__version__,
     description='A simple NLP library allows profiling datasets with one or more text columns.',
     long_description = long_description,
     long_description_content_type='text/markdown',
@@ -22,7 +24,7 @@ setup(
     include_package_data=True,
     keywords="nlpprofiler, nlpprof, nlp_profiler, nlp-profiler",
     install_requires=install_requirements,
-    python_requires=">3.7.0",
+    python_requires=">=3.7.0",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",

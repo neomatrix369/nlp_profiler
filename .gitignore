@@ -2,3 +2,6 @@
 __pycache__/
 *.json
 *.dot
+build
+dist
+nlp_profiler.egg*
