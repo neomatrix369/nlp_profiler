@@ -4,13 +4,22 @@ A simple NLP library allows profiling datasets with one or more text columns.
 
 When given a dataset and a column name containing text data, NLP Profiler will return either high-level insights or low-level/granular statistical information about the text in that column. 
 
-Think of it as using the `pandas.describe()` function or running [Pandas Profiling](https://github.com/pandas-profiling/pandas-profiling) on your data frame, but for datasets containing text columns rather than the usual columnar datasets.
+In short: Think of it as using the `pandas.describe()` function or running [Pandas Profiling](https://github.com/pandas-profiling/pandas-profiling) on your data frame, but for datasets containing text columns rather than the usual columnar datasets.
+
+More detail: so what do you get from the library:
+- input a Pandas dataframe series as input param
+- and you get back a new dataframe with various features about the parsed text per row
+  - high-level: sentiment analysis, objectivity/subjectivity analysis, spelling quality check, grammar quality check, etc...
+  - low-level/granular: number of characters in the sentence, number of words, number of emojis, number of words, etc...
+- from the above numerical data in the resulting dataframe descriptive statistics can be drawn using the `pandas.describe()` on the dataframe
+
+See [screenshot](#Jupyter) under the [Notebooks](#Notebooks) section for further illustration.
 
 Under the hood it does make use of a number of libraries that are popular in the AI and ML communities, but we can extend it's functionality by replacing or adding other libraries as well.
 
-A simple notebook have been provided to illustrate the usage of the library.
+A simple [notebook](#Notebooks) have been provided to illustrate the usage of the library.
 
-**Note:** this is it's inception and so it's not probably capable of doing many things, including running at _scale_. Many of these are opportunities we can work on as we go along using it.
+**Note:** this is a new endeavour and it's probably NOT capable of doing many things yet, including running at _scale_. Many of these gaps are opportunities we can work on and plug, as we go along using it.
 
 ## Requirements
 
