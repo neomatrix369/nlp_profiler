@@ -1,9 +1,11 @@
 #!/bin/bash
 set -eou pipefail
 
+PYTHON_VERSION=${1:-"3.7"}
+
 MOUNT_VOLUME="${PWD}/../../"
 TARGET_FOLDER="/nlp_profiler"
-echo "~~~ Running Python 3.7 in a docker container"
+echo "~~~ Running Python ${PYTHON_VERSION} in a docker container"
 echo "Mounted volume: ${MOUNT_VOLUME}"
 echo "Manual smoke test steps: "
 echo "   $ pip install pandas"
@@ -17,7 +19,7 @@ docker run -it                                       \
            --rm                                      \
            --volume ${MOUNT_VOLUME}:${TARGET_FOLDER} \
            --workdir ${TARGET_FOLDER}                \
-           python:3.7                                \
+           python:${PYTHON_VERSION}                  \
            /bin/bash
 
 echo "~~~ Removing folders created during testing of installation of the library."
