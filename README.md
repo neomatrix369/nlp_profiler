@@ -19,7 +19,7 @@ Under the hood it does make use of a number of libraries that are popular in the
 
 A simple [notebook](#Notebooks) have been provided to illustrate the usage of the library.
 
-**Note:** this is a new endeavour and it's probably NOT capable of doing many things yet, including running at _scale_. Many of these gaps are opportunities we can work on and plug, as we go along using it.
+_**Note:** this is a new endeavour and it's may have rough edges i.e. probably NOT capable of doing many things yet, including running at _scale_. _Many of these gaps are opportunities we can work on and plug, as we go along using it. Please provide constructive feedback to help with the improvement of this library._
 
 ## Requirements
 
