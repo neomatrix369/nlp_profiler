@@ -7,4 +7,4 @@ Changelog for nlp_profiler.
 
 Based on the issue raised on github #1
 
-[e5c7a11](https://github.com/neomatrix369/nlp_profiler/commit/e5c7a11) Mani Sarkar _Wed Sep 16 17:15:29 2020 +0100_
+[4f117a6](https://github.com/neomatrix369/nlp_profiler/commit/4f117a6) Mani Sarkar _Wed Sep 16 17:15:29 2020 +0100_
