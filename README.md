@@ -23,7 +23,7 @@ _**Note:** this is a new endeavour and it's may have rough edges i.e. probably N
 
 ## Requirements
 
-- Python 3.7.x or higher
+- Python 3.6.x or higher
 - Dependencies described in the `requirements.txt`
 - (Optional)
   - Jupyter Lab (on your local machine)
@@ -64,6 +64,8 @@ new_text_column_dataset = apply_text_profiling(dataset['text_column'])
 See [Notebooks](#Notebooks) section for further illustrations.
 
 ## Notebooks
+
+_Once the library is successfully installed, please RESTART your Jupyter kernels or Google Colab runtimes for the changes to take effect._
 
 ### Jupyter
 

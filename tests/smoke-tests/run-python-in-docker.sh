@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eou pipefail
 
-PYTHON_VERSION=${1:-"3.7"}
+PYTHON_VERSION=${1:-"3.6"}
 
 MOUNT_VOLUME="${PWD}/../../"
 TARGET_FOLDER="/nlp_profiler"
@@ -9,6 +9,7 @@ echo "~~~ Running Python ${PYTHON_VERSION} in a docker container"
 echo "Mounted volume: ${MOUNT_VOLUME}"
 echo "Manual smoke test steps: "
 echo "   $ pip install pandas"
+echo "   $ python setup.py install"
 echo "   $ python"
 echo "   >>> import nlp_profiler.core as nlpprof"
 echo "   ( Use the steps in the Jupyter notebook: notebooks/jupyter/nlp_profiler.ipynb )"
