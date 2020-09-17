@@ -32,7 +32,9 @@ delete_the_old_coverage_report_folder_and_create_a_new_one() {
 test_for_pytest(){
   result="python -m pytest"
   exit_code=0
-  pytest || exit_code="$?" && true
+  TMPFILE=$(mktemp)
+  pytest 2&> ${TMPFILE} || exit_code="$?" && true
+  rm -f ${TMPFILE}
   if [[ ${exit_code} == 0 ]]; then
      result="pytest"
   fi
