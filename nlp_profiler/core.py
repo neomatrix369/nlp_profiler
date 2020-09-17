@@ -73,19 +73,26 @@ def apply_granular_features(default_params: dict,
                             new_dataframe: pd.DataFrame,
                             text_column: dict):
     if default_params['granular']:
-        new_dataframe['sentences_count'] = new_dataframe[text_column].apply(count_sentences)
-        new_dataframe['characters_count'] = new_dataframe[text_column].apply(len)
-        new_dataframe['spaces_count'] = new_dataframe[text_column].apply(count_spaces)
-        new_dataframe['words_count'] = new_dataframe[text_column].apply(words_count)
-        new_dataframe['duplicates_count'] = new_dataframe[text_column].apply(count_duplicates)
-        new_dataframe['chars_excl_spaces_count'] = new_dataframe[text_column].apply(count_characters_excluding_spaces)
-        new_dataframe['emoji_count'] = new_dataframe[text_column].apply(count_emojis)
-        new_dataframe['whole_numbers_count'] = new_dataframe[text_column].apply(count_whole_numbers)
-        new_dataframe['alpha_numeric_count'] = new_dataframe[text_column].apply(count_alpha_numeric)
-        new_dataframe['non_alpha_numeric_count'] = new_dataframe[text_column].apply(count_non_alpha_numeric)
-        new_dataframe['punctuations_count'] = new_dataframe[text_column].apply(count_punctuations)
-        new_dataframe['stop_words_count'] = new_dataframe[text_column].apply(count_stop_words)
-        new_dataframe['dates_count'] = new_dataframe[text_column].apply(count_dates)
+        granular_features_steps = [
+            ('sentences_count', count_sentences),
+            ('characters_count', len),
+            ('spaces_count', count_spaces),
+            ('words_count', words_count),
+            ('duplicates_count', count_duplicates),
+            ('chars_excl_spaces_count', count_characters_excluding_spaces),
+            ('emoji_count', count_emojis),
+            ('whole_numbers_count', count_whole_numbers),
+            ('alpha_numeric_count', count_alpha_numeric),
+            ('non_alpha_numeric_count', count_non_alpha_numeric),
+            ('punctuations_count', count_punctuations),
+            ('stop_words_count', count_stop_words),
+            ('dates_count', count_dates),
+        ]
+        source_field = new_dataframe[text_column]
+        second_level = tqdm(granular_features_steps)
+        for (new_column, transformation) in second_level:
+            second_level.set_description(f'Generating {new_column}')
+            new_dataframe[new_column] = source_field.apply(transformation)
 
 
 def apply_high_level_features(default_params: dict,
