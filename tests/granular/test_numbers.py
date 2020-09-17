@@ -4,7 +4,7 @@ text_with_a_number = '2833047 people live in this area'
 
 
 def test_given_a_text_with_numbers_when_parsed_then_return_only_the_numbers():
-    # given,
+    # given
     expected_results = ['2833047']
 
     # when

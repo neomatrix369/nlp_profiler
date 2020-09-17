@@ -4,7 +4,7 @@ text_with_emojis = "I love ⚽ very much 😁"
 
 
 def test_given_a_text_with_emoji_when_parsed_then_return_only_emojis():
-    # given,
+    # given
     expected_results = ['soccer_ball', 'beaming_face_with_smiling_eyes']
 
     # when
