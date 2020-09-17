@@ -25,10 +25,17 @@ _**Note:** this is a new endeavour and it's may have rough edges i.e. probably N
 
 - Python 3.6.x or higher
 - Dependencies described in the `requirements.txt`
+- High-level including Grammar checks
+  - faster processor
+  - higher RAM capacity
 - (Optional)
   - Jupyter Lab (on your local machine)
   - Google Colab account  
   - Kaggle account
+  - Grammar check functionality  
+    - Internet access
+    - Java 8 or higher
+  
 
 ## Get started
 
