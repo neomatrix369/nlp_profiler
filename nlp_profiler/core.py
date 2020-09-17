@@ -181,13 +181,13 @@ def sentiment_subjectivity_score(text):
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
 ### The General Area of Possibility
 spelling_quality_score_to_words_mapping = [
-    ["Very good", 99, 100],  # Certain: 100%: Give or take 0%
+    ["Very good", 99, 100],  # Very good: Certain: 100%: Give or take 0%
     ["Quite good", 90, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
     ["Good", 87, 90],  # Quite Good: Almost Certain: 93%: Give or take 6%
-    ["Bad", 63, 87],  # Pretty: Good: Probable: 75%: Give or take about 12%
-    ["Pretty bad", 40, 63],  # So/so: Chances About Even: 50%: Give or take about 10%
-    ["Quite bad", 12, 40],  # Pretty bad: Probably Not: 30%: Give or take about 10%
-    ["Very bad", 2, 12],  # Quite bad: Almost Certainly Not 7%: Give or take about 5%
+    ["Pretty good", 63, 87],  # Pretty: Good: Probable: 75%: Give or take about 12%
+    ["Bad", 40, 63],  # So/so: Chances About Even: 50%: Give or take about 10%
+    ["Pretty bad", 12, 40],  # Pretty bad: Probably Not: 30%: Give or take about 10%
+    ["Quite bad", 2, 12],  # Quite bad: Almost Certainly Not 7%: Give or take about 5%
     ["Very bad", 0, 2]  # Impossible 0%: Give or take 0%
 ]
 
@@ -214,7 +214,9 @@ def spelling_quality_score(text):
             if score != 1:
                 misspelt_words_count += 1
             total_words_checks += 1
-    return (total_words_checks - misspelt_words_count) / total_words_checks
+    num_of_sentences = count_sentences(text)
+    avg_words_per_sentence = total_words_checks / num_of_sentences
+    return misspelt_words_count / avg_words_per_sentence
 
 
 def spelling_quality(score):
