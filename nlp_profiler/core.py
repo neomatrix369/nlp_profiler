@@ -146,7 +146,7 @@ def sentiment_subjectivity_summarised(sentiment_subjectivity):
 
     return 'Objective'
 
-
+### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
 subjectivity_words_of_probability_estimation = [
     ["Very subjective", 99, 100],  # Certain: 100%: Give or take 0%
     ### The General Area of Possibility
@@ -178,7 +178,7 @@ def sentiment_subjectivity_score(text):
 
 
 ### Spell check
-
+### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
 spelling_quality_words_of_probability_estimation = [
     ["Very good", 99, 100],  # Certain: 100%: Give or take 0%
     ### The General Area of Possibility
