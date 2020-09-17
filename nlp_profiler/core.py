@@ -91,7 +91,7 @@ def apply_granular_features(default_params: dict,
         source_field = new_dataframe[text_column]
         second_level = tqdm(granular_features_steps)
         for (new_column, transformation) in second_level:
-            second_level.set_description(f'Generating {new_column}')
+            second_level.set_description(f'Generating {new_column} using {text_column}')
             new_dataframe[new_column] = source_field.apply(transformation)
 
 
@@ -120,8 +120,15 @@ def apply_grammar_check(default_params: dict,
                         new_dataframe: pd.DataFrame,
                         text_column: dict):
     if default_params['grammar_check']:
-        new_dataframe['grammar_check_score'] = new_dataframe[text_column].apply(grammar_check_score)
-        new_dataframe['grammar_check'] = new_dataframe['grammar_check_score'].apply(grammar_quality)
+        grammar_checks_steps = [
+            ('grammar_check_score', text_column, grammar_check_score),
+            ('grammar_check', 'grammar_check_score', grammar_quality),
+        ]
+        second_level = tqdm(grammar_checks_steps)
+        for (new_column, source_column, transformation) in second_level:
+            source_field = new_dataframe[source_column]
+            second_level.set_description(f'Generating {new_column} using {source_column}')
+            new_dataframe[new_column] = source_field.apply(transformation)
 
 
 ### Sentiment analysis
