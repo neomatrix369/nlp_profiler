@@ -124,7 +124,7 @@ def sentiment_polarity(score):
     score = (score + 1) / 2  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
     score = score * 100
     print(score)
-    for each_slab in sentiment_polarity_to_words_mapping:
+    for each_slab in sentiment_polarity_to_words_mapping:  # pragma: no cover
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
@@ -166,7 +166,7 @@ def sentiment_subjectivity(score):
 
     score = float(score) * 100
 
-    for each_slab in sentiment_subjectivity_to_words_mapping:
+    for each_slab in sentiment_subjectivity_to_words_mapping:  # pragma: no cover
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
@@ -223,7 +223,7 @@ def spelling_quality(score):
         return NOT_APPLICABLE
 
     score = float(score) * 100
-    for each_slab in spelling_quality_score_to_words_mapping:
+    for each_slab in spelling_quality_score_to_words_mapping:  # pragma: no cover
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
