@@ -38,20 +38,20 @@ NOT_APPLICABLE = "N/A"
 
 
 def apply_text_profiling(dataframe, text_column, params={}):
-    print(f"params: {params}")
     columns_to_drop = list(set(dataframe.columns) - set([text_column]))
     new_dataframe = dataframe.drop(columns=columns_to_drop, axis=1).copy()
 
     high_level_analysis = False
     granular_analysis = False
     do_grammar_check = False
-    if (not params):
+    if not params:
         params = {
             'high_level': True,
             'granular': True,
             'grammar_check': do_grammar_check
         }
 
+    print(f"params: {params}")
     if 'high_level' in params:
         high_level_analysis = params['high_level']
     if 'granular' in params:
@@ -100,13 +100,13 @@ def apply_text_profiling(dataframe, text_column, params={}):
 
 ### Sentiment analysis
 
-def sentiment_polarity_summarised(sentiment_polarity):
-    if 'negative' in sentiment_polarity.lower():
+def sentiment_polarity_summarised(polarity: str):
+    if 'negative' in polarity.lower():
         return 'Negative'
-    if 'positive' in sentiment_polarity.lower():
+    if 'positive' in polarity.lower():
         return 'Positive'
 
-    return sentiment_polarity
+    return polarity
 
 
 # Docs: https://textblob.readthedocs.io/en/dev/quickstart.html
