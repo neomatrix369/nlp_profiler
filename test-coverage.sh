@@ -29,15 +29,26 @@ delete_the_old_coverage_report_folder_and_create_a_new_one() {
     COVERAGE_REPORT_FILE="${COVERAGE_REPORT_FOLDER}/index.html"
 }
 
+test_for_pytest(){
+  result="python -m pytest"
+  exit_code=0
+  pytest || exit_code="$?" && true
+  if [[ ${exit_code} == 0 ]]; then
+     result="pytest"
+  fi
+  echo ${result}
+}
+
 test_run_exit_code=0
 SOURCES_FOLDER=nlp_profiler
 TESTS_FOLDER=tests
 TARGET_TEST_FOLDERS="$@"
 TARGET_TEST_FOLDERS="${TARGET_TEST_FOLDERS:-${TESTS_FOLDER}}"
+RUN_PYTEST=$(test_for_pytest)
 run_test_runner() {
     echo ""; echo "~~~ Running tests with coverage on branch '${CURRENT_GIT_BRANCH}'"
     set -x
-    pytest --cov-config pyproject.toml                    \
+    ${RUN_PYTEST} --cov-config pyproject.toml             \
            --cov-report html:"${COVERAGE_REPORT_FOLDER}"  \
            --cov=${SOURCES_FOLDER} ${TARGET_TEST_FOLDERS} \
            --html="${TEST_REPORT_FILE}"                   \

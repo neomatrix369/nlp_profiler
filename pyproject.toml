@@ -5,8 +5,10 @@ branch = true
 fail_under = 100
 show_missing = true
 omit = [
-  "nlp_profilfer/__init__.py",
+  "nlp_profiler/__init__.py",
   "tests/__init__.py",
   "tests/*/__init__.py",
+  "slow_tests/__init__.py",
+  "slow_tests/*/__init__.py",
 ]
 exclude_lines = ["pragma: no cover", "raise NotImplementedError", "pass"]
