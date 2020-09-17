@@ -65,7 +65,7 @@ def assert_sentiment_subjectivity(text, expected_sentiment_subjectivity_score,
 
 ### The General Area of Possibility
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
-sentiment_subjectivity_score_mapping = [
+sentiment_subjectivity_score_to_words_mapping = [
     (1, 1.0, "Very subjective"),  # ["Very subjective", 99, 100],  # Certain: 100%: Give or take 0%
     (0.99555, 0.99555, "Very subjective"),  # ["Very subjective", 99, 100],  # Certain: 100%: Give or take 0%
     (0.95, 0.95, "Quite subjective"),  # ["Quite subjective", 87, 99],  # Almost Certain: 93%: Give or take 6%
@@ -80,7 +80,7 @@ sentiment_subjectivity_score_mapping = [
 
 
 @pytest.mark.parametrize("original_score,normalised_score,expected_subjectivity_in_words",
-                         sentiment_subjectivity_score_mapping)
+                         sentiment_subjectivity_score_to_words_mapping)
 def test_given_sentiment_subjectivity_score_when_converted_to_words_then_return_right_word(
         original_score: float, normalised_score: float, expected_subjectivity_in_words: str
 ):

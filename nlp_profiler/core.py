@@ -104,9 +104,9 @@ def sentiment_polarity_summarised(polarity: str):
 
 # Docs: https://textblob.readthedocs.io/en/dev/quickstart.html
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
-sentiment_polarity_words_of_probability_estimation = [
+### The General Area of Possibility
+sentiment_polarity_to_words_mapping = [
     ["Very positive", 99, 100],  # Certain: 100%: Give or take 0%
-    ### The General Area of Possibility
     ["Quite positive", 87, 99],  # Almost Certain: 93%: Give or take 6%
     ["Pretty positive", 51, 87],  # Probable: 75%: Give or take about 12%
     ["Neutral", 49, 51],  # Chances About Even: 50%: Give or take about 10%
@@ -124,7 +124,7 @@ def sentiment_polarity(score):
     score = (score + 1) / 2  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
     score = score * 100
     print(score)
-    for each_slab in sentiment_polarity_words_of_probability_estimation:
+    for each_slab in sentiment_polarity_to_words_mapping:
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
@@ -146,10 +146,11 @@ def sentiment_subjectivity_summarised(sentiment_subjectivity):
 
     return 'Objective'
 
+
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
-subjectivity_words_of_probability_estimation = [
+### The General Area of Possibility
+sentiment_subjectivity_to_words_mapping = [
     ["Very subjective", 99, 100],  # Certain: 100%: Give or take 0%
-    ### The General Area of Possibility
     ["Quite subjective", 87, 99],  # Almost Certain: 93%: Give or take 6%
     ["Pretty subjective", 63, 87],  # Probable: 75%: Give or take about 12%
     ["Objective/subjective", 40, 63],  # Chances About Even: 50%: Give or take about 10%
@@ -165,7 +166,7 @@ def sentiment_subjectivity(score):
 
     score = float(score) * 100
 
-    for each_slab in subjectivity_words_of_probability_estimation:
+    for each_slab in sentiment_subjectivity_to_words_mapping:
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
@@ -179,9 +180,9 @@ def sentiment_subjectivity_score(text):
 
 ### Spell check
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
-spelling_quality_words_of_probability_estimation = [
+### The General Area of Possibility
+spelling_quality_score_to_words_mapping = [
     ["Very good", 99, 100],  # Certain: 100%: Give or take 0%
-    ### The General Area of Possibility
     ["Quite good", 90, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
     ["Good", 87, 90],  # Quite Good: Almost Certain: 93%: Give or take 6%
     ["Bad", 63, 87],  # Pretty: Good: Probable: 75%: Give or take about 12%
@@ -222,7 +223,7 @@ def spelling_quality(score):
         return NOT_APPLICABLE
 
     score = float(score) * 100
-    for each_slab in spelling_quality_words_of_probability_estimation:
+    for each_slab in spelling_quality_score_to_words_mapping:
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 

@@ -66,7 +66,7 @@ def verify_spelling_check(text,
 
 ### The General Area of Possibility
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
-spelling_check_score_mapping = [
+spelling_check_score_to_words_mapping = [
     (0.99555, 0.99555, "Very good"),  # ["Very good", 99, 100],  # Certain: 100%: Give or take 0%
     (0.95, 0.95, "Quite good"),  # ["Quite good", 90, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
     (0.88, 0.88, "Good"),  # ["Good", 87, 90],  # Quite Good: Almost Certain: 93%: Give or take 6%
@@ -79,7 +79,7 @@ spelling_check_score_mapping = [
 
 
 @pytest.mark.parametrize("original_score,normalised_score,expected_spelling_quality_in_words",
-                         spelling_check_score_mapping)
+                         spelling_check_score_to_words_mapping)
 def test_given_spelling_check_score_when_converted_to_words_then_return_right_word(
         original_score: float, normalised_score: float, expected_spelling_quality_in_words: str
 ):

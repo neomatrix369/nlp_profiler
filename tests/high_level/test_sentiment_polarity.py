@@ -68,7 +68,7 @@ def assert_text_polarity(text,
 
 ### The General Area of Possibility
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
-sentiment_polarity_score_mapping = [
+sentiment_polarity_score_to_words_mapping = [
     (1, 0.99555, "Very positive"),  # ["Very positive", 99, 100],  # Certain: 100%: Give or take 0%
     (0.99, 0.99555, "Very positive"),  # ["Very positive", 99, 100],  # Certain: 100%: Give or take 0%
     (0.95, 0.95, "Quite positive"),  # ["Quite positive", 87, 99],  # Almost Certain: 93%: Give or take 6%
@@ -82,7 +82,7 @@ sentiment_polarity_score_mapping = [
 
 
 @pytest.mark.parametrize("original_score,normalised_score,expected_sentiment_in_words",
-                         sentiment_polarity_score_mapping)
+                         sentiment_polarity_score_to_words_mapping)
 def test_given_sentiment_polarity_score_when_converted_to_words_then_return_right_word(
         original_score: float, normalised_score: float, expected_sentiment_in_words: str
 ):
