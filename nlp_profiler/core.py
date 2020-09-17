@@ -147,6 +147,8 @@ def sentiment_polarity_score(text):
 ### Sentiment Subjectivity
 
 def sentiment_subjectivity_summarised(sentiment_subjectivity):
+    if '/' in sentiment_subjectivity:
+        return sentiment_subjectivity
     if 'subjective' in sentiment_subjectivity.lower():
         return 'Subjective'
     if 'objective' in sentiment_subjectivity.lower():
