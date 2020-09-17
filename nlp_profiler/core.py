@@ -42,25 +42,17 @@ def apply_text_profiling(dataframe, text_column, params={}):
     columns_to_drop = list(set(dataframe.columns) - set([text_column]))
     new_dataframe = dataframe.drop(columns=columns_to_drop, axis=1).copy()
 
-    high_level_analysis = False
-    granular_analysis = False
-    do_grammar_check = False
-    if not params:
-        params = {
-            'high_level': True,
-            'granular': True,
-            'grammar_check': do_grammar_check
-        }
+    default_params = {
+        'high_level': True,
+        'granular': True,
+        'grammar_check': False
+    }
 
-    print(f"params: {params}")
-    if 'high_level' in params:
-        high_level_analysis = params['high_level']
-    if 'granular' in params:
-        granular_analysis = params['granular']
-    if 'grammar_check' in params:
-        do_grammar_check = params['grammar_check']
+    default_params.update(params)
 
-    if high_level_analysis:
+    print(f"final params: {default_params}")
+
+    if default_params['high_level']:
         new_dataframe['sentiment_polarity_score'] = new_dataframe[text_column].apply(sentiment_polarity_score)
         new_dataframe['sentiment_polarity'] = new_dataframe['sentiment_polarity_score'].apply(sentiment_polarity)
         new_dataframe['sentiment_polarity_summarised'] = new_dataframe['sentiment_polarity'].apply(
@@ -77,11 +69,11 @@ def apply_text_profiling(dataframe, text_column, params={}):
         new_dataframe['spelling_quality_summarised'] = new_dataframe['spelling_quality'].apply(
             spelling_quality_summarised)
 
-        if do_grammar_check:
+        if default_params['grammar_check']:
             new_dataframe['grammar_check_score'] = new_dataframe[text_column].apply(grammar_check_score)
             new_dataframe['grammar_check'] = new_dataframe['grammar_check_score'].apply(grammar_quality)
 
-    if granular_analysis:
+    if default_params['granular']:
         new_dataframe['sentences_count'] = new_dataframe[text_column].apply(count_sentences)
         new_dataframe['characters_count'] = new_dataframe[text_column].apply(len)
         new_dataframe['spaces_count'] = new_dataframe[text_column].apply(count_spaces)
