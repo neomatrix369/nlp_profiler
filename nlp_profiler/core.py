@@ -19,6 +19,8 @@
 import re
 import string
 from itertools import groupby
+from tqdm import tqdm
+import pandas as pd
 
 import emoji
 # Grammar Check
@@ -38,7 +40,9 @@ nltk.download('punkt')
 NOT_APPLICABLE = "N/A"
 
 
-def apply_text_profiling(dataframe, text_column, params={}):
+def apply_text_profiling(dataframe: pd.DataFrame,
+                         text_column: str,
+                         params: dict = {}) -> pd.DataFrame:
     columns_to_drop = list(set(dataframe.columns) - set([text_column]))
     new_dataframe = dataframe.drop(columns=columns_to_drop, axis=1).copy()
 
@@ -51,7 +55,42 @@ def apply_text_profiling(dataframe, text_column, params={}):
     default_params.update(params)
 
     print(f"final params: {default_params}")
+    steps_mappings = [
+        ("Applying Granular features", apply_granular_features),
+        ("Generating High-level features", apply_high_level_features),
+        ("Performing grammar checks", apply_grammar_check)
+    ]
 
+    first_level = tqdm(steps_mappings)
+    for step_description, step in first_level:
+        first_level.set_description(step_description)
+        step(default_params, new_dataframe, text_column)
+
+    return new_dataframe
+
+
+def apply_granular_features(default_params: dict,
+                            new_dataframe: pd.DataFrame,
+                            text_column: dict):
+    if default_params['granular']:
+        new_dataframe['sentences_count'] = new_dataframe[text_column].apply(count_sentences)
+        new_dataframe['characters_count'] = new_dataframe[text_column].apply(len)
+        new_dataframe['spaces_count'] = new_dataframe[text_column].apply(count_spaces)
+        new_dataframe['words_count'] = new_dataframe[text_column].apply(words_count)
+        new_dataframe['duplicates_count'] = new_dataframe[text_column].apply(count_duplicates)
+        new_dataframe['chars_excl_spaces_count'] = new_dataframe[text_column].apply(count_characters_excluding_spaces)
+        new_dataframe['emoji_count'] = new_dataframe[text_column].apply(count_emojis)
+        new_dataframe['whole_numbers_count'] = new_dataframe[text_column].apply(count_whole_numbers)
+        new_dataframe['alpha_numeric_count'] = new_dataframe[text_column].apply(count_alpha_numeric)
+        new_dataframe['non_alpha_numeric_count'] = new_dataframe[text_column].apply(count_non_alpha_numeric)
+        new_dataframe['punctuations_count'] = new_dataframe[text_column].apply(count_punctuations)
+        new_dataframe['stop_words_count'] = new_dataframe[text_column].apply(count_stop_words)
+        new_dataframe['dates_count'] = new_dataframe[text_column].apply(count_dates)
+
+
+def apply_high_level_features(default_params: dict,
+                              new_dataframe: pd.DataFrame,
+                              text_column: dict):
     if default_params['high_level']:
         new_dataframe['sentiment_polarity_score'] = new_dataframe[text_column].apply(sentiment_polarity_score)
         new_dataframe['sentiment_polarity'] = new_dataframe['sentiment_polarity_score'].apply(sentiment_polarity)
@@ -69,31 +108,18 @@ def apply_text_profiling(dataframe, text_column, params={}):
         new_dataframe['spelling_quality_summarised'] = new_dataframe['spelling_quality'].apply(
             spelling_quality_summarised)
 
+
+def apply_grammar_check(default_params: dict,
+                        new_dataframe: pd.DataFrame,
+                        text_column: dict):
     if default_params['grammar_check']:
         new_dataframe['grammar_check_score'] = new_dataframe[text_column].apply(grammar_check_score)
         new_dataframe['grammar_check'] = new_dataframe['grammar_check_score'].apply(grammar_quality)
 
-    if default_params['granular']:
-        new_dataframe['sentences_count'] = new_dataframe[text_column].apply(count_sentences)
-        new_dataframe['characters_count'] = new_dataframe[text_column].apply(len)
-        new_dataframe['spaces_count'] = new_dataframe[text_column].apply(count_spaces)
-        new_dataframe['words_count'] = new_dataframe[text_column].apply(words_count)
-        new_dataframe['duplicates_count'] = new_dataframe[text_column].apply(count_duplicates)
-        new_dataframe['chars_excl_spaces_count'] = new_dataframe[text_column].apply(count_characters_excluding_spaces)
-        new_dataframe['emoji_count'] = new_dataframe[text_column].apply(count_emojis)
-        new_dataframe['whole_numbers_count'] = new_dataframe[text_column].apply(count_whole_numbers)
-        new_dataframe['alpha_numeric_count'] = new_dataframe[text_column].apply(count_alpha_numeric)
-        new_dataframe['non_alpha_numeric_count'] = new_dataframe[text_column].apply(count_non_alpha_numeric)
-        new_dataframe['punctuations_count'] = new_dataframe[text_column].apply(count_punctuations)
-        new_dataframe['stop_words_count'] = new_dataframe[text_column].apply(count_stop_words)
-        new_dataframe['dates_count'] = new_dataframe[text_column].apply(count_dates)
-
-    return new_dataframe
-
 
 ### Sentiment analysis
 
-def sentiment_polarity_summarised(polarity: str):
+def sentiment_polarity_summarised(polarity: str) -> str:
     if 'negative' in polarity.lower():
         return 'Negative'
     if 'positive' in polarity.lower():
@@ -116,7 +142,7 @@ sentiment_polarity_to_words_mapping = [
 ]
 
 
-def sentiment_polarity(score):
+def sentiment_polarity(score: float) -> str:
     if score == NOT_APPLICABLE:
         return NOT_APPLICABLE
 
@@ -128,7 +154,7 @@ def sentiment_polarity(score):
             return each_slab[0]
 
 
-def sentiment_polarity_score(text):
+def sentiment_polarity_score(text: str) -> float:
     if (not text) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
@@ -137,7 +163,7 @@ def sentiment_polarity_score(text):
 
 ### Sentiment Subjectivity
 
-def sentiment_subjectivity_summarised(sentiment_subjectivity):
+def sentiment_subjectivity_summarised(sentiment_subjectivity: str) -> str:
     if '/' in sentiment_subjectivity:
         return sentiment_subjectivity
     elif 'subjective' in sentiment_subjectivity.lower():
@@ -159,7 +185,7 @@ sentiment_subjectivity_to_words_mapping = [
 ]
 
 
-def sentiment_subjectivity(score):
+def sentiment_subjectivity(score: float) -> str:
     if score == NOT_APPLICABLE:
         return NOT_APPLICABLE
 
@@ -170,7 +196,7 @@ def sentiment_subjectivity(score):
             return each_slab[0]
 
 
-def sentiment_subjectivity_score(text):
+def sentiment_subjectivity_score(text: str) -> float:
     if (not text) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
@@ -192,14 +218,14 @@ spelling_quality_score_to_words_mapping = [
 ]
 
 
-def spelling_quality_summarised(spelling_quality):
+def spelling_quality_summarised(spelling_quality: str) -> str:
     if 'good' in spelling_quality.lower():
         return 'Good'
 
     return 'Bad'
 
 
-def spelling_quality_score(text):
+def spelling_quality_score(text: str) -> float:
     if (not text) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
@@ -219,10 +245,10 @@ def spelling_quality_score(text):
         total_words_checks / num_of_sentences
     result = (avg_words_per_sentence - \
               misspelt_words_count) / avg_words_per_sentence
-    return result if result >= 0 else 0
+    return result if result >= 0.0 else 0.0
 
 
-def spelling_quality(score):
+def spelling_quality(score: float) -> str:
     if score == NOT_APPLICABLE:
         return NOT_APPLICABLE
 
@@ -235,13 +261,13 @@ def spelling_quality(score):
 ### Grammar check: this is a very slow process
 ### take a lot of time per text it analysis
 
-def grammar_check_score(text):
+def grammar_check_score(text: str) -> int:
     tool = language_tool_python.LanguageTool('en-GB')
     matches = tool.check(text)
     return len(matches)
 
 
-def grammar_quality(score):
+def grammar_quality(score: float) -> str:
     if score == 1:
         return "1 issue"
     elif score > 1:
@@ -252,69 +278,70 @@ def grammar_quality(score):
 
 ### Emojis
 
-def gather_emojis(text):
+def gather_emojis(text: str) -> list:
     emoji_expaned_text = emoji.demojize(text)
     return re.findall(r'\:(.*?)\:', emoji_expaned_text)
 
 
-def count_emojis(text):
+def count_emojis(text: str) -> int:
     list_of_emojis = gather_emojis(text)
     return len(list_of_emojis)
 
 
 ### Numbers
-def gather_whole_numbers(text):
+def gather_whole_numbers(text: str) -> list:
     line = re.findall(r'[0-9]+', text)
     return line
 
 
-def count_whole_numbers(text):
+def count_whole_numbers(text: str) -> int:
     list_of_numbers = gather_whole_numbers(text)
     return len(list_of_numbers)
 
 
 ### Alphanumeric
-def gather_alpha_numeric(text):
+def gather_alpha_numeric(text: str) -> list:
     return re.findall('[A-Za-z0-9]', text)
 
 
-def count_alpha_numeric(text):
+def count_alpha_numeric(text: str) -> int:
     return len(gather_alpha_numeric(text))
 
 
 ### Non-alphanumeric
-def gather_non_alpha_numeric(text):
+def gather_non_alpha_numeric(text: str) -> list:
     return re.findall('[^A-Za-z0-9]', text)
 
 
-def count_non_alpha_numeric(text):
+def count_non_alpha_numeric(text: str) -> int:
     return len(gather_non_alpha_numeric(text))
 
 
 ### Punctuations
-def gather_punctuations(text):
+def gather_punctuations(text: str) -> list:
     line = re.findall(r'[!"\$%&\'()*+,\-.\/:;=#@?\[\\\]^_`{|}~]*', text)
     string = "".join(line)
     return list(string)
 
 
-def count_punctuations(text):
+def count_punctuations(text: str) -> int:
     return len(gather_punctuations(text))
 
 
 ### Stop words
-def gather_stop_words(text):
+def gather_stop_words(text: str) -> list:
     word_tokens = word_tokenize(text)
-    found_stop_words = [word for word in word_tokens if word in STOP_WORDS]
+    found_stop_words = [word for word in word_tokens
+                        if word in STOP_WORDS]
     return found_stop_words
 
 
-def count_stop_words(text):
+def count_stop_words(text: str) -> int:
     return len(gather_stop_words(text))
 
 
 ### Dates
-def gather_dates(text, date_format='dd/mm/yyyy'):
+def gather_dates(text: str, date_format: str = 'dd/mm/yyyy') -> list:
     ddmmyyyy = r'\b(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/([0-9]{4})\b'
     mmddyyyy = r'\b(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/([0-9]{4})\b'
     regex_list = {
@@ -323,21 +350,21 @@ def gather_dates(text, date_format='dd/mm/yyyy'):
     return re.findall(regex_list[date_format], text)
 
 
-def count_dates(text):
+def count_dates(text: str) -> int:
     return len(gather_dates(text))
 
 
 ### Words count
-def gather_words(text):
+def gather_words(text: str) -> list:
     return re.findall(r'\b[^\d\W]+\b', text)
 
 
-def words_count(text):
+def words_count(text: str) -> int:
     return len(gather_words(text))
 
 
 ### Sentences
-def gather_sentences(text):
+def gather_sentences(text: str) -> list:
     lines = re.findall(r'([^.]*[^.]*)', text)
     for index, each in enumerate(lines):
         if each == '':
@@ -347,13 +374,13 @@ def gather_sentences(text):
 
 
 ### Number of spaces
-def count_spaces(text):
+def count_spaces(text: str) -> int:
     spaces = re.findall(r' ', text)
     return len(spaces)
 
 
 ### Number of characters without spaces
-def gather_duplicates(text):
+def gather_duplicates(text: str) -> dict:
     tokenized_text = word_tokenize(text.lower())
     sorted_tokenized_text = sorted(tokenized_text)
     duplicates = {}
@@ -366,13 +393,13 @@ def gather_duplicates(text):
 
 
 ### Duplicates
-def count_duplicates(text):
+def count_duplicates(text: str) -> int:
     return len(gather_duplicates(text))
 
 
-def count_characters_excluding_spaces(text):
+def count_characters_excluding_spaces(text: str) -> int:
     return len(text) - count_spaces(text)
 
 
-def count_sentences(text):
+def count_sentences(text: str) -> int:
     return len(gather_sentences(text))

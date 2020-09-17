@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from pandas.util.testing import assert_equal
+from pandas.util.testing import assert_frame_equal
 
 from nlp_profiler.core import apply_text_profiling
 
@@ -18,7 +18,7 @@ def test_given_a_text_column_when_profiler_is_applied_then_profiled_dataset_is_r
     actual_dataframe = apply_text_profiling(source_dataframe, "text")
 
     # then
-    assert_equal(expected_dataframe, actual_dataframe)
+    assert_frame_equal(expected_dataframe, actual_dataframe, check_like=True)
 
 
 def test_given_a_text_column_when_profiler_is_applied_without_high_level_analysis_then_profiled_dataset_is_returned():
@@ -33,7 +33,7 @@ def test_given_a_text_column_when_profiler_is_applied_without_high_level_analysi
     )
 
     # then
-    assert_equal(expected_dataframe, actual_dataframe)
+    assert_frame_equal(expected_dataframe, actual_dataframe, check_like=True)
 
 
 def test_given_a_text_column_when_profiler_is_applied_without_granular_analysis_then_profiled_dataset_is_returned():
@@ -48,7 +48,7 @@ def test_given_a_text_column_when_profiler_is_applied_without_granular_analysis_
     )
 
     # then
-    assert_equal(expected_dataframe, actual_dataframe)
+    assert_frame_equal(expected_dataframe, actual_dataframe, check_like=True)
 
 
 def create_source_dataframe():
