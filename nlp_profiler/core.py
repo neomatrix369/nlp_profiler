@@ -123,7 +123,6 @@ def sentiment_polarity(score):
     score = float(score)
     score = (score + 1) / 2  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
     score = score * 100
-    print(score)
     for each_slab in sentiment_polarity_to_words_mapping:  # pragma: no cover
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
