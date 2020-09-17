@@ -216,7 +216,8 @@ def spelling_quality_score(text):
             total_words_checks += 1
     num_of_sentences = count_sentences(text)
     avg_words_per_sentence = total_words_checks / num_of_sentences
-    return misspelt_words_count / avg_words_per_sentence
+    result = (avg_words_per_sentence - misspelt_words_count) / avg_words_per_sentence
+    return result if result >= 0 else 0
 
 
 def spelling_quality(score):
