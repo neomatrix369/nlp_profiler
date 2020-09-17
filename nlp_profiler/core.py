@@ -154,8 +154,6 @@ def sentiment_subjectivity_summarised(sentiment_subjectivity):
     if 'objective' in sentiment_subjectivity.lower():
         return 'Objective'
 
-    return sentiment_subjectivity
-
 
 subjectivity_words_of_probability_estimation = [
     ["Very subjective", 99, 100],  # Certain: 100%: Give or take 0%
@@ -181,7 +179,7 @@ def sentiment_subjectivity(score):
 
 
 def sentiment_subjectivity_score(text):
-    if len(text.strip()) == 0:
+    if (not text) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
     return TextBlob(text).sentiment.subjectivity
