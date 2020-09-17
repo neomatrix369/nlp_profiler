@@ -15,6 +15,6 @@ Based on the issue raised on github [#1](https://github.com/neomatrix369/nlp_pro
 
 ### GitHub branch `add-progress-bars` add progress bars to the various levels of transformation for better UX/UI experience
 
-Based on the issue raised on github [#2](https://github.com/neomatrix369/nlp_profiler/issues/2) - although only implements progress bars at the first and second levels of iterations, pending level 3 iteration (row/record level)
+Based on the issue raised on github [#3](https://github.com/neomatrix369/nlp_profiler/issues/3) - although only implements progress bars at the first and second levels of iterations, pending level 3 iteration (row/record level)
 
 [a83bc23](https://github.com/neomatrix369/nlp_profiler/commit/a83bc23) - [7c72b0e](https://github.com/neomatrix369/nlp_profiler/commit/7c72b0e) Mani Sarkar _Thu Sep 17 19:50:30 2020 +0100_
