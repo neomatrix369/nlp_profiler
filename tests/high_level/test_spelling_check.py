@@ -1,5 +1,7 @@
 import math
 
+import pytest
+
 from nlp_profiler.core import NOT_APPLICABLE, spelling_quality_score, \
     spelling_quality, spelling_quality_summarised  # noqa
 
@@ -60,3 +62,32 @@ def verify_spelling_check(text,
     # then
     assert expected_summarised_spelling_check == actual_results, \
         "Summarised spelling quality check didn't match for the text"
+
+
+### The General Area of Possibility
+### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
+spelling_check_score_mapping = [
+    (0.99555, 0.99555, "Very good"),  # ["Very good", 99, 100],  # Certain: 100%: Give or take 0%
+    (0.95, 0.95, "Quite good"),  # ["Quite good", 90, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
+    (0.88, 0.88, "Good"),  # ["Good", 87, 90],  # Quite Good: Almost Certain: 93%: Give or take 6%
+    (0.70, 0.70, "Bad"),  # ["Bad", 63, 87],  # Pretty: Good: Probable: 75%: Give or take about 12%
+    (0.50, 0.50, "Pretty bad"),  # ["Pretty bad", 40, 63],  # So/so: Chances About Even: 50%: Give or take about 10%
+    (0.30, 0.30, "Quite bad"),  # ["Quite bad", 12, 40],  # Pretty bad: Probably Not: 30%: Give or take about 10%
+    (0.08, 0.08, "Very bad"),  # ["Very bad", 2, 12],  # Quite bad: Almost Certainly Not 7%: Give or take about 5%
+    (0.01, 0.01, "Very bad"),  # ["Very bad", 0, 2]  # Impossible 0%: Give or take 0%
+]
+
+
+@pytest.mark.parametrize("original_score,normalised_score,expected_spelling_quality_in_words",
+                         spelling_check_score_mapping)
+def test_given_spelling_check_score_when_converted_to_words_then_return_right_word(
+        original_score: float, normalised_score: float, expected_spelling_quality_in_words: str
+):
+    # given, when
+    print("original_score:", original_score,
+          "normalised_score: ", normalised_score,
+          "expected_spelling_quality_in_words:", expected_spelling_quality_in_words)
+    actual_result = spelling_quality(original_score)
+
+    # then
+    assert expected_spelling_quality_in_words == actual_result
