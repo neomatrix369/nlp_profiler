@@ -9,3 +9,4 @@ nlp_profiler.egg*
 .coverage*
 .coverage-reports/
 .test-run-reports
+.pytest_cache
