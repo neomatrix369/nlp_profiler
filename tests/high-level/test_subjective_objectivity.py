@@ -1,3 +1,5 @@
+import math
+
 from nlp_profiler.core import sentiment_subjectivity_score, \
     sentiment_subjectivity_summarised, sentiment_subjectivity  # noqa
 
@@ -12,7 +14,8 @@ def test_given_a_text_when_subjectivity_analysis_is_applied_then_subjective_anal
     actual_results = sentiment_subjectivity_score(some_text)
 
     # then
-    assert expected_results == actual_results, \
+    assert math.isclose(expected_results, actual_results,
+                        rel_tol=1e-09, abs_tol=0.0), \
         "Subjectivity/objectivity score didn't match for the text"
 
     # given
