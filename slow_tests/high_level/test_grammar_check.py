@@ -1,3 +1,4 @@
+import pytest
 from nlp_profiler.core import grammar_check_score, grammar_quality  # noqa
 
 grammar_issues_text = 'Everyone here is so hardworking. Hardworking people. ' \
@@ -5,6 +6,7 @@ grammar_issues_text = 'Everyone here is so hardworking. Hardworking people. ' \
 no_grammar_issues = 'Python is a programming language.'
 
 
+# @pytest.mark.skip
 def test_given_a_correct_text_when_grammar_check_is_applied_then_no_grammar_issues_is_returned():
     # given, when
     actual_results = grammar_check_score(no_grammar_issues)
@@ -24,6 +26,7 @@ def test_given_a_correct_text_when_grammar_check_is_applied_then_no_grammar_issu
         "Grammar check should have passed with no issues"
 
 
+# @pytest.mark.skip
 def test_given_a_text_when_grammar_check_is_applied_then_grammar_check_analysis_info_is_returned():
     # given, when
     actual_results = grammar_check_score(grammar_issues_text)
