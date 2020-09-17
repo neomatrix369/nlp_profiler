@@ -19,7 +19,7 @@
 import re
 import string
 from itertools import groupby
-from tqdm import tqdm
+from tqdm.auto import tqdm
 import pandas as pd
 
 import emoji
@@ -39,6 +39,11 @@ nltk.download('punkt')
 
 NOT_APPLICABLE = "N/A"
 
+def is_running_from_ipython():
+    from IPython import get_ipython
+    return get_ipython() is not None
+
+PROGRESS_BAR_WIDTH = 1250 if is_running_from_ipython() else None
 
 def apply_text_profiling(dataframe: pd.DataFrame,
                          text_column: str,
@@ -61,7 +66,7 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         ("Performing grammar checks", apply_grammar_check)
     ]
 
-    first_level = tqdm(steps_mappings)
+    first_level = tqdm(steps_mappings, ncols=PROGRESS_BAR_WIDTH)
     for step_description, step in first_level:
         first_level.set_description(step_description)
         step(default_params, new_dataframe, text_column)
@@ -88,7 +93,7 @@ def apply_granular_features(default_params: dict,
             ('stop_words_count', text_column, count_stop_words),
             ('dates_count', text_column, count_dates),
         ]
-        generate_features(granular_features_steps, new_dataframe)
+        generate_features("Granular features", granular_features_steps, new_dataframe)
 
 
 def apply_high_level_features(default_params: dict,
@@ -107,14 +112,14 @@ def apply_high_level_features(default_params: dict,
             ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
 
         ]
-        generate_features(high_level_features_steps, new_dataframe)
+        generate_features("High-level features", high_level_features_steps, new_dataframe)
 
 
-def generate_features(high_level_features_steps: list, new_dataframe: pd.DataFrame):
-    second_level = tqdm(high_level_features_steps)
+def generate_features(main_header: str, high_level_features_steps: list, new_dataframe: pd.DataFrame):
+    second_level = tqdm(high_level_features_steps, ncols=PROGRESS_BAR_WIDTH)
     for (new_column, source_column, transformation) in second_level:
         source_field = new_dataframe[source_column]
-        second_level.set_description(f'Generating {new_column} using {source_column}')
+        second_level.set_description(f'{main_header}: {source_column} => {new_column}')
         new_dataframe[new_column] = source_field.apply(transformation)
 
 
@@ -126,7 +131,7 @@ def apply_grammar_check(default_params: dict,
             ('grammar_check_score', text_column, grammar_check_score),
             ('grammar_check', 'grammar_check_score', grammar_quality),
         ]
-        generate_features(grammar_checks_steps, new_dataframe)
+        generate_features("Grammar checks", grammar_checks_steps, new_dataframe)
 
 
 ### Sentiment analysis
