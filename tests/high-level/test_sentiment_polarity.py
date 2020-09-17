@@ -1,3 +1,5 @@
+import math
+
 from nlp_profiler.core import sentiment_polarity_score, \
     sentiment_polarity_summarised, sentiment_polarity  # noqa
 
@@ -12,7 +14,8 @@ def test_given_a_text_when_sentiment_analysis_is_applied_then_sentiment_analysis
     actual_results = sentiment_polarity_score(some_text)
 
     # then
-    assert expected_results == actual_results, \
+    assert math.isclose(expected_results, actual_results,
+                        rel_tol=1e-09, abs_tol=0.0), \
         "Sentiment polarity score didn't match for the text"
 
     # given
