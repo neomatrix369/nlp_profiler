@@ -74,25 +74,21 @@ def apply_granular_features(default_params: dict,
                             text_column: dict):
     if default_params['granular']:
         granular_features_steps = [
-            ('sentences_count', count_sentences),
-            ('characters_count', len),
-            ('spaces_count', count_spaces),
-            ('words_count', words_count),
-            ('duplicates_count', count_duplicates),
-            ('chars_excl_spaces_count', count_characters_excluding_spaces),
-            ('emoji_count', count_emojis),
-            ('whole_numbers_count', count_whole_numbers),
-            ('alpha_numeric_count', count_alpha_numeric),
-            ('non_alpha_numeric_count', count_non_alpha_numeric),
-            ('punctuations_count', count_punctuations),
-            ('stop_words_count', count_stop_words),
-            ('dates_count', count_dates),
+            ('sentences_count', text_column, count_sentences),
+            ('characters_count', text_column, len),
+            ('spaces_count', text_column, count_spaces),
+            ('words_count', text_column, words_count),
+            ('duplicates_count', text_column, count_duplicates),
+            ('chars_excl_spaces_count', text_column, count_characters_excluding_spaces),
+            ('emoji_count', text_column, count_emojis),
+            ('whole_numbers_count', text_column, count_whole_numbers),
+            ('alpha_numeric_count', text_column, count_alpha_numeric),
+            ('non_alpha_numeric_count', text_column, count_non_alpha_numeric),
+            ('punctuations_count', text_column, count_punctuations),
+            ('stop_words_count', text_column, count_stop_words),
+            ('dates_count', text_column, count_dates),
         ]
-        source_field = new_dataframe[text_column]
-        second_level = tqdm(granular_features_steps)
-        for (new_column, transformation) in second_level:
-            second_level.set_description(f'Generating {new_column} using {text_column}')
-            new_dataframe[new_column] = source_field.apply(transformation)
+        generate_features(granular_features_steps, new_dataframe)
 
 
 def apply_high_level_features(default_params: dict,
@@ -111,11 +107,15 @@ def apply_high_level_features(default_params: dict,
             ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
 
         ]
-        second_level = tqdm(high_level_features_steps)
-        for (new_column, source_column, transformation) in second_level:
-            source_field = new_dataframe[source_column]
-            second_level.set_description(f'Generating {new_column} using {source_column}')
-            new_dataframe[new_column] = source_field.apply(transformation)
+        generate_features(high_level_features_steps, new_dataframe)
+
+
+def generate_features(high_level_features_steps: list, new_dataframe: pd.DataFrame):
+    second_level = tqdm(high_level_features_steps)
+    for (new_column, source_column, transformation) in second_level:
+        source_field = new_dataframe[source_column]
+        second_level.set_description(f'Generating {new_column} using {source_column}')
+        new_dataframe[new_column] = source_field.apply(transformation)
 
 
 def apply_grammar_check(default_params: dict,
@@ -126,11 +126,7 @@ def apply_grammar_check(default_params: dict,
             ('grammar_check_score', text_column, grammar_check_score),
             ('grammar_check', 'grammar_check_score', grammar_quality),
         ]
-        second_level = tqdm(grammar_checks_steps)
-        for (new_column, source_column, transformation) in second_level:
-            source_field = new_dataframe[source_column]
-            second_level.set_description(f'Generating {new_column} using {source_column}')
-            new_dataframe[new_column] = source_field.apply(transformation)
+        generate_features(grammar_checks_steps, new_dataframe)
 
 
 ### Sentiment analysis
