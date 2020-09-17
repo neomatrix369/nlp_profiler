@@ -121,10 +121,9 @@ def sentiment_polarity(score):
         return NOT_APPLICABLE
 
     score = float(score)
-    score = (score - (- 1)) / (
-            1 - (-1))  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
+    score = (score + 1) / 2  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
     score = score * 100
-
+    print(score)
     for each_slab in sentiment_polarity_words_of_probability_estimation:
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
@@ -205,7 +204,6 @@ def spelling_quality_score(text):
         return NOT_APPLICABLE
 
     tokenized_text = word_tokenize(text)
-
 
     misspelt_words_count = 0
     total_words_checks = 0

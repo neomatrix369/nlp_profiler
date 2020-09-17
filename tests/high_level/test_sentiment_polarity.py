@@ -1,5 +1,7 @@
 import math
 
+import pytest
+
 from nlp_profiler.core import NOT_APPLICABLE, sentiment_polarity_score, \
     sentiment_polarity_summarised, sentiment_polarity  # noqa
 
@@ -62,3 +64,33 @@ def assert_text_polarity(text,
     # then
     assert expected_polarity_summarised == actual_results, \
         "Summarised Sentiment polarity didn't match for the text"
+
+
+### The General Area of Possibility
+### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
+sentiment_polarity_score_mapping = [
+    (1, 0.99555, "Very positive"),  # ["Very positive", 99, 100],  # Certain: 100%: Give or take 0%
+    (0.99, 0.99555, "Very positive"),  # ["Very positive", 99, 100],  # Certain: 100%: Give or take 0%
+    (0.95, 0.95, "Quite positive"),  # ["Quite positive", 87, 99],  # Almost Certain: 93%: Give or take 6%
+    (0.60, 0.60, "Pretty positive"),  # ["Pretty positive", 51, 87],  # Probable: 75%: Give or take about 12%
+    (0.0, 0.50, "Neutral"),  # ["Neutral", 49, 51],  # Chances About Even: 50%: Give or take about 10%
+    (-0.60, 0.30, "Pretty negative"),  # ["Pretty negative", 12, 49],  # Probably Not: 30%: Give or take about 10%
+    (-0.95, 0.08, "Quite negative"),  # ["Quite negative", 2, 12],  # Almost Certainly Not 7%: Give or take about 5%
+    (-0.99, 0.01, "Very negative"),  # ["Very negative", 0, 2]  # Impossible 0%: Give or take 0%
+    (-1, 0.01, "Very negative"),  # ["Very negative", 0, 2]  # Impossible 0%: Give or take 0%
+]
+
+
+@pytest.mark.parametrize("original_score,normalised_score,expected_sentiment_in_words",
+                         sentiment_polarity_score_mapping)
+def test_given_sentiment_polarity_score_when_converted_to_words_then_return_right_word(
+        original_score: float, normalised_score: float, expected_sentiment_in_words: str
+):
+    # given, when
+    print("original_score:", original_score,
+          "normalised_score: ", normalised_score,
+          "expected_sentiment_in_words:", expected_sentiment_in_words)
+    actual_result = sentiment_polarity(original_score)
+
+    # then
+    assert expected_sentiment_in_words == actual_result
