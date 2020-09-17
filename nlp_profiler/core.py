@@ -99,21 +99,23 @@ def apply_high_level_features(default_params: dict,
                               new_dataframe: pd.DataFrame,
                               text_column: dict):
     if default_params['high_level']:
-        new_dataframe['sentiment_polarity_score'] = new_dataframe[text_column].apply(sentiment_polarity_score)
-        new_dataframe['sentiment_polarity'] = new_dataframe['sentiment_polarity_score'].apply(sentiment_polarity)
-        new_dataframe['sentiment_polarity_summarised'] = new_dataframe['sentiment_polarity'].apply(
-            sentiment_polarity_summarised)
+        high_level_features_steps = [
+            ('sentiment_polarity_score', text_column, sentiment_polarity_score),
+            ('sentiment_polarity', 'sentiment_polarity_score', sentiment_polarity),
+            ('sentiment_polarity_summarised', 'sentiment_polarity', sentiment_polarity_summarised),
+            ('sentiment_subjectivity_score', text_column, sentiment_subjectivity_score),
+            ('sentiment_subjectivity', 'sentiment_subjectivity_score', sentiment_subjectivity),
+            ('sentiment_subjectivity_summarised', 'sentiment_subjectivity', sentiment_subjectivity_summarised),
+            ('spelling_quality_score', text_column, spelling_quality_score),
+            ('spelling_quality', 'spelling_quality_score', spelling_quality),
+            ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
 
-        new_dataframe['sentiment_subjectivity_score'] = new_dataframe[text_column].apply(sentiment_subjectivity_score)
-        new_dataframe['sentiment_subjectivity'] = new_dataframe['sentiment_subjectivity_score'].apply(
-            sentiment_subjectivity)
-        new_dataframe['sentiment_subjectivity_summarised'] = new_dataframe['sentiment_subjectivity'].apply(
-            sentiment_subjectivity_summarised)
-
-        new_dataframe['spelling_quality_score'] = new_dataframe[text_column].apply(spelling_quality_score)
-        new_dataframe['spelling_quality'] = new_dataframe['spelling_quality_score'].apply(spelling_quality)
-        new_dataframe['spelling_quality_summarised'] = new_dataframe['spelling_quality'].apply(
-            spelling_quality_summarised)
+        ]
+        second_level = tqdm(high_level_features_steps)
+        for (new_column, source_column, transformation) in second_level:
+            source_field = new_dataframe[source_column]
+            second_level.set_description(f'Generating {new_column} using {source_column}')
+            new_dataframe[new_column] = source_field.apply(transformation)
 
 
 def apply_grammar_check(default_params: dict,
