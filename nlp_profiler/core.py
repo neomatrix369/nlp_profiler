@@ -61,23 +61,28 @@ def apply_text_profiling(dataframe: pd.DataFrame,
 
     print(f"final params: {default_params}")
     steps_mappings = [
-        ("Applying Granular features", apply_granular_features),
-        ("Generating High-level features", apply_high_level_features),
-        ("Performing grammar checks", apply_grammar_check)
+        ('granular', "Applying Granular features", apply_granular_features),
+        ('high_level', "Generating High-level features", apply_high_level_features),
+        ('grammar_check', "Performing grammar checks", apply_grammar_check)
     ]
 
+    for index, item in enumerate(steps_mappings.copy()):
+        (param, _, _) = item
+        if not default_params[param]:
+            steps_mappings.remove(item)
+
     first_level = tqdm(steps_mappings, ncols=PROGRESS_BAR_WIDTH)
-    for step_description, step in first_level:
+    for param, step_description, action_function in first_level:
         first_level.set_description(step_description)
-        step(default_params, new_dataframe, text_column)
+        action_function(default_params[param], new_dataframe, text_column)
 
     return new_dataframe
 
 
-def apply_granular_features(default_params: dict,
+def apply_granular_features(enabled: bool,
                             new_dataframe: pd.DataFrame,
                             text_column: dict):
-    if default_params['granular']:
+    if enabled:
         granular_features_steps = [
             ('sentences_count', text_column, count_sentences),
             ('characters_count', text_column, len),
@@ -96,10 +101,10 @@ def apply_granular_features(default_params: dict,
         generate_features("Granular features", granular_features_steps, new_dataframe)
 
 
-def apply_high_level_features(default_params: dict,
+def apply_high_level_features(enabled: bool,
                               new_dataframe: pd.DataFrame,
                               text_column: dict):
-    if default_params['high_level']:
+    if enabled:
         high_level_features_steps = [
             ('sentiment_polarity_score', text_column, sentiment_polarity_score),
             ('sentiment_polarity', 'sentiment_polarity_score', sentiment_polarity),
@@ -123,10 +128,10 @@ def generate_features(main_header: str, high_level_features_steps: list, new_dat
         new_dataframe[new_column] = source_field.apply(transformation)
 
 
-def apply_grammar_check(default_params: dict,
+def apply_grammar_check(enabled: bool,
                         new_dataframe: pd.DataFrame,
                         text_column: dict):
-    if default_params['grammar_check']:
+    if enabled:
         grammar_checks_steps = [
             ('grammar_check_score', text_column, grammar_check_score),
             ('grammar_check', 'grammar_check_score', grammar_quality),
