@@ -238,7 +238,8 @@ def spelling_quality(score):
             return each_slab[0]
 
 
-### Grammar check
+### Grammar check: this is a very slow process
+### take a lot of time per text it analysis
 
 def grammar_check_score(text):
     tool = language_tool_python.LanguageTool('en-GB')
@@ -247,8 +248,10 @@ def grammar_check_score(text):
 
 
 def grammar_quality(score):
-    if score != 0:
-        return f"{score} issue(s)"
+    if score == 1:
+        return "1 issue"
+    elif score > 1:
+        return f"{score} issues"
 
     return "No issues"
 
