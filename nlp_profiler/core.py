@@ -16,21 +16,19 @@
 ### Kaggle kernel: https://www.kaggle.com/neomatrix369/nlp-profiler-simple-dataset
 ### Jupyter Notebook: https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/examples/better-nlp/notebooks/jupyter/nlp_profiler.ipynb
 
+import re
 from itertools import groupby
 
-import re
+import emoji
+# Grammar Check
+import language_tool_python
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 # Sentiment Analysis
 from textblob import TextBlob
 from textblob import Word
 
-# Grammar Check
-import language_tool_python
-
-import emoji
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-
-import nltk
 nltk.download('stopwords')
 STOP_WORDS = set(stopwords.words('english'))
 
@@ -64,21 +62,25 @@ def apply_text_profiling(dataframe, text_column, params={}):
     if high_level_analysis:
         new_dataframe['sentiment_polarity_score'] = new_dataframe[text_column].apply(sentiment_polarity_score)
         new_dataframe['sentiment_polarity'] = new_dataframe['sentiment_polarity_score'].apply(sentiment_polarity)
-        new_dataframe['sentiment_polarity_summarised'] = new_dataframe['sentiment_polarity'].apply(sentiment_polarity_summarised)
+        new_dataframe['sentiment_polarity_summarised'] = new_dataframe['sentiment_polarity'].apply(
+            sentiment_polarity_summarised)
 
         new_dataframe['sentiment_subjectivity_score'] = new_dataframe[text_column].apply(sentiment_subjectivity_score)
-        new_dataframe['sentiment_subjectivity'] = new_dataframe['sentiment_subjectivity_score'].apply(sentiment_subjectivity)
-        new_dataframe['sentiment_subjectivity_summarised'] = new_dataframe['sentiment_subjectivity'].apply(sentiment_subjectivity_summarised)
+        new_dataframe['sentiment_subjectivity'] = new_dataframe['sentiment_subjectivity_score'].apply(
+            sentiment_subjectivity)
+        new_dataframe['sentiment_subjectivity_summarised'] = new_dataframe['sentiment_subjectivity'].apply(
+            sentiment_subjectivity_summarised)
 
         new_dataframe['spelling_quality_score'] = new_dataframe[text_column].apply(spelling_quality_score)
         new_dataframe['spelling_quality'] = new_dataframe['spelling_quality_score'].apply(spelling_quality)
-        new_dataframe['spelling_quality_summarised'] = new_dataframe['spelling_quality'].apply(spelling_quality_summarised)
+        new_dataframe['spelling_quality_summarised'] = new_dataframe['spelling_quality'].apply(
+            spelling_quality_summarised)
 
-        if do_grammar_check: 
+        if do_grammar_check:
             new_dataframe['grammar_check_score'] = new_dataframe[text_column].apply(grammar_check_score)
             new_dataframe['grammar_check'] = new_dataframe['grammar_check_score'].apply(grammar_quality)
 
-    if granular_analysis: 
+    if granular_analysis:
         new_dataframe['sentences_count'] = new_dataframe[text_column].apply(count_sentences)
         new_dataframe['characters_count'] = new_dataframe[text_column].apply(len)
         new_dataframe['spaces_count'] = new_dataframe[text_column].apply(count_spaces)
@@ -94,6 +96,7 @@ def apply_text_profiling(dataframe, text_column, params={}):
         new_dataframe['dates_count'] = new_dataframe[text_column].apply(count_dates)
 
     return new_dataframe
+
 
 ### Sentiment analysis
 
@@ -119,17 +122,20 @@ sentiment_polarity_words_of_probability_estimation = [
     ["Very negative", 0, 2]  # Impossible 0%: Give or take 0%
 ]
 
+
 def sentiment_polarity(score):
     if score == NOT_APPLICABLE:
         return NOT_APPLICABLE
 
     score = float(score)
-    score = (score - (- 1)) / (1 - (-1)) # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
+    score = (score - (- 1)) / (
+            1 - (-1))  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
     score = score * 100
 
     for each_slab in sentiment_polarity_words_of_probability_estimation:
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
+
 
 def sentiment_polarity_score(text):
     if (not text) or (len(text.strip()) == 0):
@@ -137,14 +143,6 @@ def sentiment_polarity_score(text):
 
     return TextBlob(text).sentiment.polarity
 
-
-def sentiment_polarity_summarised(sentiment_polarity):
-    if 'negative' in sentiment_polarity.lower():
-        return 'Negative'
-    if 'positive' in sentiment_polarity.lower():
-        return 'Positive'
-
-    return sentiment_polarity
 
 ### Sentiment Subjectivity
 
@@ -155,6 +153,7 @@ def sentiment_subjectivity_summarised(sentiment_subjectivity):
         return 'Objective'
 
     return sentiment_subjectivity
+
 
 subjectivity_words_of_probability_estimation = [
     ["Very subjective", 99, 100],  # Certain: 100%: Give or take 0%
@@ -167,6 +166,7 @@ subjectivity_words_of_probability_estimation = [
     ["Very objective", 0, 2]  # Impossible 0%: Give or take 0%
 ]
 
+
 def sentiment_subjectivity(score):
     if score == NOT_APPLICABLE:
         return NOT_APPLICABLE
@@ -177,11 +177,13 @@ def sentiment_subjectivity(score):
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
+
 def sentiment_subjectivity_score(text):
     if len(text.strip()) == 0:
         return NOT_APPLICABLE
 
     return TextBlob(text).sentiment.subjectivity
+
 
 ### Spell check
 
@@ -196,6 +198,7 @@ spelling_quality_words_of_probability_estimation = [
     ["Very bad", 0, 2]  # Impossible 0%: Give or take 0%
 ]
 
+
 def spelling_quality_summarised(spelling_quality):
     if 'good' in spelling_quality.lower():
         return 'Good'
@@ -203,6 +206,7 @@ def spelling_quality_summarised(spelling_quality):
         return 'Bad'
 
     return spelling_quality
+
 
 def spelling_quality_score(text):
     if len(text.strip()) == 0:
@@ -220,6 +224,7 @@ def spelling_quality_score(text):
         total_score += score
 
     return total_score / len(tokenized_text)
+
 
 def spelling_quality(score):
     if score == NOT_APPLICABLE:
@@ -250,34 +255,42 @@ def grammar_quality(score):
 
 def gather_emojis(text):
     emoji_expaned_text = emoji.demojize(text)
-    return re.findall(r'\:(.*?)\:', emoji_expaned_text) 
+    return re.findall(r'\:(.*?)\:', emoji_expaned_text)
+
 
 def count_emojis(text):
     list_of_emojis = gather_emojis(text)
     return len(list_of_emojis)
+
 
 ### Numbers
 def gather_whole_numbers(text):
     line = re.findall(r'[0-9]+', text)
     return line
 
+
 def count_whole_numbers(text):
     list_of_numbers = gather_whole_numbers(text)
     return len(list_of_numbers)
+
 
 ### Alphanumeric
 def gather_alpha_numeric(text):
     return re.findall('[A-Za-z0-9]', text)
 
+
 def count_alpha_numeric(text):
     return len(gather_alpha_numeric(text))
+
 
 ### Non-alphanumeric
 def gather_non_alpha_numeric(text):
     return re.findall('[^A-Za-z0-9]', text)
 
+
 def count_non_alpha_numeric(text):
     return len(gather_non_alpha_numeric(text))
+
 
 ### Punctuations
 def gather_punctuations(text):
@@ -285,8 +298,10 @@ def gather_punctuations(text):
     string = "".join(line)
     return list(string)
 
+
 def count_punctuations(text):
     return len(gather_punctuations(text))
+
 
 ### Stop words
 def gather_stop_words(text):
@@ -294,24 +309,29 @@ def gather_stop_words(text):
     found_stop_words = [word for word in word_tokens if word in STOP_WORDS]
     return found_stop_words
 
+
 def count_stop_words(text):
     return len(gather_stop_words(text))
+
 
 ### Dates
 def gather_dates(text, date_format='dd/mm/yyyy'):
     ddmmyyyy = r'\b(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/([0-9]{4})\b'
     mmddyyyy = r'\b(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/([0-9]{4})\b'
-    regex_list =  {
+    regex_list = {
         'dd/mm/yyyy': ddmmyyyy, 'mm/dd/yyyy': mmddyyyy
     }
     return re.findall(regex_list[date_format], text)
 
+
 def count_dates(text):
     return len(gather_dates(text))
+
 
 ### Words count
 def gather_words(text):
     return re.findall(r'\b[^\d\W]+\b', text)
+
 
 def words_count(text):
     return len(gather_words(text))
@@ -326,10 +346,12 @@ def gather_sentences(text):
 
     return lines
 
+
 ### Number of spaces
 def count_spaces(text):
     spaces = re.findall(r' ', text)
     return len(spaces)
+
 
 ### Number of characters without spaces
 def gather_duplicates(text):
@@ -340,15 +362,18 @@ def gather_duplicates(text):
         frequency = len(list(group))
         if frequency > 1:
             duplicates.update({value: frequency})
-                          
+
     return duplicates
+
 
 ### Duplicates
 def count_duplicates(text):
     return len(gather_duplicates(text))
 
+
 def count_characters_excluding_spaces(text):
     return len(text) - count_spaces(text)
+
 
 def count_sentences(text):
     return len(gather_sentences(text))
