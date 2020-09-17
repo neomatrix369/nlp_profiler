@@ -1,0 +1,8 @@
+text,sentences_count,characters_count,spaces_count,words_count,duplicates_count,chars_excl_spaces_count,emoji_count,whole_numbers_count,alpha_numeric_count,non_alpha_numeric_count,punctuations_count,stop_words_count,dates_count
+I love ⚽ very much 😁.,2,21,5,4,0,16,2,0,13,8,1,1,0
+2833047 people live in this area. It is not a good area.,3,56,11,11,2,45,0,1,43,13,2,5,0
+2833047 and 1111 people live in this area.,2,42,7,6,0,35,0,2,34,8,1,3,0
+"This sentence doesn't seem to too many commas, periods or semi-colons (;).",2,74,11,13,0,63,0,0,56,18,7,4,0
+"Todays date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020.",2,64,8,9,0,56,0,6,48,16,8,3,1
+Todays date is 28/04/2020 and tomorrow's date is 29/04/2020.,2,60,8,8,2,52,0,6,46,14,6,3,2
+Everyone here is so hardworking. Hardworking people. I think hardworking people are a good trait in our company.,4,112,17,18,3,95,0,0,92,20,3,7,0

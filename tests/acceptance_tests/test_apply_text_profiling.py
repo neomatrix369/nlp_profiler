@@ -21,6 +21,21 @@ def test_given_a_text_column_when_profiler_is_applied_then_profiled_dataset_is_r
     assert_equal(expected_dataframe, actual_dataframe)
 
 
+def test_given_a_text_column_when_profiler_is_applied_without_high_level_analysis_then_profiled_dataset_is_returned():
+    # given
+    source_dataframe = create_source_dataframe()
+    csv_filename = f'{EXPECTED_DATA_PATH}/expected_profiled_dataframe_no_high_level.csv'
+    expected_dataframe = pd.read_csv(csv_filename)
+
+    # when
+    actual_dataframe = apply_text_profiling(
+        source_dataframe, "text", {'high_level': False}
+    )
+
+    # then
+    assert_equal(expected_dataframe, actual_dataframe)
+
+
 def create_source_dataframe():
     text_with_emojis = "I love ⚽ very much 😁."
     text_with_a_number = '2833047 people live in this area. It is not a good area.'
