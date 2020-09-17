@@ -69,9 +69,9 @@ def apply_text_profiling(dataframe, text_column, params={}):
         new_dataframe['spelling_quality_summarised'] = new_dataframe['spelling_quality'].apply(
             spelling_quality_summarised)
 
-        if default_params['grammar_check']:
-            new_dataframe['grammar_check_score'] = new_dataframe[text_column].apply(grammar_check_score)
-            new_dataframe['grammar_check'] = new_dataframe['grammar_check_score'].apply(grammar_quality)
+    if default_params['grammar_check']:
+        new_dataframe['grammar_check_score'] = new_dataframe[text_column].apply(grammar_check_score)
+        new_dataframe['grammar_check'] = new_dataframe['grammar_check_score'].apply(grammar_quality)
 
     if default_params['granular']:
         new_dataframe['sentences_count'] = new_dataframe[text_column].apply(count_sentences)
