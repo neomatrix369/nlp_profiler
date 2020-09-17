@@ -203,7 +203,7 @@ def spelling_quality_score(text):
     if (not text) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
-    tokenized_text = word_tokenize(text)
+    tokenized_text = word_tokenize(text.lower())
 
     misspelt_words_count = 0
     total_words_checks = 0
@@ -215,8 +215,10 @@ def spelling_quality_score(text):
                 misspelt_words_count += 1
             total_words_checks += 1
     num_of_sentences = count_sentences(text)
-    avg_words_per_sentence = total_words_checks / num_of_sentences
-    result = (avg_words_per_sentence - misspelt_words_count) / avg_words_per_sentence
+    avg_words_per_sentence = \
+        total_words_checks / num_of_sentences
+    result = (avg_words_per_sentence - \
+              misspelt_words_count) / avg_words_per_sentence
     return result if result >= 0 else 0
 
 
