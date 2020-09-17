@@ -17,6 +17,7 @@
 ### Jupyter Notebook: https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/examples/better-nlp/notebooks/jupyter/nlp_profiler.ipynb
 
 import re
+import string
 from itertools import groupby
 
 import emoji
@@ -149,10 +150,10 @@ def sentiment_polarity_score(text):
 def sentiment_subjectivity_summarised(sentiment_subjectivity):
     if '/' in sentiment_subjectivity:
         return sentiment_subjectivity
-    if 'subjective' in sentiment_subjectivity.lower():
+    elif 'subjective' in sentiment_subjectivity.lower():
         return 'Subjective'
-    if 'objective' in sentiment_subjectivity.lower():
-        return 'Objective'
+
+    return 'Objective'
 
 
 subjectivity_words_of_probability_estimation = [
@@ -190,11 +191,12 @@ def sentiment_subjectivity_score(text):
 spelling_quality_words_of_probability_estimation = [
     ["Very good", 99, 100],  # Certain: 100%: Give or take 0%
     ### The General Area of Possibility
-    ["Quite good", 87, 99],  # Almost Certain: 93%: Give or take 6%
-    ["Pretty good", 63, 87],  # Probable: 75%: Give or take about 12%
-    ["So/so", 40, 63],  # Chances About Even: 50%: Give or take about 10%
-    ["Pretty bad", 12, 40],  # Probably Not: 30%: Give or take about 10%
-    ["Quite bad", 2, 12],  # Almost Certainly Not 7%: Give or take about 5%
+    ["Quite good", 90, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
+    ["Good", 87, 90],  # Quite Good: Almost Certain: 93%: Give or take 6%
+    ["Bad", 63, 87],  # Pretty: Good: Probable: 75%: Give or take about 12%
+    ["Pretty bad", 40, 63],  # So/so: Chances About Even: 50%: Give or take about 10%
+    ["Quite bad", 12, 40],  # Pretty bad: Probably Not: 30%: Give or take about 10%
+    ["Very bad", 2, 12],  # Quite bad: Almost Certainly Not 7%: Give or take about 5%
     ["Very bad", 0, 2]  # Impossible 0%: Give or take 0%
 ]
 
@@ -202,28 +204,27 @@ spelling_quality_words_of_probability_estimation = [
 def spelling_quality_summarised(spelling_quality):
     if 'good' in spelling_quality.lower():
         return 'Good'
-    if 'bad' in spelling_quality.lower():
-        return 'Bad'
 
-    return spelling_quality
+    return 'Bad'
 
 
 def spelling_quality_score(text):
-    if len(text.strip()) == 0:
+    if (not text) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
     tokenized_text = word_tokenize(text)
 
-    if len(tokenized_text) == 0:
-        return NOT_APPLICABLE
 
-    total_score = 0.0
+    misspelt_words_count = 0
+    total_words_checks = 0
     for each_word in tokenized_text:
-        spellchecked_word = Word(each_word).spellcheck()
-        _, score = spellchecked_word[0]
-        total_score += score
-
-    return total_score / len(tokenized_text)
+        if each_word not in string.punctuation:
+            spellchecked_word = Word(each_word).spellcheck()
+            _, score = spellchecked_word[0]
+            if score != 1:
+                misspelt_words_count += 1
+            total_words_checks += 1
+    return (total_words_checks - misspelt_words_count) / total_words_checks
 
 
 def spelling_quality(score):
