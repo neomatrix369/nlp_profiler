@@ -129,7 +129,6 @@ def apply_high_level_features(heading: str,
         generate_features(heading, high_level_features_steps, new_dataframe)
 
 
-@memory.cache
 def generate_features(main_header: str,
                       high_level_features_steps: list,
                       new_dataframe: pd.DataFrame):
@@ -151,7 +150,6 @@ def get_progress_bar(values: list) -> tqdm:
     return tqdm(values, ncols=PROGRESS_BAR_WIDTH)
 
 
-@memory.cache
 def apply_grammar_check(heading: str,
                         enabled: bool,
                         new_dataframe: pd.DataFrame,
@@ -307,7 +305,6 @@ def spelling_quality(score: float) -> str:
 
 ### Grammar check: this is a very slow process
 ### take a lot of time per text it analysis
-@memory.cache
 def grammar_check_score(text: str) -> int:
     tool = language_tool_python.LanguageTool('en-GB')
     matches = tool.check(text)
