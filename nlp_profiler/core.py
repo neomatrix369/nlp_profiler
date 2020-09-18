@@ -18,9 +18,11 @@
 
 import re
 import string
+import tempfile
 from itertools import groupby
 
 import emoji
+import joblib
 # Grammar Check
 import language_tool_python
 import nltk
@@ -38,6 +40,8 @@ STOP_WORDS = set(stopwords.words('english'))
 nltk.download('punkt')
 
 NOT_APPLICABLE = "N/A"
+
+memory = joblib.Memory(tempfile.gettempdir(), compress=9, verbose=0)
 
 
 def is_running_from_ipython():
@@ -63,26 +67,27 @@ def apply_text_profiling(dataframe: pd.DataFrame,
     default_params.update(params)
 
     print(f"final params: {default_params}")
-    steps_mappings = [
-        ('granular', "Applying Granular features", apply_granular_features),
-        ('high_level', "Generating High-level features", apply_high_level_features),
-        ('grammar_check', "Performing grammar checks", apply_grammar_check)
+    actions_mappings = [
+        ('granular', "Granular features", apply_granular_features),
+        ('high_level', "High-level features", apply_high_level_features),
+        ('grammar_check', "Grammar checks", apply_grammar_check)
     ]
 
-    for index, item in enumerate(steps_mappings.copy()):
+    for index, item in enumerate(actions_mappings.copy()):
         (param, _, _) = item
         if not default_params[param]:
-            steps_mappings.remove(item)
+            actions_mappings.remove(item)
 
-    first_level = tqdm(steps_mappings, ncols=PROGRESS_BAR_WIDTH)
-    for param, step_description, action_function in first_level:
-        first_level.set_description(step_description)
-        action_function(default_params[param], new_dataframe, text_column)
+    first_level = get_progress_bar(actions_mappings)
+    for param, action_description, action_function in first_level:
+        first_level.set_description(action_description)
+        action_function(action_description, default_params[param], new_dataframe, text_column)
 
     return new_dataframe
 
 
-def apply_granular_features(enabled: bool,
+def apply_granular_features(heading: str,
+                            enabled: bool,
                             new_dataframe: pd.DataFrame,
                             text_column: dict):
     if enabled:
@@ -101,10 +106,11 @@ def apply_granular_features(enabled: bool,
             ('stop_words_count', text_column, count_stop_words),
             ('dates_count', text_column, count_dates),
         ]
-        generate_features("Granular features", granular_features_steps, new_dataframe)
+        generate_features(heading, granular_features_steps, new_dataframe)
 
 
-def apply_high_level_features(enabled: bool,
+def apply_high_level_features(heading: str,
+                              enabled: bool,
                               new_dataframe: pd.DataFrame,
                               text_column: dict):
     if enabled:
@@ -120,25 +126,34 @@ def apply_high_level_features(enabled: bool,
             ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
 
         ]
-        generate_features("High-level features", high_level_features_steps, new_dataframe)
+        generate_features(heading, high_level_features_steps, new_dataframe)
 
 
+@memory.cache
 def generate_features(main_header: str,
                       high_level_features_steps: list,
                       new_dataframe: pd.DataFrame):
-    second_level = tqdm(high_level_features_steps, ncols=PROGRESS_BAR_WIDTH)
+    second_level = get_progress_bar(high_level_features_steps)
     for (new_column, source_column, transformation) in second_level:
         source_field = new_dataframe[source_column]
         second_level.set_description(f'{main_header}: {source_column} => {new_column}')
 
-        third_level = tqdm(source_field.values, ncols=PROGRESS_BAR_WIDTH)
+        third_level = get_progress_bar(source_field.values)
         third_level.set_description(f'Applying {source_column} => {new_column}')
         new_dataframe[new_column] = [
             transformation(each_value) for each_value in third_level
         ]
+        third_level.update()
 
 
-def apply_grammar_check(enabled: bool,
+@memory.cache
+def get_progress_bar(values: list) -> tqdm:
+    return tqdm(values, ncols=PROGRESS_BAR_WIDTH)
+
+
+@memory.cache
+def apply_grammar_check(heading: str,
+                        enabled: bool,
                         new_dataframe: pd.DataFrame,
                         text_column: dict):
     if enabled:
@@ -146,7 +161,7 @@ def apply_grammar_check(enabled: bool,
             ('grammar_check_score', text_column, grammar_check_score),
             ('grammar_check', 'grammar_check_score', grammar_quality),
         ]
-        generate_features("Grammar checks", grammar_checks_steps, new_dataframe)
+        generate_features(heading, grammar_checks_steps, new_dataframe)
 
 
 ### Sentiment analysis
@@ -275,7 +290,7 @@ def spelling_quality_score(text: str) -> float:
     num_of_sentences = count_sentences(text)
     avg_words_per_sentence = \
         total_words_checks / num_of_sentences
-    result = (avg_words_per_sentence - \
+    result = (avg_words_per_sentence -
               misspelt_words_count) / avg_words_per_sentence
     return result if result >= 0.0 else 0.0
 
@@ -292,7 +307,7 @@ def spelling_quality(score: float) -> str:
 
 ### Grammar check: this is a very slow process
 ### take a lot of time per text it analysis
-
+@memory.cache
 def grammar_check_score(text: str) -> int:
     tool = language_tool_python.LanguageTool('en-GB')
     matches = tool.check(text)
