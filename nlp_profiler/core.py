@@ -27,6 +27,7 @@ import joblib
 import language_tool_python
 import nltk
 import pandas as pd
+from joblib import Parallel, delayed
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 # Sentiment Analysis
@@ -133,16 +134,25 @@ def generate_features(main_header: str,
                       high_level_features_steps: list,
                       new_dataframe: pd.DataFrame):
     second_level = get_progress_bar(high_level_features_steps)
-    for (new_column, source_column, transformation) in second_level:
+    for (new_column, source_column, transformation_function) in second_level:
         source_field = new_dataframe[source_column]
         second_level.set_description(f'{main_header}: {source_column} => {new_column}')
 
-        third_level = get_progress_bar(source_field.values)
-        third_level.set_description(f'Applying {source_column} => {new_column}')
-        new_dataframe[new_column] = [
-            transformation(each_value) for each_value in third_level
-        ]
-        third_level.update()
+        third_level_values = get_progress_bar(source_field.values)
+        third_level_values.set_description(
+            f'Applying {source_column} => {new_column}'
+        )
+        new_dataframe[new_column] = Parallel(n_jobs=-1)(
+            delayed(run_task)(
+                transformation_function, each_value
+            ) for each_value in third_level_values
+        )
+        third_level_values.update()
+
+
+@memory.cache
+def run_task(task_function, value: str):
+    return task_function(value)
 
 
 @memory.cache
