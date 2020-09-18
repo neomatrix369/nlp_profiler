@@ -2,16 +2,17 @@
 
 A simple NLP library allows profiling datasets with one or more text columns. 
 
-When given a dataset and a column name containing text data, NLP Profiler will return either high-level insights or low-level/granular statistical information about the text in that column. 
+NLP Profiler returns either high-level insights or low-level/granular statistical information about the text when given a dataset and a column name containing text data,  in that column. 
 
 In short: Think of it as using the `pandas.describe()` function or running [Pandas Profiling](https://github.com/pandas-profiling/pandas-profiling) on your data frame, but for datasets containing text columns rather than the usual columnar datasets.
 
-More detail: so what do you get from the library:
-- input a Pandas dataframe series as input param
-- and you get back a new dataframe with various features about the parsed text per row
+## What do you get from the library?
+
+- Input a Pandas dataframe series as input paramater.
+- You get back a new dataframe with various features about the parsed text per row.
   - high-level: sentiment analysis, objectivity/subjectivity analysis, spelling quality check, grammar quality check, etc...
   - low-level/granular: number of characters in the sentence, number of words, number of emojis, number of words, etc...
-- from the above numerical data in the resulting dataframe descriptive statistics can be drawn using the `pandas.describe()` on the dataframe
+- From the above numerical data in the resulting dataframe descriptive statistics can be drawn using the `pandas.describe()` on the dataframe.
 
 See screenshots under the [Jupyter](#Jupyter) section and also under [Screenshots](#Screenshots) for further illustrations.
 
@@ -23,30 +24,29 @@ _**Note:** this is a new endeavour and it's may have rough edges i.e. probably N
 
 ## Requirements
 
-- Python 3.6.x or higher
-- Dependencies described in the `requirements.txt`
-- High-level including Grammar checks
+- Python 3.6.x or higher.
+- Dependencies described in the `requirements.txt`.
+- High-level including Grammar checks:
   - faster processor
   - higher RAM capacity
 - (Optional)
-  - Jupyter Lab (on your local machine)
-  - Google Colab account  
-  - Kaggle account
-  - Grammar check functionality  
+  - Jupyter Lab (on your local machine).
+  - Google Colab account.
+  - Kaggle account.
+  - Grammar check functionality:
     - Internet access
     - Java 8 or higher
   
-
-## Get started
+## Getting started
 
 ### Demo
 
-Take a look at this short demo of the NLP Profiler library by clicking on the below image: 
+Look at this short demo of the NLP Profiler library by clicking on the below image: 
 [![Demo of the NLP Profiler library](https://user-images.githubusercontent.com/1570917/88474968-8fb48980-cf23-11ea-944d-0a1069174ede.png)](https://youtu.be/sdPOyqMfK7M?t=2274)or you find the rest of the [talk here](https://www.youtube.com/watch?v=sdPOyqMfK7M).
 
 ## Installation
 
-Install directly from the GitHub repo:
+From the GitHub repo:
 
 ```bash
 pip install git+https://github.com/neomatrix369/nlp_profiler.git@master
@@ -72,7 +72,7 @@ See [Notebooks](#Notebooks) section for further illustrations.
 
 ## Notebooks
 
-_Once the library is successfully installed, please RESTART your Jupyter kernels or Google Colab runtimes for the changes to take effect._
+_After succesful installtion of library, RESTART Jupyter kernels or Google Colab runtimes for the changes to take effect._
 
 ### Jupyter
 
@@ -96,11 +96,17 @@ You can open these notebooks directly in [Google Colab](./notebooks/google-colab
 
 ![Pandas describe() function](https://user-images.githubusercontent.com/1570917/92324242-cf4cb600-f037-11ea-9c5a-e22806b4be5b.png)
 
+# License
+
+Refer [licensing](LICENSE.md) (and warranty) policy.
+
 # Contributing
 
-Contributions are very welcome, please share back with the wider community (and get credited for it)!
+Contributions are Welcome!
 
-Please have a look at the [CONTRIBUTING](CONTRIBUTING.md) guidelines, also have a read about our [licensing](LICENSE.md) (and warranty) policy.
+Please ave a look at the [CONTRIBUTING](CONTRIBUTING.md) guidelines.
+
+Please share it with the wider community (and get credited for it)!
 
 ---
 
