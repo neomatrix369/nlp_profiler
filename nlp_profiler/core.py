@@ -19,18 +19,18 @@
 import re
 import string
 from itertools import groupby
-from tqdm.auto import tqdm
-import pandas as pd
 
 import emoji
 # Grammar Check
 import language_tool_python
 import nltk
+import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 # Sentiment Analysis
 from textblob import TextBlob
 from textblob import Word
+from tqdm.auto import tqdm
 
 nltk.download('stopwords')
 STOP_WORDS = set(stopwords.words('english'))
@@ -39,11 +39,14 @@ nltk.download('punkt')
 
 NOT_APPLICABLE = "N/A"
 
+
 def is_running_from_ipython():
     from IPython import get_ipython
     return get_ipython() is not None
 
-PROGRESS_BAR_WIDTH = 1250 if is_running_from_ipython() else None
+
+PROGRESS_BAR_WIDTH = 1100 if is_running_from_ipython() else None
+
 
 def apply_text_profiling(dataframe: pd.DataFrame,
                          text_column: str,
@@ -120,12 +123,19 @@ def apply_high_level_features(enabled: bool,
         generate_features("High-level features", high_level_features_steps, new_dataframe)
 
 
-def generate_features(main_header: str, high_level_features_steps: list, new_dataframe: pd.DataFrame):
+def generate_features(main_header: str,
+                      high_level_features_steps: list,
+                      new_dataframe: pd.DataFrame):
     second_level = tqdm(high_level_features_steps, ncols=PROGRESS_BAR_WIDTH)
     for (new_column, source_column, transformation) in second_level:
         source_field = new_dataframe[source_column]
         second_level.set_description(f'{main_header}: {source_column} => {new_column}')
-        new_dataframe[new_column] = source_field.apply(transformation)
+
+        third_level = tqdm(source_field.values, ncols=PROGRESS_BAR_WIDTH)
+        third_level.set_description(f'Applying {source_column} => {new_column}')
+        new_dataframe[new_column] = [
+            transformation(each_value) for each_value in third_level
+        ]
 
 
 def apply_grammar_check(enabled: bool,
