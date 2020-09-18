@@ -20,3 +20,9 @@ Based on the issue raised on github [#3](https://github.com/neomatrix369/nlp_pro
 ![image](https://user-images.githubusercontent.com/1570917/93523649-42ed9d80-f92b-11ea-9c08-c45914ca0c20.png)
 
 [a83bc23](https://github.com/neomatrix369/nlp_profiler/commit/a83bc23) - [7c72b0e](https://github.com/neomatrix369/nlp_profiler/commit/7c72b0e) Mani Sarkar _Thu Sep 17 19:50:30 2020 +0100_
+
+### GitHub branch `add-progress-bars` add progress bars to the various levels of transformation for better UX/UI experience
+
+Continuing with the above changes, third-level progress-bar is in place (row-level progress)
+
+[7c72b0e](https://github.com/neomatrix369/nlp_profiler/commit/a83bc23) - [c3ada30](https://github.com/neomatrix369/nlp_profiler/commit/c3ada30) Mani Sarkar _Fri Sep 18 13:44:48 2020 +0100_
