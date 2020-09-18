@@ -26,3 +26,11 @@ Based on the issue raised on github [#3](https://github.com/neomatrix369/nlp_pro
 Continuing with the above changes, third-level progress-bar is in place (row-level progress)
 
 [7c72b0e](https://github.com/neomatrix369/nlp_profiler/commit/a83bc23) - [c3ada30](https://github.com/neomatrix369/nlp_profiler/commit/c3ada30) Mani Sarkar _Fri Sep 18 13:44:48 2020 +0100_
+
+### GitHub branch `scale-when-applied-to-larger-datasets` improve performance of the library when used on larger datasets
+
+Added parallelisation and some caching to improve the initial slow-down in the performance.
+Further verification and tests need to be performed. 
+
+[00a68e2](https://github.com/neomatrix369/nlp_profiler/commit/00a68e2) - [9cf9ca6](https://github.com/neomatrix369/nlp_profiler/commit/9cf9ca6) Mani Sarkar _Fri Sep 18 14:09:12 2020 +0100_
+
