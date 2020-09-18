@@ -50,7 +50,7 @@ def is_running_from_ipython():
     return get_ipython() is not None
 
 
-PROGRESS_BAR_WIDTH = 1100 if is_running_from_ipython() else None
+PROGRESS_BAR_WIDTH = 900 if is_running_from_ipython() else None
 
 
 def apply_text_profiling(dataframe: pd.DataFrame,
