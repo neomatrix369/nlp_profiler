@@ -98,7 +98,7 @@ def apply_granular_features(heading: str,
                             parallelism_method: str ='default'):
     granular_features_steps = [
         ('sentences_count', text_column, count_sentences),
-        ('characters_count', text_column, len),
+        ('characters_count', text_column, count_chars),
         ('spaces_count', text_column, count_spaces),
         ('words_count', text_column, words_count),
         ('duplicates_count', text_column, count_duplicates),
@@ -535,6 +535,12 @@ def count_characters_excluding_spaces(text: str) -> int:
 
     return len(text) - count_spaces(text)
 
+
+def count_chars(text: str) -> int:
+    if not isinstance(text, str):
+        return []
+
+    return len(text)
 
 def count_sentences(text: str) -> int:
     return len(gather_sentences(text))
