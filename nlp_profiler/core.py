@@ -316,12 +316,18 @@ def spelling_quality(score: float) -> str:
 ### Grammar check: this is a very slow process
 ### take a lot of time per text it analysis
 def grammar_check_score(text: str) -> int:
+    if (not isinstance(text, str)) or (len(text.strip()) == 0):
+        return NOT_APPLICABLE
+
     tool = language_tool_python.LanguageTool('en-GB')
     matches = tool.check(text)
     return len(matches)
 
 
 def grammar_quality(score: float) -> str:
+    if score == NOT_APPLICABLE:
+        return NOT_APPLICABLE
+
     if score == 1:
         return "1 issue"
     elif score > 1:
