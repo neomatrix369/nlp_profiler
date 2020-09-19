@@ -131,9 +131,9 @@ def run_task(task_function, value: str):  # pragma: no cover
     return cached_task_function(value)
 
 
-@memory.cache
 def get_progress_bar(values: list) -> tqdm:
-    return tqdm(values, ncols=PROGRESS_BAR_WIDTH)
+    cached_tqdm = memory.cache(tqdm)
+    return cached_tqdm(values, ncols=PROGRESS_BAR_WIDTH)
 
 
 def generate_features(main_header: str,
