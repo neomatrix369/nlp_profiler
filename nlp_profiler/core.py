@@ -28,6 +28,7 @@ import language_tool_python
 import nltk
 import pandas as pd
 from joblib import Parallel, delayed
+import swifter
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 # Sentiment Analysis
@@ -62,7 +63,8 @@ def apply_text_profiling(dataframe: pd.DataFrame,
     default_params = {
         'high_level': True,
         'granular': True,
-        'grammar_check': False
+        'grammar_check': False,
+        'parallelism_method': 'default'
     }
 
     default_params.update(params)
@@ -79,17 +81,21 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         if not default_params[param]:
             actions_mappings.remove(item)
 
-    first_level = get_progress_bar(actions_mappings)
-    for param, action_description, action_function in first_level:
-        first_level.set_description(action_description)
-        action_function(action_description, new_dataframe, text_column)
+    apply_profiling_progress_bar = get_progress_bar(actions_mappings)
+    for param, action_description, action_function in apply_profiling_progress_bar:
+        apply_profiling_progress_bar.set_description(action_description)
+        action_function(
+            action_description, new_dataframe, 
+            text_column, default_params['parallelism_method']
+        )
 
     return new_dataframe
 
 
 def apply_granular_features(heading: str,
                             new_dataframe: pd.DataFrame,
-                            text_column: dict):
+                            text_column: dict,
+                            parallelism_method: str ='default'):
     granular_features_steps = [
         ('sentences_count', text_column, count_sentences),
         ('characters_count', text_column, len),
@@ -105,12 +111,16 @@ def apply_granular_features(heading: str,
         ('stop_words_count', text_column, count_stop_words),
         ('dates_count', text_column, count_dates),
     ]
-    generate_features(heading, granular_features_steps, new_dataframe)
+    generate_features(
+        heading, granular_features_steps, 
+        new_dataframe, parallelism_method
+    )
 
 
 def apply_high_level_features(heading: str,
                               new_dataframe: pd.DataFrame,
-                              text_column: dict):
+                              text_column: dict,
+                              parallelism_method: str = 'default'):
     high_level_features_steps = [
         ('sentiment_polarity_score', text_column, sentiment_polarity_score),
         ('sentiment_polarity', 'sentiment_polarity_score', sentiment_polarity),
@@ -123,7 +133,10 @@ def apply_high_level_features(heading: str,
         ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
 
     ]
-    generate_features(heading, high_level_features_steps, new_dataframe)
+    generate_features(
+        heading, high_level_features_steps, 
+        new_dataframe, parallelism_method
+    )
 
 
 def run_task(task_function, value: str):  # pragma: no cover
@@ -136,34 +149,66 @@ def get_progress_bar(values: list) -> tqdm:
     return cached_tqdm(values, ncols=PROGRESS_BAR_WIDTH)
 
 
+def using_swifter(
+    source_field, apply_function,
+    source_column: str=None, new_column: str=None
+) -> pd.DataFrame:
+    return source_field.swifter.apply(apply_function, axis=1)
+
+
+def using_joblib_parallel(
+    source_field, apply_function,
+    source_column: str, new_column: str, 
+) -> pd.DataFrame:
+    source_values_to_transform = get_progress_bar(source_field.values)
+    source_values_to_transform.set_description(
+        f'Applying {source_column} => {new_column}'
+    )
+    
+    result = Parallel(n_jobs=-1)(
+        delayed(run_task)(
+            apply_function, each_value
+        ) for each_value in source_values_to_transform
+    )
+    source_values_to_transform.update()
+    return result
+
 def generate_features(main_header: str,
                       high_level_features_steps: list,
-                      new_dataframe: pd.DataFrame):
-    second_level = get_progress_bar(high_level_features_steps)
-    for (new_column, source_column, transformation_function) in second_level:
-        source_field = new_dataframe[source_column]
-        second_level.set_description(f'{main_header}: {source_column} => {new_column}')
+                      new_dataframe: pd.DataFrame,
+                      parallelism_method: str ='default'):
+    generate_feature_progress_bar = get_progress_bar(high_level_features_steps)
 
-        third_level_values = get_progress_bar(source_field.values)
-        third_level_values.set_description(
-            f'Applying {source_column} => {new_column}'
+    # Using swifter or Using joblib Parallel and delay method:
+    parallelism_method_function = using_joblib_parallel
+    if parallelism_method == 'using_swifter':
+        parallelism_method_function = using_swifter
+
+    for (new_column, source_column, transformation_function) in generate_feature_progress_bar:
+        source_field = new_dataframe[source_column]
+        generate_feature_progress_bar.set_description(
+            f'{main_header}: {source_column} => {new_column}'
         )
-        new_dataframe[new_column] = Parallel(n_jobs=-1, backend="multiprocessing")(
-            delayed(run_task)(
-                transformation_function, each_value
-            ) for each_value in third_level_values
+
+        new_dataframe[new_column] = parallelism_method_function(
+            source_field, transformation_function,
+            source_column, new_column
         )
-        third_level_values.update()
+
 
 
 def apply_grammar_check(heading: str,
                         new_dataframe: pd.DataFrame,
-                        text_column: dict):
+                        text_column: dict,
+                        parallelism_method: str ='default'):
     grammar_checks_steps = [
         ('grammar_check_score', text_column, grammar_check_score),
         ('grammar_check', 'grammar_check_score', grammar_quality),
     ]
-    generate_features(heading, grammar_checks_steps, new_dataframe)
+    generate_features(
+        heading, grammar_checks_steps, 
+        new_dataframe, parallelism_method
+    )
 
 
 ### Sentiment analysis
