@@ -2,7 +2,7 @@
 
 A simple NLP library allows profiling datasets with one or more text columns. 
 
-NLP Profiler returns either high-level insights or low-level/granular statistical information about the text when given a dataset and a column name containing text data,  in that column. 
+NLP Profiler returns either high-level insights or low-level/granular statistical information about the text when given a dataset and a column name containing text data, in that column. 
 
 In short: Think of it as using the `pandas.describe()` function or running [Pandas Profiling](https://github.com/pandas-profiling/pandas-profiling) on your data frame, but for datasets containing text columns rather than the usual columnar datasets.
 
@@ -72,7 +72,7 @@ See [Notebooks](#Notebooks) section for further illustrations.
 
 ## Notebooks
 
-_After succesful installtion of library, RESTART Jupyter kernels or Google Colab runtimes for the changes to take effect._
+_After succesful installation of library, RESTART Jupyter kernels or Google Colab runtimes for the changes to take effect._
 
 ### Jupyter
 
@@ -104,7 +104,7 @@ Refer [licensing](LICENSE.md) (and warranty) policy.
 
 Contributions are Welcome!
 
-Please ave a look at the [CONTRIBUTING](CONTRIBUTING.md) guidelines.
+Please have a look at the [CONTRIBUTING](CONTRIBUTING.md) guidelines.
 
 Please share it with the wider community (and get credited for it)!
 
