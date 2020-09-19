@@ -473,6 +473,13 @@ def count_words(text: str) -> int:
     return len(gather_words(text))
 
 
+def count_sentences(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
+    return len(gather_sentences(text))
+
+
 ### Number of spaces
 def count_spaces(text: str) -> int:
     if not isinstance(text, str):

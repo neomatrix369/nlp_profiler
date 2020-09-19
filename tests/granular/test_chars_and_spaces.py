@@ -1,6 +1,6 @@
 from nlp_profiler.constants import NaN
 from nlp_profiler.core \
-    import count_chars, count_spaces, count_characters_excluding_spaces  # noqa
+    import NOT_APPLICABLE, count_chars, count_spaces, count_characters_excluding_spaces  # noqa
 import numpy as np
 import pytest
 
