@@ -130,6 +130,16 @@ def apply_high_level_features(heading: str,
         generate_features(heading, high_level_features_steps, new_dataframe)
 
 
+def run_task(task_function, value: str):
+    cached_task_function = memory.cache(task_function)
+    return cached_task_function(value)
+
+
+@memory.cache
+def get_progress_bar(values: list) -> tqdm:
+    return tqdm(values, ncols=PROGRESS_BAR_WIDTH)
+
+
 def generate_features(main_header: str,
                       high_level_features_steps: list,
                       new_dataframe: pd.DataFrame):
@@ -148,16 +158,6 @@ def generate_features(main_header: str,
             ) for each_value in third_level_values
         )
         third_level_values.update()
-
-
-@memory.cache
-def run_task(task_function, value: str):
-    return task_function(value)
-
-
-@memory.cache
-def get_progress_bar(values: list) -> tqdm:
-    return tqdm(values, ncols=PROGRESS_BAR_WIDTH)
 
 
 def apply_grammar_check(heading: str,
