@@ -14,8 +14,16 @@ def test_given_a_text_column_when_profiler_is_applied_then_profiled_dataset_is_r
     csv_filename = f'{EXPECTED_DATA_PATH}/expected_profiled_dataframe.csv'
     expected_dataframe = pd.read_csv(csv_filename)
 
-    # when
+    # when: using default method (joblib Parallel) for parallelisation
     actual_dataframe = apply_text_profiling(source_dataframe, "text")
+
+    # then
+    assert_frame_equal(expected_dataframe, actual_dataframe, check_like=True)
+
+    # when: using swifter method for parallelisation
+    actual_dataframe = apply_text_profiling(
+        source_dataframe, "text", params={'parallelism_method': 'using_swifter'}
+    )
 
     # then
     assert_frame_equal(expected_dataframe, actual_dataframe, check_like=True)
