@@ -73,3 +73,24 @@ def test_given_a_text_when_grammar_check_is_applied_then_grammar_check_analysis_
     # then
     assert expected_results == actual_results, \
         "Grammar check didn't match for the text"
+
+
+grammar_check_score_to_words_mapping = [
+    (NOT_APPLICABLE, NOT_APPLICABLE),
+    (0, "No issues"),
+    (1, "1 issue"),
+    (2, "2 issues"),
+]
+
+
+@pytest.mark.parametrize("score,expected_result",
+                         grammar_check_score_to_words_mapping)
+def test_given_spelling_check_score_when_converted_to_words_then_return_right_word(
+        score: float, expected_result: str
+):
+    # given, when
+    actual_result = grammar_quality(score)
+
+    # then
+    assert expected_result == actual_result, \
+        f"Expected: {expected_result}, Actual: {actual_result}"
