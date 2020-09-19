@@ -214,6 +214,9 @@ def apply_grammar_check(heading: str,
 ### Sentiment analysis
 
 def sentiment_polarity_summarised(polarity: str) -> str:
+    if polarity == NOT_APPLICABLE:
+        return NOT_APPLICABLE
+
     if 'negative' in polarity.lower():
         return 'Negative'
     if 'positive' in polarity.lower():
@@ -257,10 +260,13 @@ def sentiment_polarity_score(text: str) -> float:
 
 ### Sentiment Subjectivity
 
-def sentiment_subjectivity_summarised(sentiment_subjectivity: str) -> str:
-    if '/' in sentiment_subjectivity:
-        return sentiment_subjectivity
-    elif 'subjective' in sentiment_subjectivity.lower():
+def sentiment_subjectivity_summarised(subjectivity: str) -> str:
+    if subjectivity == NOT_APPLICABLE:
+        return NOT_APPLICABLE
+
+    if '/' in subjectivity:
+        return subjectivity
+    elif 'subjective' in subjectivity.lower():
         return 'Subjective'
 
     return 'Objective'
@@ -312,8 +318,11 @@ spelling_quality_score_to_words_mapping = [
 ]
 
 
-def spelling_quality_summarised(spelling_quality: str) -> str:
-    if 'good' in spelling_quality.lower():
+def spelling_quality_summarised(quality: str) -> str:
+    if quality == NOT_APPLICABLE:
+        return NOT_APPLICABLE
+
+    if 'good' in quality.lower():
         return 'Good'
 
     return 'Bad'

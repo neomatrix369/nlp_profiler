@@ -10,13 +10,14 @@ good_spelling_text = 'People live in this area. It is not a good area. People li
 bad_spelling_text = "2833047 people live in this arae. It is not a good area. swa peeeple live in this area."
 very_bad_spelling_text = "I am asdasd asdasd good asdasd."
 
-
 text_to_return_value_mapping = [
     (np.nan, NOT_APPLICABLE),
     (float('nan'), NOT_APPLICABLE),
     (None, NOT_APPLICABLE),
     ("", NOT_APPLICABLE),
 ]
+
+
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_value_mapping)
 def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentiment_analysis_info_is_returned(
@@ -50,6 +51,7 @@ def test_given_a_text_when_spell_check_is_applied_then_spell_check_analysis_info
     verify_spelling_check(good_spelling_text, 1.0, 'Very good', 'Good')
     verify_spelling_check(bad_spelling_text, 0.5555555555555556, 'Bad', 'Bad')
     verify_spelling_check(very_bad_spelling_text, 0, 'Very bad', 'Bad')
+    verify_spelling_check(None, NOT_APPLICABLE, NOT_APPLICABLE, NOT_APPLICABLE)
 
 
 def verify_spelling_check(text,
@@ -59,14 +61,19 @@ def verify_spelling_check(text,
     # given, when
     actual_results = spelling_quality_score(text)
     # then
-    assert math.isclose(expected_spelling_check_score, actual_results,
-                        rel_tol=1e-09, abs_tol=0.0), \
-        "Spell check score didn't match for the text"
+    if expected_spelling_check_score == NOT_APPLICABLE:
+        assert actual_results == expected_spelling_check_score
+    else:
+        assert math.isclose(expected_spelling_check_score, actual_results,
+                            rel_tol=1e-09, abs_tol=0.0), \
+            "Spell check score didn't match for the text"
+
     # given, when
     actual_results = spelling_quality(actual_results)
     # then
     assert expected_spelling_check == actual_results, \
         "Spelling quality check didn't match for the text"
+
     # given, when
     actual_results = spelling_quality_summarised(actual_results)
     # then

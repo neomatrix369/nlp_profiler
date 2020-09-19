@@ -10,13 +10,14 @@ objective_subjective_text = '2833047 and 1111 people live in this area.'
 objective_text = "Today's date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020."
 subjective_text = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
 
-
 text_to_return_value_mapping = [
     (np.nan, NOT_APPLICABLE),
     (float('nan'), NOT_APPLICABLE),
     (None, NOT_APPLICABLE),
     ("", NOT_APPLICABLE),
 ]
+
+
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_value_mapping)
 def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentiment_analysis_info_is_returned(
@@ -51,6 +52,7 @@ def test_given_a_text_when_sentiment_subjectivity_analysis_is_applied_then_subje
     assert_sentiment_subjectivity(objective_subjective_text, 0.50, 'Objective/subjective', 'Objective/subjective')
     assert_sentiment_subjectivity(subjective_text, 0.75, 'Pretty subjective', 'Subjective')
     assert_sentiment_subjectivity(objective_text, 0.0, 'Very objective', 'Objective')
+    assert_sentiment_subjectivity(None, NOT_APPLICABLE, NOT_APPLICABLE, NOT_APPLICABLE)
 
 
 def assert_sentiment_subjectivity(text, expected_sentiment_subjectivity_score,
@@ -59,9 +61,12 @@ def assert_sentiment_subjectivity(text, expected_sentiment_subjectivity_score,
     # given, when
     actual_results = sentiment_subjectivity_score(text)
     # then
-    assert math.isclose(expected_sentiment_subjectivity_score, actual_results,
-                        rel_tol=1e-09, abs_tol=0.0), \
-        "Subjectivity/objectivity score didn't match for the text"
+    if expected_sentiment_subjectivity_score == NOT_APPLICABLE:
+        assert actual_results == expected_sentiment_subjectivity_score
+    else:
+        assert math.isclose(expected_sentiment_subjectivity_score, actual_results,
+                            rel_tol=1e-09, abs_tol=0.0), \
+            "Subjectivity/objectivity score didn't match for the text"
     # given, when
     actual_results = sentiment_subjectivity(actual_results)
     # then
