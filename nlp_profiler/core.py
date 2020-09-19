@@ -148,7 +148,7 @@ def generate_features(main_header: str,
         third_level_values.set_description(
             f'Applying {source_column} => {new_column}'
         )
-        new_dataframe[new_column] = Parallel(n_jobs=-1, backend="threading")(
+        new_dataframe[new_column] = Parallel(n_jobs=-1, backend="multiprocessing")(
             delayed(run_task)(
                 transformation_function, each_value
             ) for each_value in third_level_values
