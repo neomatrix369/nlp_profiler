@@ -333,6 +333,9 @@ def grammar_quality(score: float) -> str:
 ### Emojis
 
 def gather_emojis(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+
     emoji_expaned_text = emoji.demojize(text)
     return re.findall(r'\:(.*?)\:', emoji_expaned_text)
 
@@ -344,6 +347,9 @@ def count_emojis(text: str) -> int:
 
 ### Numbers
 def gather_whole_numbers(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+
     line = re.findall(r'[0-9]+', text)
     return line
 
@@ -355,6 +361,9 @@ def count_whole_numbers(text: str) -> int:
 
 ### Alphanumeric
 def gather_alpha_numeric(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+
     return re.findall('[A-Za-z0-9]', text)
 
 
@@ -364,6 +373,9 @@ def count_alpha_numeric(text: str) -> int:
 
 ### Non-alphanumeric
 def gather_non_alpha_numeric(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+
     return re.findall('[^A-Za-z0-9]', text)
 
 
@@ -373,6 +385,9 @@ def count_non_alpha_numeric(text: str) -> int:
 
 ### Punctuations
 def gather_punctuations(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+
     line = re.findall(r'[!"\$%&\'()*+,\-.\/:;=#@?\[\\\]^_`{|}~]*', text)
     string = "".join(line)
     return list(string)
@@ -384,6 +399,9 @@ def count_punctuations(text: str) -> int:
 
 ### Stop words
 def gather_stop_words(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+
     word_tokens = word_tokenize(text)
     found_stop_words = [word for word in word_tokens
                         if word in STOP_WORDS]
@@ -396,6 +414,9 @@ def count_stop_words(text: str) -> int:
 
 ### Dates
 def gather_dates(text: str, date_format: str = 'dd/mm/yyyy') -> list:
+    if not isinstance(text, str):
+        return []
+
     ddmmyyyy = r'\b(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/([0-9]{4})\b'
     mmddyyyy = r'\b(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/([0-9]{4})\b'
     regex_list = {
@@ -410,6 +431,9 @@ def count_dates(text: str) -> int:
 
 ### Words count
 def gather_words(text: str) -> list:
+    if not isinstance(text, str):
+       return []
+
     return re.findall(r'\b[^\d\W]+\b', text)
 
 
@@ -419,6 +443,9 @@ def words_count(text: str) -> int:
 
 ### Sentences
 def gather_sentences(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+
     lines = re.findall(r'([^.]*[^.]*)', text)
     for index, each in enumerate(lines):
         if each == '':
@@ -429,12 +456,18 @@ def gather_sentences(text: str) -> list:
 
 ### Number of spaces
 def count_spaces(text: str) -> int:
+    if not isinstance(text, str):
+        return []
+
     spaces = re.findall(r' ', text)
     return len(spaces)
 
 
 ### Number of characters without spaces
 def gather_duplicates(text: str) -> dict:
+    if not isinstance(text, str):
+        return []
+
     tokenized_text = word_tokenize(text.lower())
     sorted_tokenized_text = sorted(tokenized_text)
     duplicates = {}
@@ -452,6 +485,9 @@ def count_duplicates(text: str) -> int:
 
 
 def count_characters_excluding_spaces(text: str) -> int:
+    if not isinstance(text, str):
+        return []
+
     return len(text) - count_spaces(text)
 
 

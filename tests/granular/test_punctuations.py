@@ -1,6 +1,26 @@
 from nlp_profiler.core import gather_punctuations, count_punctuations  # noqa
+import numpy as np
+import pytest
 
 text_with_punctuations = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
+
+
+text_to_return_value_mapping = [
+    (np.nan, []),
+    (float('nan'), []),
+    (None, []),
+]
+@pytest.mark.parametrize("text,expected_result",
+                         text_to_return_value_mapping)
+def test_given_invalid_text_when_parsed_then_return_empty_list(
+        text: str, expected_result: list
+):
+    # given, when
+    actual_result = gather_punctuations(text)
+
+    # then
+    assert expected_result == actual_result, \
+        f"Expected: {expected_result}, Actual: {actual_result} "
 
 
 def test_given_a_text_with_punctuations_when_parsed_then_return_only_punctuations():

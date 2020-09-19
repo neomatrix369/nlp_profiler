@@ -1,6 +1,26 @@
 from nlp_profiler.core import gather_emojis, count_emojis  # noqa
+import numpy as np
+import pytest
 
 text_with_emojis = "I love ⚽ very much 😁"
+
+
+text_to_return_value_mapping = [
+    (np.nan, []),
+    (float('nan'), []),
+    (None, []),
+]
+@pytest.mark.parametrize("text,expected_result",
+                         text_to_return_value_mapping)
+def test_given_invalid_text_when_parsed_then_return_empty_list(
+        text: str, expected_result: list
+):
+    # given, when
+    actual_result = gather_emojis(text)
+
+    # then
+    assert expected_result == actual_result, \
+        f"Expected: {expected_result}, Actual: {actual_result} "
 
 
 def test_given_a_text_with_emoji_when_parsed_then_return_only_emojis():

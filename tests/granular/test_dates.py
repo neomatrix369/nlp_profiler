@@ -1,7 +1,27 @@
 from nlp_profiler.core import gather_dates, count_dates  # noqa
+import numpy as np
+import pytest
 
 text_with_date = "Todays date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020"
 text_with_dates = "Todays date is 28/04/2020 and tomorrow's date is 29/04/2020"
+
+
+text_to_return_value_mapping = [
+    (np.nan, []),
+    (float('nan'), []),
+    (None, []),
+]
+@pytest.mark.parametrize("text,expected_result",
+                         text_to_return_value_mapping)
+def test_given_invalid_text_when_parsed_then_return_empty_list(
+        text: str, expected_result: list
+):
+    # given, when
+    actual_result = gather_dates(text)
+
+    # then
+    assert expected_result == actual_result, \
+        f"Expected: {expected_result}, Actual: {actual_result} "
 
 
 def test_given_a_text_with_a_date_when_parsed_then_return_the_date_found():

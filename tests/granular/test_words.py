@@ -1,6 +1,26 @@
 from nlp_profiler.core import gather_words, words_count  # noqa
+import numpy as np
+import pytest
 
 text_with_a_number = '2833047 people live in this area'
+
+
+text_to_return_value_mapping = [
+    (np.nan, []),
+    (float('nan'), []),
+    (None, []),
+]
+@pytest.mark.parametrize("text,expected_result",
+                         text_to_return_value_mapping)
+def test_given_invalid_text_when_parsed_then_return_empty_list(
+        text: str, expected_result: list
+):
+    # given, when
+    actual_result = gather_words(text)
+
+    # then
+    assert expected_result == actual_result, \
+        f"Expected: {expected_result}, Actual: {actual_result} "
 
 
 def test_given_a_text_with_words_when_parsed_then_return_only_the_words():
