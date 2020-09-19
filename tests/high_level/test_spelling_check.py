@@ -102,5 +102,5 @@ def test_given_spelling_check_score_when_converted_to_words_then_return_right_wo
 
     # then
     assert expected_spelling_quality_in_words == actual_result, \
-        f"Expected: {expected_spelling_quality_in_words}, Actual: {actual_result} " \
+        f"Expected: {expected_spelling_quality_in_words}, Actual: {actual_result}" \
         f"original_score: {original_score}, normalised_score: {normalised_score}"

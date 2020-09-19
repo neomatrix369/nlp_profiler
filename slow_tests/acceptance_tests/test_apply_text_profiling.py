@@ -21,7 +21,6 @@ def test_given_a_text_column_when_profiler_is_applied_grammar_check_analysis_the
                                    'granular': False,
                                    'grammar_check': True}
     )
-    actual_dataframe.to_csv(csv_filename, index=False)
 
     # then
     assert_equal(expected_dataframe, actual_dataframe)

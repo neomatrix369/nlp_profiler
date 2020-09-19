@@ -100,7 +100,7 @@ def apply_granular_features(heading: str,
         ('sentences_count', text_column, count_sentences),
         ('characters_count', text_column, count_chars),
         ('spaces_count', text_column, count_spaces),
-        ('words_count', text_column, words_count),
+        ('words_count', text_column, count_words),
         ('duplicates_count', text_column, count_duplicates),
         ('chars_excl_spaces_count', text_column, count_characters_excluding_spaces),
         ('emoji_count', text_column, count_emojis),
@@ -335,13 +335,17 @@ def spelling_quality_score(text: str) -> float:
                 misspelt_words_count += 1
             total_words_checks += 1
     num_of_sentences = count_sentences(text)
-    avg_words_per_sentence = (total_words_checks / num_of_sentences) \
-        if num_of_sentences > 0 else 0
+    avg_words_per_sentence = total_words_checks / num_of_sentences
     result = (avg_words_per_sentence - misspelt_words_count) \
-             / avg_words_per_sentence \
-        if avg_words_per_sentence > 0 else NOT_APPLICABLE
-    if result == NOT_APPLICABLE:
-        return result
+             / avg_words_per_sentence
+
+    # avg_words_per_sentence = (total_words_checks / num_of_sentences) \
+    #     if num_of_sentences > 0 else 0
+    # result = (avg_words_per_sentence - misspelt_words_count) \
+    #          / avg_words_per_sentence \
+    #     if avg_words_per_sentence > 0 else NOT_APPLICABLE
+    # if result == NOT_APPLICABLE:
+    #     return result
     return result if result >= 0.0 else 0.0
 
 
@@ -381,7 +385,7 @@ def grammar_quality(score: float) -> str:
 ### Emojis
 
 def gather_emojis(text: str) -> list:
-    if not isinstance(text, str):
+    if (not isinstance(text, str)) or (len(text.strip()) == 0):
         return []
 
     emoji_expaned_text = emoji.demojize(text)
@@ -389,6 +393,9 @@ def gather_emojis(text: str) -> list:
 
 
 def count_emojis(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
     list_of_emojis = gather_emojis(text)
     return len(list_of_emojis)
 
@@ -403,8 +410,10 @@ def gather_whole_numbers(text: str) -> list:
 
 
 def count_whole_numbers(text: str) -> int:
-    list_of_numbers = gather_whole_numbers(text)
-    return len(list_of_numbers)
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
+    return len(gather_whole_numbers(text))
 
 
 ### Alphanumeric
@@ -416,6 +425,9 @@ def gather_alpha_numeric(text: str) -> list:
 
 
 def count_alpha_numeric(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
     return len(gather_alpha_numeric(text))
 
 
@@ -428,6 +440,9 @@ def gather_non_alpha_numeric(text: str) -> list:
 
 
 def count_non_alpha_numeric(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
     return len(gather_non_alpha_numeric(text))
 
 
@@ -442,6 +457,9 @@ def gather_punctuations(text: str) -> list:
 
 
 def count_punctuations(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
     return len(gather_punctuations(text))
 
 
@@ -457,6 +475,9 @@ def gather_stop_words(text: str) -> list:
 
 
 def count_stop_words(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
     return len(gather_stop_words(text))
 
 
@@ -474,6 +495,9 @@ def gather_dates(text: str, date_format: str = 'dd/mm/yyyy') -> list:
 
 
 def count_dates(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
     return len(gather_dates(text))
 
 
@@ -485,7 +509,9 @@ def gather_words(text: str) -> list:
     return re.findall(r'\b[^\d\W]+\b', text)
 
 
-def words_count(text: str) -> int:
+def count_words(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
     return len(gather_words(text))
 
 
@@ -502,10 +528,17 @@ def gather_sentences(text: str) -> list:
     return lines
 
 
+def count_sentences(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
+    return len(gather_sentences(text))
+
+
 ### Number of spaces
 def count_spaces(text: str) -> int:
     if not isinstance(text, str):
-        return []
+        return NOT_APPLICABLE
 
     spaces = re.findall(r' ', text)
     return len(spaces)
@@ -529,22 +562,21 @@ def gather_duplicates(text: str) -> dict:
 
 ### Duplicates
 def count_duplicates(text: str) -> int:
+    if not isinstance(text, str):
+        return NOT_APPLICABLE
+
     return len(gather_duplicates(text))
 
 
 def count_characters_excluding_spaces(text: str) -> int:
     if not isinstance(text, str):
-        return []
+        return NOT_APPLICABLE
 
     return len(text) - count_spaces(text)
 
 
 def count_chars(text: str) -> int:
     if not isinstance(text, str):
-        return []
+        return NOT_APPLICABLE
 
     return len(text)
-
-
-def count_sentences(text: str) -> int:
-    return len(gather_sentences(text))
