@@ -126,7 +126,7 @@ def apply_high_level_features(heading: str,
     generate_features(heading, high_level_features_steps, new_dataframe)
 
 
-def run_task(task_function, value: str):
+def run_task(task_function, value: str):  # pragma: no cover
     cached_task_function = memory.cache(task_function)
     return cached_task_function(value)
 
