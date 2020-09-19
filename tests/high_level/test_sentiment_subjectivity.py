@@ -1,5 +1,6 @@
 import math
 
+import numpy as np
 import pytest
 
 from nlp_profiler.core import NOT_APPLICABLE, sentiment_subjectivity_score, \
@@ -10,30 +11,40 @@ objective_text = "Today's date is 04/28/2020 for format mm/dd/yyyy, not 28/04/20
 subjective_text = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
 
 
-def test_given_an_invalid_text_when_sentiment_subjectivity_analysis_is_applied_then_no_sentiment_subjectivity_analysis_info_is_returned():
+text_to_return_value_mapping = [
+    (np.nan, NOT_APPLICABLE),
+    (float('nan'), NOT_APPLICABLE),
+    (None, NOT_APPLICABLE),
+    ("", NOT_APPLICABLE),
+]
+@pytest.mark.parametrize("text,expected_result",
+                         text_to_return_value_mapping)
+def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentiment_analysis_info_is_returned(
+        text: str, expected_result: str
+):
     # given, when: text is not defined
-    actual_results = sentiment_subjectivity_score(None)
+    actual_results = sentiment_subjectivity_score(text)
 
     # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Subjectivity/objectivity score should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
-
-    # given, when: empty text
-    actual_results = sentiment_subjectivity_score("")
-
-    # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Subjectivity/objectivity score should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
+    assert actual_results == expected_result, \
+        f"Sentiment subjectivity score should NOT " \
+        f"have been returned, expected {expected_result}"
 
     # given, when
-    actual_results = sentiment_subjectivity(NOT_APPLICABLE)
+    actual_results = sentiment_subjectivity(actual_results)
 
     # then
-    assert actual_results == NOT_APPLICABLE, \
+    assert actual_results == expected_result, \
+        f"Sentiment subjectivity should NOT " \
+        f"have been returned, expected {expected_result}"
+
+    # given, when
+    actual_results = sentiment_subjectivity(expected_result)
+
+    # then
+    assert actual_results == expected_result, \
         f"Subjectivity/objectivity should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
+        f"have been returned, expected {expected_result}"
 
 
 def test_given_a_text_when_sentiment_subjectivity_analysis_is_applied_then_subjective_analysis_info_is_returned():

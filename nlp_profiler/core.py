@@ -210,7 +210,7 @@ def sentiment_polarity(score: float) -> str:
 
 
 def sentiment_polarity_score(text: str) -> float:
-    if (not text) or (len(text.strip()) == 0):
+    if (not isinstance(text, str)) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
     return TextBlob(text).sentiment.polarity
@@ -252,7 +252,7 @@ def sentiment_subjectivity(score: float) -> str:
 
 
 def sentiment_subjectivity_score(text: str) -> float:
-    if (not text) or (len(text.strip()) == 0):
+    if (not isinstance(text, str)) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
     return TextBlob(text).sentiment.subjectivity
@@ -281,7 +281,7 @@ def spelling_quality_summarised(spelling_quality: str) -> str:
 
 
 def spelling_quality_score(text: str) -> float:
-    if (not text) or (len(text.strip()) == 0):
+    if (not isinstance(text, str)) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
     tokenized_text = word_tokenize(text.lower())

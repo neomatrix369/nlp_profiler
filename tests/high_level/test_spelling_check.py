@@ -1,5 +1,6 @@
 import math
 
+import numpy as np
 import pytest
 
 from nlp_profiler.core import NOT_APPLICABLE, spelling_quality_score, \
@@ -10,30 +11,39 @@ bad_spelling_text = "2833047 people live in this arae. It is not a good area. sw
 very_bad_spelling_text = "I am asdasd asdasd good asdasd."
 
 
-def test_given_an_invalid_text_when_spell_check_is_applied_then_no_spell_check_info_is_returned():
+text_to_return_value_mapping = [
+    (np.nan, NOT_APPLICABLE),
+    (float('nan'), NOT_APPLICABLE),
+    (None, NOT_APPLICABLE),
+    ("", NOT_APPLICABLE),
+]
+@pytest.mark.parametrize("text,expected_result",
+                         text_to_return_value_mapping)
+def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentiment_analysis_info_is_returned(
+        text: str, expected_result: str
+):
     # given, when: text is not defined
-    actual_results = spelling_quality_score(None)
+    actual_results = spelling_quality_score(text)
 
     # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Spell quality check score should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
-
-    # given, when: empty text
-    actual_results = spelling_quality_score("")
-
-    # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Spell quality check score should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
+    assert actual_results == expected_result, \
+        f"Spelling quality score should NOT " \
+        f"have been returned, expected {expected_result}"
 
     # given, when
-    actual_results = spelling_quality(NOT_APPLICABLE)
+    actual_results = spelling_quality(expected_result)
 
     # then
-    assert actual_results == NOT_APPLICABLE, \
+    assert actual_results == expected_result, \
+        f"Spelling quality should NOT " \
+        f"have been returned, expected {expected_result}"
+    # given, when
+    actual_results = spelling_quality(expected_result)
+
+    # then
+    assert actual_results == expected_result, \
         f"Spell quality check should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
+        f"have been returned, expected {expected_result}"
 
 
 def test_given_a_text_when_spell_check_is_applied_then_spell_check_analysis_info_is_returned():
