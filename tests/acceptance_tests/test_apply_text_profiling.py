@@ -51,6 +51,22 @@ def test_given_a_text_column_when_profiler_is_applied_without_granular_analysis_
     assert_frame_equal(expected_dataframe, actual_dataframe, check_like=True)
 
 
+def test_given_a_text_column_when_profiler_is_applied_with_then_all_options_disabled_then_no_profiled_dataset_is_returned():
+    # given
+    source_dataframe = create_source_dataframe()
+    expected_dataframe = source_dataframe.copy()
+
+    # when
+    actual_dataframe = apply_text_profiling(
+        source_dataframe, "text", {'high_level': False, 'granular': False}
+    )
+
+    # then
+    assert_frame_equal(actual_dataframe,
+                       expected_dataframe,
+                       check_like=True)  # source dataframe is returned
+
+
 def create_source_dataframe():
     text_with_emojis = "I love ⚽ very much 😁."
     text_with_a_number = '2833047 people live in this area. It is not a good area.'

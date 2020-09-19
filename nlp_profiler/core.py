@@ -82,52 +82,48 @@ def apply_text_profiling(dataframe: pd.DataFrame,
     first_level = get_progress_bar(actions_mappings)
     for param, action_description, action_function in first_level:
         first_level.set_description(action_description)
-        action_function(action_description, default_params[param], new_dataframe, text_column)
+        action_function(action_description, new_dataframe, text_column)
 
     return new_dataframe
 
 
 def apply_granular_features(heading: str,
-                            enabled: bool,
                             new_dataframe: pd.DataFrame,
                             text_column: dict):
-    if enabled:
-        granular_features_steps = [
-            ('sentences_count', text_column, count_sentences),
-            ('characters_count', text_column, len),
-            ('spaces_count', text_column, count_spaces),
-            ('words_count', text_column, words_count),
-            ('duplicates_count', text_column, count_duplicates),
-            ('chars_excl_spaces_count', text_column, count_characters_excluding_spaces),
-            ('emoji_count', text_column, count_emojis),
-            ('whole_numbers_count', text_column, count_whole_numbers),
-            ('alpha_numeric_count', text_column, count_alpha_numeric),
-            ('non_alpha_numeric_count', text_column, count_non_alpha_numeric),
-            ('punctuations_count', text_column, count_punctuations),
-            ('stop_words_count', text_column, count_stop_words),
-            ('dates_count', text_column, count_dates),
-        ]
-        generate_features(heading, granular_features_steps, new_dataframe)
+    granular_features_steps = [
+        ('sentences_count', text_column, count_sentences),
+        ('characters_count', text_column, len),
+        ('spaces_count', text_column, count_spaces),
+        ('words_count', text_column, words_count),
+        ('duplicates_count', text_column, count_duplicates),
+        ('chars_excl_spaces_count', text_column, count_characters_excluding_spaces),
+        ('emoji_count', text_column, count_emojis),
+        ('whole_numbers_count', text_column, count_whole_numbers),
+        ('alpha_numeric_count', text_column, count_alpha_numeric),
+        ('non_alpha_numeric_count', text_column, count_non_alpha_numeric),
+        ('punctuations_count', text_column, count_punctuations),
+        ('stop_words_count', text_column, count_stop_words),
+        ('dates_count', text_column, count_dates),
+    ]
+    generate_features(heading, granular_features_steps, new_dataframe)
 
 
 def apply_high_level_features(heading: str,
-                              enabled: bool,
                               new_dataframe: pd.DataFrame,
                               text_column: dict):
-    if enabled:
-        high_level_features_steps = [
-            ('sentiment_polarity_score', text_column, sentiment_polarity_score),
-            ('sentiment_polarity', 'sentiment_polarity_score', sentiment_polarity),
-            ('sentiment_polarity_summarised', 'sentiment_polarity', sentiment_polarity_summarised),
-            ('sentiment_subjectivity_score', text_column, sentiment_subjectivity_score),
-            ('sentiment_subjectivity', 'sentiment_subjectivity_score', sentiment_subjectivity),
-            ('sentiment_subjectivity_summarised', 'sentiment_subjectivity', sentiment_subjectivity_summarised),
-            ('spelling_quality_score', text_column, spelling_quality_score),
-            ('spelling_quality', 'spelling_quality_score', spelling_quality),
-            ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
+    high_level_features_steps = [
+        ('sentiment_polarity_score', text_column, sentiment_polarity_score),
+        ('sentiment_polarity', 'sentiment_polarity_score', sentiment_polarity),
+        ('sentiment_polarity_summarised', 'sentiment_polarity', sentiment_polarity_summarised),
+        ('sentiment_subjectivity_score', text_column, sentiment_subjectivity_score),
+        ('sentiment_subjectivity', 'sentiment_subjectivity_score', sentiment_subjectivity),
+        ('sentiment_subjectivity_summarised', 'sentiment_subjectivity', sentiment_subjectivity_summarised),
+        ('spelling_quality_score', text_column, spelling_quality_score),
+        ('spelling_quality', 'spelling_quality_score', spelling_quality),
+        ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
 
-        ]
-        generate_features(heading, high_level_features_steps, new_dataframe)
+    ]
+    generate_features(heading, high_level_features_steps, new_dataframe)
 
 
 def run_task(task_function, value: str):
@@ -161,15 +157,13 @@ def generate_features(main_header: str,
 
 
 def apply_grammar_check(heading: str,
-                        enabled: bool,
                         new_dataframe: pd.DataFrame,
                         text_column: dict):
-    if enabled:
-        grammar_checks_steps = [
-            ('grammar_check_score', text_column, grammar_check_score),
-            ('grammar_check', 'grammar_check_score', grammar_quality),
-        ]
-        generate_features(heading, grammar_checks_steps, new_dataframe)
+    grammar_checks_steps = [
+        ('grammar_check_score', text_column, grammar_check_score),
+        ('grammar_check', 'grammar_check_score', grammar_quality),
+    ]
+    generate_features(heading, grammar_checks_steps, new_dataframe)
 
 
 ### Sentiment analysis
@@ -438,7 +432,7 @@ def count_dates(text: str) -> int:
 ### Words count
 def gather_words(text: str) -> list:
     if not isinstance(text, str):
-       return []
+        return []
 
     return re.findall(r'\b[^\d\W]+\b', text)
 
