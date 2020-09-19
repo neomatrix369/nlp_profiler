@@ -85,7 +85,7 @@ def apply_text_profiling(dataframe: pd.DataFrame,
     for param, action_description, action_function in apply_profiling_progress_bar:
         apply_profiling_progress_bar.set_description(action_description)
         action_function(
-            action_description, new_dataframe, 
+            action_description, new_dataframe,
             text_column, default_params['parallelism_method']
         )
 
@@ -95,7 +95,7 @@ def apply_text_profiling(dataframe: pd.DataFrame,
 def apply_granular_features(heading: str,
                             new_dataframe: pd.DataFrame,
                             text_column: dict,
-                            parallelism_method: str ='default'):
+                            parallelism_method: str = 'default'):
     granular_features_steps = [
         ('sentences_count', text_column, count_sentences),
         ('characters_count', text_column, count_chars),
@@ -112,7 +112,7 @@ def apply_granular_features(heading: str,
         ('dates_count', text_column, count_dates),
     ]
     generate_features(
-        heading, granular_features_steps, 
+        heading, granular_features_steps,
         new_dataframe, parallelism_method
     )
 
@@ -134,7 +134,7 @@ def apply_high_level_features(heading: str,
 
     ]
     generate_features(
-        heading, high_level_features_steps, 
+        heading, high_level_features_steps,
         new_dataframe, parallelism_method
     )
 
@@ -150,21 +150,21 @@ def get_progress_bar(values: list) -> tqdm:
 
 
 def using_swifter(
-    source_field, apply_function,
-    source_column: str=None, new_column: str=None
+        source_field, apply_function,
+        source_column: str = None, new_column: str = None
 ) -> pd.DataFrame:
     return source_field.swifter.apply(apply_function, axis=1)
 
 
 def using_joblib_parallel(
-    source_field, apply_function,
-    source_column: str, new_column: str, 
+        source_field, apply_function,
+        source_column: str, new_column: str,
 ) -> pd.DataFrame:
     source_values_to_transform = get_progress_bar(source_field.values)
     source_values_to_transform.set_description(
         f'Applying {source_column} => {new_column}'
     )
-    
+
     result = Parallel(n_jobs=-1)(
         delayed(run_task)(
             apply_function, each_value
@@ -173,10 +173,11 @@ def using_joblib_parallel(
     source_values_to_transform.update()
     return result
 
+
 def generate_features(main_header: str,
                       high_level_features_steps: list,
                       new_dataframe: pd.DataFrame,
-                      parallelism_method: str ='default'):
+                      parallelism_method: str = 'default'):
     generate_feature_progress_bar = get_progress_bar(high_level_features_steps)
 
     # Using swifter or Using joblib Parallel and delay method:
@@ -196,17 +197,16 @@ def generate_features(main_header: str,
         )
 
 
-
 def apply_grammar_check(heading: str,
                         new_dataframe: pd.DataFrame,
                         text_column: dict,
-                        parallelism_method: str ='default'):
+                        parallelism_method: str = 'default'):
     grammar_checks_steps = [
         ('grammar_check_score', text_column, grammar_check_score),
         ('grammar_check', 'grammar_check_score', grammar_quality),
     ]
     generate_features(
-        heading, grammar_checks_steps, 
+        heading, grammar_checks_steps,
         new_dataframe, parallelism_method
     )
 
@@ -335,10 +335,13 @@ def spelling_quality_score(text: str) -> float:
                 misspelt_words_count += 1
             total_words_checks += 1
     num_of_sentences = count_sentences(text)
-    avg_words_per_sentence = \
-        total_words_checks / num_of_sentences
-    result = (avg_words_per_sentence -
-              misspelt_words_count) / avg_words_per_sentence
+    avg_words_per_sentence = (total_words_checks / num_of_sentences) \
+        if num_of_sentences > 0 else 0
+    result = (avg_words_per_sentence - misspelt_words_count) \
+             / avg_words_per_sentence \
+        if avg_words_per_sentence > 0 else NOT_APPLICABLE
+    if result == NOT_APPLICABLE:
+        return result
     return result if result >= 0.0 else 0.0
 
 
@@ -541,6 +544,7 @@ def count_chars(text: str) -> int:
         return []
 
     return len(text)
+
 
 def count_sentences(text: str) -> int:
     return len(gather_sentences(text))
