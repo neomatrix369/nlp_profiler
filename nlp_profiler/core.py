@@ -86,7 +86,8 @@ def apply_text_profiling(dataframe: pd.DataFrame,
             actions_mappings.remove(item)
 
     apply_profiling_progress_bar = get_progress_bar(actions_mappings)
-    for param, action_description, action_function in apply_profiling_progress_bar:
+    for _, (param, action_description, action_function) in \
+            enumerate(apply_profiling_progress_bar):
         apply_profiling_progress_bar.set_description(action_description)
         action_function(
             action_description, new_dataframe,
@@ -173,7 +174,7 @@ def using_joblib_parallel(
     result = Parallel(n_jobs=-1)(
         delayed(run_task)(
             apply_function, each_value
-        ) for each_value in source_values_to_transform
+        ) for _, each_value in enumerate(source_values_to_transform)
     )
     source_values_to_transform.update()
     return result
@@ -190,7 +191,8 @@ def generate_features(main_header: str,
     if parallelisation_method == SWIFTER:
         parallelisation_method_function = using_swifter
 
-    for (new_column, source_column, transformation_function) in generate_feature_progress_bar:
+    for _, (new_column, source_column, transformation_function) in \
+            enumerate(generate_feature_progress_bar):
         source_field = new_dataframe[source_column]
         generate_feature_progress_bar.set_description(
             f'{main_header}: {source_column} => {new_column}'
@@ -251,7 +253,7 @@ def sentiment_polarity(score: float) -> str:
     score = float(score)
     score = (score + 1) / 2  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
     score = score * 100
-    for each_slab in sentiment_polarity_to_words_mapping:  # pragma: no cover
+    for _, each_slab in enumerate(sentiment_polarity_to_words_mapping):  # pragma: no cover
         # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
@@ -297,7 +299,7 @@ def sentiment_subjectivity(score: float) -> str:
 
     score = float(score) * 100
 
-    for each_slab in sentiment_subjectivity_to_words_mapping:  # pragma: no cover
+    for _, each_slab in enumerate(sentiment_subjectivity_to_words_mapping):  # pragma: no cover
         # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
@@ -420,7 +422,7 @@ def gather_stop_words(text: str) -> list:
         return []
 
     word_tokens = word_tokenize(text)
-    found_stop_words = [word for word in word_tokens
+    found_stop_words = [word for _, word in enumerate(word_tokens)
                         if word in STOP_WORDS]
     return found_stop_words
 
@@ -483,7 +485,7 @@ def gather_duplicates(text: str) -> dict:
     tokenized_text = word_tokenize(text.lower())
     sorted_tokenized_text = sorted(tokenized_text)
     duplicates = {}
-    for value, group in groupby(sorted_tokenized_text):
+    for _, (value, group) in enumerate(groupby(sorted_tokenized_text)):
         frequency = len(list(group))
         if frequency > 1:
             duplicates.update({value: frequency})

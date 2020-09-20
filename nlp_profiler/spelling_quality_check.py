@@ -74,7 +74,7 @@ def spelling_quality(score: float) -> str:
         return NOT_APPLICABLE
 
     score = float(score) * 100
-    for each_slab in spelling_quality_score_to_words_mapping:  # pragma: no cover
+    for _, each_slab in enumerate(spelling_quality_score_to_words_mapping):  # pragma: no cover
         # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
