@@ -1,7 +1,8 @@
-from nlp_profiler.core \
-    import NOT_APPLICABLE, gather_punctuations, count_punctuations  # noqa
 import numpy as np
 import pytest
+
+from nlp_profiler.constants import NOT_APPLICABLE
+from nlp_profiler.core import gather_punctuations, count_punctuations  # noqa
 
 text_with_punctuations = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
 

@@ -1,7 +1,8 @@
-from nlp_profiler.core \
-    import NOT_APPLICABLE, gather_stop_words, count_stop_words  # noqa
 import numpy as np
 import pytest
+
+from nlp_profiler.constants import NOT_APPLICABLE
+from nlp_profiler.core import gather_stop_words, count_stop_words  # noqa
 
 text_with_a_number = '2833047 people live in this area'
 

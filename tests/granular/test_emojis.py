@@ -1,7 +1,8 @@
-from nlp_profiler.core \
-    import NOT_APPLICABLE, gather_emojis, count_emojis  # noqa
 import numpy as np
 import pytest
+
+from nlp_profiler.constants import NOT_APPLICABLE
+from nlp_profiler.core import gather_emojis, count_emojis  # noqa
 
 text_with_emojis = "I love ⚽ very much 😁"
 

@@ -1,7 +1,9 @@
-import pytest
 import numpy as np
+import pytest
+
+from nlp_profiler.constants import NOT_APPLICABLE
 from nlp_profiler.core \
-    import NOT_APPLICABLE, grammar_check_score, grammar_quality  # noqa
+    import grammar_check_score, grammar_quality  # noqa
 
 grammar_issues_text = 'Everyone here is so hardworking. Hardworking people. ' \
                       'I think hardworking people are a good trait in our company.'

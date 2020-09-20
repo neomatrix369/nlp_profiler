@@ -3,7 +3,8 @@ import math
 import numpy as np
 import pytest
 
-from nlp_profiler.core import NOT_APPLICABLE, sentiment_subjectivity_score, \
+from nlp_profiler.constants import NOT_APPLICABLE
+from nlp_profiler.core import sentiment_subjectivity_score, \
     sentiment_subjectivity_summarised, sentiment_subjectivity  # noqa
 
 objective_subjective_text = '2833047 and 1111 people live in this area.'

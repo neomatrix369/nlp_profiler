@@ -3,7 +3,8 @@ import math
 import numpy as np
 import pytest
 
-from nlp_profiler.core import NOT_APPLICABLE, sentiment_polarity_score, \
+from nlp_profiler.constants import NOT_APPLICABLE
+from nlp_profiler.core import sentiment_polarity_score, \
     sentiment_polarity_summarised, sentiment_polarity  # noqa
 
 positive_text = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."

@@ -1,7 +1,8 @@
-from nlp_profiler.core \
-    import NOT_APPLICABLE, gather_dates, count_dates  # noqa
 import numpy as np
 import pytest
+
+from nlp_profiler.constants import NOT_APPLICABLE
+from nlp_profiler.core import gather_dates, count_dates  # noqa
 
 text_with_date = "Todays date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020"
 text_with_dates = "Todays date is 28/04/2020 and tomorrow's date is 29/04/2020"
