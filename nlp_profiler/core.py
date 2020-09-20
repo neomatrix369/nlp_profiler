@@ -166,7 +166,12 @@ def using_swifter(
         source_field, apply_function,
         source_column: str = None, new_column: str = None
 ) -> pd.DataFrame:
-    return source_field.swifter.apply(apply_function, axis=1)
+    return source_field \
+        .swifter \
+        .set_dask_scheduler(scheduler="processes") \
+        .allow_dask_on_strings(enable=True) \
+        .progress_bar(enable=True, desc=f'Applying {source_column} => {new_column}') \
+        .apply(apply_function, axis=1)
 
 
 def using_joblib_parallel(
