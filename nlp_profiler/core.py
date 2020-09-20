@@ -32,7 +32,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 # Sentiment Analysis
 from textblob import TextBlob
-from tqdm.auto import tqdm
+import sys
 import swifter  # noqa
 
 from nlp_profiler.constants import \
@@ -51,11 +51,18 @@ memory = joblib.Memory(tempfile.gettempdir(), compress=9, verbose=0)
 
 
 def is_running_from_ipython():
-    from IPython import get_ipython
-    return get_ipython() is not None
+    inJupyter = sys.argv[-1].endswith('json')
+    return inJupyter
 
 
-PROGRESS_BAR_WIDTH = 900 if is_running_from_ipython() else None
+if is_running_from_ipython():
+    from tqdm.autonotebook import tqdm
+
+    PROGRESS_BAR_WIDTH = 900
+else:
+    from tqdm.auto import tqdm
+
+    PROGRESS_BAR_WIDTH = None
 
 
 def apply_text_profiling(dataframe: pd.DataFrame,
