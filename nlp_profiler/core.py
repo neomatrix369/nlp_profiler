@@ -170,7 +170,7 @@ def using_swifter(
         .swifter \
         .set_dask_scheduler(scheduler="processes") \
         .allow_dask_on_strings(enable=True) \
-        .progress_bar(enable=True, desc=f'Applying {source_column} => {new_column}') \
+        .progress_bar(enable=True, desc=f'{source_column} => {new_column}') \
         .apply(apply_function, axis=1)
 
 
@@ -180,7 +180,7 @@ def using_joblib_parallel(
 ) -> pd.DataFrame:
     source_values_to_transform = get_progress_bar(source_field.values)
     source_values_to_transform.set_description(
-        f'Applying {source_column} => {new_column}'
+        f'{source_column} => {new_column}'
     )
 
     result = Parallel(n_jobs=-1)(
