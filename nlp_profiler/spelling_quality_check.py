@@ -41,17 +41,24 @@ def spelling_quality_score(text: str) -> float:
     total_words_checks = 0
     for each_word in tokenized_text:
         if each_word not in string.punctuation:
-            spellchecked_word = Word(each_word).spellcheck()
-            _, score = spellchecked_word[0]
-            if score != 1:
-                misspelt_words_count += 1
-            total_words_checks += 1
+            misspelt_words_count, total_words_checks = \
+                actual_spell_check(each_word, misspelt_words_count,
+                                   total_words_checks)
     num_of_sentences = count_sentences(text)
     avg_words_per_sentence = total_words_checks / num_of_sentences
     result = (avg_words_per_sentence - misspelt_words_count) \
              / avg_words_per_sentence
 
     return result if result >= 0.0 else 0.0
+
+
+def actual_spell_check(each_word, misspelt_words_count, total_words_checks):
+    spellchecked_word = Word(each_word).spellcheck()
+    _, score = spellchecked_word[0]
+    if score != 1:
+        misspelt_words_count += 1
+    total_words_checks += 1
+    return misspelt_words_count, total_words_checks
 
 
 def spelling_quality(score: float) -> str:
