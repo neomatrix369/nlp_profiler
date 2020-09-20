@@ -2,6 +2,8 @@ import os
 import sys
 from datetime import datetime
 from time import time
+from contextlib import redirect_stdout
+import git
 
 sys.path.insert(0, '.')
 from nlp_profiler.spelling_quality_check import spelling_quality_score
@@ -27,17 +29,30 @@ def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_t
         profile_wrapper(each)
     end_execution_time = time()
     actual_execution_time = end_execution_time - start_execution_time
-    profile.print_stats()
-    profile.dump_stats(
-        f'{TARGET_PROFILE_REPORT_FOLDER}/'
-        f'spelling_quality_check-{datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}.lprof'
-    )
+
+    short_sha = shorten_sha(git_current_head_sha())
+    output_filename = f'{TARGET_PROFILE_REPORT_FOLDER}/spelling_quality_check-' \
+                      f'{datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}-{short_sha}'
+    with open(f'{output_filename}.txt', 'w') as file:
+        with redirect_stdout(file):
+            profile.print_stats()
+
+    profile.dump_stats(f'{output_filename}.lprof')
 
     # then
     assert actual_execution_time <= expected_execution_time, \
         f"Expected duration: {expected_execution_time}, Actual duration: {actual_execution_time}." \
         f"Slow down by: {abs(actual_execution_time - expected_execution_time)} seconds." \
         f"We are cross the benchmark limit after a speed up after commit a81ed70."
+
+
+def shorten_sha(long_sha):
+    return long_sha[:7]
+
+
+def git_current_head_sha():
+    repo = git.Repo(search_parent_directories=True)
+    return repo.head.commit.hexsha
 
 
 def generate_data() -> list:
