@@ -1,8 +1,9 @@
 import os
+
 import pandas as pd
 from pandas.util.testing import assert_frame_equal
 
-from nlp_profiler.core import apply_text_profiling
+from nlp_profiler.core import PARALLELISATION_METHOD, SWIFTER, apply_text_profiling
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
 EXPECTED_DATA_PATH = f'{os.path.dirname(CURRENT_SOURCE_FILEPATH)}/data'
@@ -22,7 +23,7 @@ def test_given_a_text_column_when_profiler_is_applied_then_profiled_dataset_is_r
 
     # when: using swifter method for parallelisation
     actual_dataframe = apply_text_profiling(
-        source_dataframe, "text", params={'parallelism_method': 'using_swifter'}
+        source_dataframe, "text", params={PARALLELISATION_METHOD: SWIFTER}
     )
 
     # then

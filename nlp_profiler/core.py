@@ -28,13 +28,22 @@ import language_tool_python
 import nltk
 import pandas as pd
 from joblib import Parallel, delayed
-import swifter
+# NLP
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 # Sentiment Analysis
 from textblob import TextBlob
 from textblob import Word
 from tqdm.auto import tqdm
+
+DEFAULT_PARALLEL = 'default'
+
+SWIFTER = 'using_swifter'
+
+GRANULAR = 'granular'
+HIGH_LEVEL = 'high_level'
+GRAMMAR_CHECK = 'grammar_check'
+PARALLELISATION_METHOD = 'parallelisation_method'
 
 nltk.download('stopwords')
 STOP_WORDS = set(stopwords.words('english'))
@@ -61,19 +70,19 @@ def apply_text_profiling(dataframe: pd.DataFrame,
     new_dataframe = dataframe.drop(columns=columns_to_drop, axis=1).copy()
 
     default_params = {
-        'high_level': True,
-        'granular': True,
-        'grammar_check': False,
-        'parallelism_method': 'default'
+        HIGH_LEVEL: True,
+        GRANULAR: True,
+        GRAMMAR_CHECK: False,
+        PARALLELISATION_METHOD: DEFAULT_PARALLEL
     }
 
     default_params.update(params)
 
     print(f"final params: {default_params}")
     actions_mappings = [
-        ('granular', "Granular features", apply_granular_features),
-        ('high_level', "High-level features", apply_high_level_features),
-        ('grammar_check', "Grammar checks", apply_grammar_check)
+        (GRANULAR, "Granular features", apply_granular_features),
+        (HIGH_LEVEL, "High-level features", apply_high_level_features),
+        (GRAMMAR_CHECK, "Grammar checks", apply_grammar_check)
     ]
 
     for index, item in enumerate(actions_mappings.copy()):
@@ -86,7 +95,7 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         apply_profiling_progress_bar.set_description(action_description)
         action_function(
             action_description, new_dataframe,
-            text_column, default_params['parallelism_method']
+            text_column, default_params[PARALLELISATION_METHOD]
         )
 
     return new_dataframe
@@ -95,7 +104,7 @@ def apply_text_profiling(dataframe: pd.DataFrame,
 def apply_granular_features(heading: str,
                             new_dataframe: pd.DataFrame,
                             text_column: dict,
-                            parallelism_method: str = 'default'):
+                            parallelisation_method: str = DEFAULT_PARALLEL):
     granular_features_steps = [
         ('sentences_count', text_column, count_sentences),
         ('characters_count', text_column, count_chars),
@@ -113,14 +122,14 @@ def apply_granular_features(heading: str,
     ]
     generate_features(
         heading, granular_features_steps,
-        new_dataframe, parallelism_method
+        new_dataframe, parallelisation_method
     )
 
 
 def apply_high_level_features(heading: str,
                               new_dataframe: pd.DataFrame,
                               text_column: dict,
-                              parallelism_method: str = 'default'):
+                              parallelisation_method: str = DEFAULT_PARALLEL):
     high_level_features_steps = [
         ('sentiment_polarity_score', text_column, sentiment_polarity_score),
         ('sentiment_polarity', 'sentiment_polarity_score', sentiment_polarity),
@@ -135,7 +144,7 @@ def apply_high_level_features(heading: str,
     ]
     generate_features(
         heading, high_level_features_steps,
-        new_dataframe, parallelism_method
+        new_dataframe, parallelisation_method
     )
 
 
@@ -177,13 +186,13 @@ def using_joblib_parallel(
 def generate_features(main_header: str,
                       high_level_features_steps: list,
                       new_dataframe: pd.DataFrame,
-                      parallelism_method: str = 'default'):
+                      parallelisation_method: str = DEFAULT_PARALLEL):
     generate_feature_progress_bar = get_progress_bar(high_level_features_steps)
 
     # Using swifter or Using joblib Parallel and delay method:
-    parallelism_method_function = using_joblib_parallel
-    if parallelism_method == 'using_swifter':
-        parallelism_method_function = using_swifter
+    parallelisation_method_function = using_joblib_parallel
+    if parallelisation_method == SWIFTER:
+        parallelisation_method_function = using_swifter
 
     for (new_column, source_column, transformation_function) in generate_feature_progress_bar:
         source_field = new_dataframe[source_column]
@@ -191,7 +200,7 @@ def generate_features(main_header: str,
             f'{main_header}: {source_column} => {new_column}'
         )
 
-        new_dataframe[new_column] = parallelism_method_function(
+        new_dataframe[new_column] = parallelisation_method_function(
             source_field, transformation_function,
             source_column, new_column
         )
@@ -200,14 +209,14 @@ def generate_features(main_header: str,
 def apply_grammar_check(heading: str,
                         new_dataframe: pd.DataFrame,
                         text_column: dict,
-                        parallelism_method: str = 'default'):
+                        parallelisation_method: str = DEFAULT_PARALLEL):
     grammar_checks_steps = [
         ('grammar_check_score', text_column, grammar_check_score),
         ('grammar_check', 'grammar_check_score', grammar_quality),
     ]
     generate_features(
         heading, grammar_checks_steps,
-        new_dataframe, parallelism_method
+        new_dataframe, parallelisation_method
     )
 
 
