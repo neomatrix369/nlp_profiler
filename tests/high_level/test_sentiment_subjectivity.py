@@ -42,13 +42,14 @@ def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentim
 
 
 def test_given_a_text_when_sentiment_subjectivity_analysis_is_applied_then_subjective_analysis_info_is_returned():
-    assert_sentiment_subjectivity(objective_subjective_text, 0.50, 'Objective/subjective', 'Objective/subjective')
-    assert_sentiment_subjectivity(subjective_text, 0.75, 'Pretty subjective', 'Subjective')
-    assert_sentiment_subjectivity(objective_text, 0.0, 'Very objective', 'Objective')
-    assert_sentiment_subjectivity(None, NaN, NOT_APPLICABLE, NOT_APPLICABLE)
+    verify_sentiment_subjectivity(objective_subjective_text, 0.50, 'Objective/subjective', 'Objective/subjective')
+    verify_sentiment_subjectivity(subjective_text, 0.75, 'Pretty subjective', 'Subjective')
+    verify_sentiment_subjectivity(objective_text, 0.0, 'Very objective', 'Objective')
+    verify_sentiment_subjectivity(None, NaN, NOT_APPLICABLE, NOT_APPLICABLE)
 
 
-def assert_sentiment_subjectivity(text, expected_subjectivity_score,
+def verify_sentiment_subjectivity(text,
+                                  expected_subjectivity_score,
                                   expected_subjectivity,
                                   expected_summarised_subjectivity):
     # given, when

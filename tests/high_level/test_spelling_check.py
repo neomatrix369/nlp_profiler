@@ -63,17 +63,17 @@ def verify_spelling_check(text,
             "Spell check score didn't match for the text"
 
     # given, when
-    actual_score = spelling_quality(actual_score)
+    actual_spelling_check = spelling_quality(actual_score)
     # then
-    assert expected_spelling_check == actual_score, \
+    assert expected_spelling_check == actual_spelling_check, \
         "Spelling quality check didn't match for the text"
 
     # given, when
-    actual_score = spelling_quality_summarised(actual_score)
+    actual_summarised_spelling = spelling_quality_summarised(actual_spelling_check)
     # then
-    assert expected_summarised_spelling_check == actual_score, \
+    assert expected_summarised_spelling_check == actual_summarised_spelling, \
         f"Summarised spelling quality check didn't match for the text '{text}'. " \
-        f"Expected: {expected_summarised_spelling_check}, Actual: {actual_result}"
+        f"Expected: {expected_summarised_spelling_check}, Actual: {actual_summarised_spelling}"
 
 
 ### The General Area of Possibility

@@ -42,16 +42,15 @@ def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentim
 
 
 def test_given_a_text_when_sentiment_analysis_is_applied_then_sentiment_analysis_info_is_returned():
-    assert_text_polarity(positive_text, 0.375000, 'Pretty positive', 'Positive')
-    assert_text_polarity(negative_text, -0.10681818181818181, 'Pretty negative', 'Negative')
-    assert_text_polarity(neutral_text, 0.0, 'Neutral', 'Neutral')
-    assert_text_polarity(None, NaN, NOT_APPLICABLE, NOT_APPLICABLE)
+    verify_text_polarity(positive_text, 0.375000, 'Pretty positive', 'Positive')
+    verify_text_polarity(negative_text, -0.10681818181818181, 'Pretty negative', 'Negative')
+    verify_text_polarity(neutral_text, 0.0, 'Neutral', 'Neutral')
 
 
-def assert_text_polarity(text,
-                         expected_polarity_score,
-                         expected_polarity,
-                         expected_polarity_summarised):
+def verify_text_polarity(text: str,
+                         expected_polarity_score: float,
+                         expected_polarity: str,
+                         expected_polarity_summarised: str):
     # given, when
     actual_score = sentiment_polarity_score(text)
     # then
