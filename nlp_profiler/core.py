@@ -33,7 +33,7 @@ from nltk.tokenize import word_tokenize
 # Sentiment Analysis
 from textblob import TextBlob
 from tqdm.auto import tqdm
-import swifter  #noqa
+import swifter  # noqa
 
 from nlp_profiler.constants import \
     NOT_APPLICABLE, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
@@ -144,6 +144,7 @@ def apply_high_level_features(heading: str,
 
 
 def run_task(task_function, value: str):  # pragma: no cover
+    # pragma: no cover => multiprocessing leads to loss of test coverage info
     cached_task_function = memory.cache(task_function)
     return cached_task_function(value)
 
@@ -251,6 +252,7 @@ def sentiment_polarity(score: float) -> str:
     score = (score + 1) / 2  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
     score = score * 100
     for each_slab in sentiment_polarity_to_words_mapping:  # pragma: no cover
+        # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
@@ -296,6 +298,7 @@ def sentiment_subjectivity(score: float) -> str:
     score = float(score) * 100
 
     for each_slab in sentiment_subjectivity_to_words_mapping:  # pragma: no cover
+        # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 

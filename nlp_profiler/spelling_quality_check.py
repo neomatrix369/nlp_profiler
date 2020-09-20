@@ -59,18 +59,19 @@ def spelling_quality_score(text: str) -> float:
     return result if result >= 0.0 else 0.0
 
 
-@memory.cache
 def get_sentence_count(text: str) -> int:
-    return count_sentences(text)
+    cached_function = memory.cache(count_sentences)
+    return cached_function(text)
 
 
-@memory.cache
 def get_tokenized_text(text: str) -> list:
-    return word_tokenize(text.lower())
+    cached_function = memory.cache(word_tokenize)
+    return cached_function(text.lower())
 
 
 @memory.cache
-def actual_spell_check(each_word: str) -> str:
+def actual_spell_check(each_word: str) -> str:  # pragma: no cover
+    # pragma: no cover => as multiprocess leads to loss of test coverage info
     spellchecked_word = Word(each_word).spellcheck()
     _, score = spellchecked_word[0]
     return each_word if score != 1 else None
@@ -82,5 +83,6 @@ def spelling_quality(score: float) -> str:
 
     score = float(score) * 100
     for each_slab in spelling_quality_score_to_words_mapping:  # pragma: no cover
+        # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
