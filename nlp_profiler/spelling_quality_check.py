@@ -25,7 +25,6 @@ spelling_quality_score_to_words_mapping = [
 ]
 
 
-@memory.cache
 def spelling_quality_summarised(quality: str) -> str:
     if quality == NOT_APPLICABLE:
         return NOT_APPLICABLE
@@ -77,7 +76,6 @@ def actual_spell_check(each_word: str) -> str:
     return each_word if score != 1 else None
 
 
-@memory.cache
 def spelling_quality(score: float) -> str:
     if score == NOT_APPLICABLE:
         return NOT_APPLICABLE
