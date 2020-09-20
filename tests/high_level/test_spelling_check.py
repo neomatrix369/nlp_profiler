@@ -50,8 +50,8 @@ def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentim
 
 def test_given_a_text_when_spell_check_is_applied_then_spell_check_analysis_info_is_returned():
     verify_spelling_check(good_spelling_text, 1.0, 'Very good', 'Good')
-    verify_spelling_check(bad_spelling_text, 0.5555555555555556, 'Bad', 'Bad')
-    verify_spelling_check(very_bad_spelling_text, 0, 'Very bad', 'Bad')
+    verify_spelling_check(bad_spelling_text, 0.6190476190476191, 'Bad', 'Bad')
+    verify_spelling_check(very_bad_spelling_text, 0.14285714285714285, 'Pretty bad', 'Bad')
     verify_spelling_check(None, NOT_APPLICABLE, NOT_APPLICABLE, NOT_APPLICABLE)
 
 

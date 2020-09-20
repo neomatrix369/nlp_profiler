@@ -40,21 +40,13 @@ def spelling_quality_score(text: str) -> float:
         return NOT_APPLICABLE
 
     tokenized_text = get_tokenized_text(text)
-
-    tokenized_text = [
-        token for token in tokenized_text if token not in string.punctuation
-    ]
-    total_words_checks = len(tokenized_text)
     misspelt_words = [
-        each_word for each_word in tokenized_text
+        each_word for _, each_word in enumerate(tokenized_text)
         if actual_spell_check(each_word) is not None
     ]
-    misspelt_words_count = len(misspelt_words)
-
-    num_of_sentences = get_sentence_count(text)
-    avg_words_per_sentence = total_words_checks / num_of_sentences
-    result = (avg_words_per_sentence - misspelt_words_count) \
-             / avg_words_per_sentence
+    avg_words_per_sentence = \
+        len(tokenized_text) / get_sentence_count(text)
+    result = 1 - (len(misspelt_words) / avg_words_per_sentence)
 
     return result if result >= 0.0 else 0.0
 

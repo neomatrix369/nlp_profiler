@@ -34,7 +34,10 @@ def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_t
     )
 
     # then
-    assert actual_execution_time <= expected_execution_time
+    assert actual_execution_time <= expected_execution_time, \
+        f"Expected duration: {expected_execution_time}, Actual duration: {actual_execution_time}." \
+        f"Slow down by: {abs(actual_execution_time - expected_execution_time)} seconds." \
+        f"We are cross the benchmark limit after a speed up after commit a81ed70."
 
 
 def generate_data() -> list:

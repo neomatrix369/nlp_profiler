@@ -9,7 +9,7 @@ CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
 EXPECTED_DATA_PATH = f'{os.path.dirname(CURRENT_SOURCE_FILEPATH)}/data'
 
 
-def test_given_a_text_column_when_profiler_is_applied_then_profiled_dataset_is_returned():
+def test_given_a_text_column_when_profiler_using_parallel_then_profiled_dataset_is_returned():
     # given
     source_dataframe = create_source_dataframe()
     csv_filename = f'{EXPECTED_DATA_PATH}/expected_profiled_dataframe.csv'
@@ -20,6 +20,13 @@ def test_given_a_text_column_when_profiler_is_applied_then_profiled_dataset_is_r
 
     # then
     assert_frame_equal(expected_dataframe, actual_dataframe, check_like=True)
+
+
+def test_given_a_text_column_when_profiler_using_swifter_then_profiled_dataset_is_returned():
+    # given
+    source_dataframe = create_source_dataframe()
+    csv_filename = f'{EXPECTED_DATA_PATH}/expected_profiled_dataframe.csv'
+    expected_dataframe = pd.read_csv(csv_filename)
 
     # when: using swifter method for parallelisation
     actual_dataframe = apply_text_profiling(
