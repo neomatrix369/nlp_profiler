@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from nlp_profiler.constants import NOT_APPLICABLE
+from nlp_profiler.constants import NaN
 from nlp_profiler.core import gather_stop_words, count_stop_words  # noqa
 
 text_with_a_number = '2833047 people live in this area'
@@ -16,7 +16,7 @@ text_to_return_value_mapping = [
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_value_mapping)
 def test_given_invalid_text_when_parsed_then_return_empty_list(
-        text: str, expected_result: list
+        text: str, expected_result: str
 ):
     # given, when
     actual_result = gather_stop_words(text)
@@ -27,22 +27,22 @@ def test_given_invalid_text_when_parsed_then_return_empty_list(
 
 
 text_to_return_count_mapping = [
-    (np.nan, NOT_APPLICABLE),
-    (float('nan'), NOT_APPLICABLE),
-    (None, NOT_APPLICABLE),
+    (np.nan, NaN),
+    (float('nan'), NaN),
+    (None, NaN),
 ]
 
 
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_count_mapping)
-def test_given_invalid_text_when_counted_then_return_NOT_APPLICABLE(
-        text: str, expected_result: list
+def test_given_invalid_text_when_counted_then_return_NaN(
+        text: str, expected_result: float
 ):
     # given, when
     actual_result = count_stop_words(text)
 
     # then
-    assert expected_result == actual_result, \
+    assert expected_result is actual_result, \
         f"Expected: {expected_result}, Actual: {actual_result}"
 
 

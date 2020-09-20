@@ -5,7 +5,7 @@ from time import time
 from contextlib import redirect_stdout
 import git
 
-sys.path.insert(0, '.')
+sys.path.insert(0, '../../performance-tests/high_level')
 from nlp_profiler.spelling_quality_check import spelling_quality_score
 from line_profiler import LineProfiler
 

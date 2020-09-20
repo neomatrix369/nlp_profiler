@@ -1,6 +1,6 @@
 import re
 
-from nlp_profiler.constants import NOT_APPLICABLE
+from nlp_profiler.constants import NaN
 
 
 ### Sentences
@@ -18,6 +18,6 @@ def gather_sentences(text: str) -> list:
 
 def count_sentences(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(gather_sentences(text))

@@ -5,7 +5,7 @@ from joblib import Memory
 from nltk.tokenize import word_tokenize
 from textblob import Word
 
-from nlp_profiler.constants import NOT_APPLICABLE
+from nlp_profiler.constants import NOT_APPLICABLE, NaN
 from nlp_profiler.sentences import count_sentences
 
 memory = Memory(tempfile.gettempdir(), compress=9, verbose=0)
@@ -26,7 +26,7 @@ spelling_quality_score_to_words_mapping = [
 
 
 def spelling_quality_summarised(quality: str) -> str:
-    if quality == NOT_APPLICABLE:
+    if (not quality) or (quality == NOT_APPLICABLE):
         return NOT_APPLICABLE
 
     if 'good' in quality.lower():
@@ -37,7 +37,7 @@ def spelling_quality_summarised(quality: str) -> str:
 
 def spelling_quality_score(text: str) -> float:
     if (not isinstance(text, str)) or (len(text.strip()) == 0):
-        return NOT_APPLICABLE
+        return NaN
 
     tokenized_text = get_tokenized_text(text)
     misspelt_words = [
@@ -70,7 +70,7 @@ def actual_spell_check(each_word: str) -> str:  # pragma: no cover
 
 
 def spelling_quality(score: float) -> str:
-    if score == NOT_APPLICABLE:
+    if score is NaN:
         return NOT_APPLICABLE
 
     score = float(score) * 100

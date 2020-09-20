@@ -36,7 +36,7 @@ import sys
 import swifter  # noqa
 
 from nlp_profiler.constants import \
-    NOT_APPLICABLE, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
+    NOT_APPLICABLE, NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
     GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK
 from nlp_profiler.sentences import count_sentences
 from nlp_profiler.spelling_quality_check \
@@ -55,14 +55,9 @@ def is_running_from_ipython():
     return inJupyter
 
 
-if is_running_from_ipython():
-    from tqdm.autonotebook import tqdm
+from tqdm.auto import tqdm
 
-    PROGRESS_BAR_WIDTH = 900
-else:
-    from tqdm.auto import tqdm
-
-    PROGRESS_BAR_WIDTH = None
+PROGRESS_BAR_WIDTH = 900 if is_running_from_ipython() else None
 
 
 def apply_text_profiling(dataframe: pd.DataFrame,
@@ -231,7 +226,7 @@ def apply_grammar_check(heading: str,
 ### Sentiment analysis
 
 def sentiment_polarity_summarised(polarity: str) -> str:
-    if polarity == NOT_APPLICABLE:
+    if (not polarity) or (polarity == NOT_APPLICABLE):
         return NOT_APPLICABLE
 
     if 'negative' in polarity.lower():
@@ -257,7 +252,7 @@ sentiment_polarity_to_words_mapping = [
 
 
 def sentiment_polarity(score: float) -> str:
-    if score == NOT_APPLICABLE:
+    if score is NaN:
         return NOT_APPLICABLE
 
     score = float(score)
@@ -271,7 +266,7 @@ def sentiment_polarity(score: float) -> str:
 
 def sentiment_polarity_score(text: str) -> float:
     if (not isinstance(text, str)) or (len(text.strip()) == 0):
-        return NOT_APPLICABLE
+        return NaN
 
     return TextBlob(text).sentiment.polarity
 
@@ -279,7 +274,7 @@ def sentiment_polarity_score(text: str) -> float:
 ### Sentiment Subjectivity
 
 def sentiment_subjectivity_summarised(subjectivity: str) -> str:
-    if subjectivity == NOT_APPLICABLE:
+    if (not subjectivity) or (subjectivity == NOT_APPLICABLE):
         return NOT_APPLICABLE
 
     if '/' in subjectivity:
@@ -304,7 +299,7 @@ sentiment_subjectivity_to_words_mapping = [
 
 
 def sentiment_subjectivity(score: float) -> str:
-    if score == NOT_APPLICABLE:
+    if score is NaN:
         return NOT_APPLICABLE
 
     score = float(score) * 100
@@ -317,7 +312,7 @@ def sentiment_subjectivity(score: float) -> str:
 
 def sentiment_subjectivity_score(text: str) -> float:
     if (not isinstance(text, str)) or (len(text.strip()) == 0):
-        return NOT_APPLICABLE
+        return NaN
 
     return TextBlob(text).sentiment.subjectivity
 
@@ -326,7 +321,7 @@ def sentiment_subjectivity_score(text: str) -> float:
 ### take a lot of time per text it analysis
 def grammar_check_score(text: str) -> int:
     if (not isinstance(text, str)) or (len(text.strip()) == 0):
-        return NOT_APPLICABLE
+        return NaN
 
     tool = language_tool_python.LanguageTool('en-GB')
     matches = tool.check(text)
@@ -334,7 +329,7 @@ def grammar_check_score(text: str) -> int:
 
 
 def grammar_quality(score: float) -> str:
-    if score == NOT_APPLICABLE:
+    if score is NaN:
         return NOT_APPLICABLE
 
     if score == 1:
@@ -357,7 +352,7 @@ def gather_emojis(text: str) -> list:
 
 def count_emojis(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     list_of_emojis = gather_emojis(text)
     return len(list_of_emojis)
@@ -374,7 +369,7 @@ def gather_whole_numbers(text: str) -> list:
 
 def count_whole_numbers(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(gather_whole_numbers(text))
 
@@ -389,7 +384,7 @@ def gather_alpha_numeric(text: str) -> list:
 
 def count_alpha_numeric(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(gather_alpha_numeric(text))
 
@@ -404,7 +399,7 @@ def gather_non_alpha_numeric(text: str) -> list:
 
 def count_non_alpha_numeric(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(gather_non_alpha_numeric(text))
 
@@ -421,7 +416,7 @@ def gather_punctuations(text: str) -> list:
 
 def count_punctuations(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(gather_punctuations(text))
 
@@ -439,7 +434,7 @@ def gather_stop_words(text: str) -> list:
 
 def count_stop_words(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(gather_stop_words(text))
 
@@ -459,7 +454,7 @@ def gather_dates(text: str, date_format: str = 'dd/mm/yyyy') -> list:
 
 def count_dates(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(gather_dates(text))
 
@@ -474,14 +469,14 @@ def gather_words(text: str) -> list:
 
 def count_words(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
     return len(gather_words(text))
 
 
 ### Number of spaces
 def count_spaces(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     spaces = re.findall(r' ', text)
     return len(spaces)
@@ -506,20 +501,20 @@ def gather_duplicates(text: str) -> dict:
 ### Duplicates
 def count_duplicates(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(gather_duplicates(text))
 
 
 def count_characters_excluding_spaces(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(text) - count_spaces(text)
 
 
 def count_chars(text: str) -> int:
     if not isinstance(text, str):
-        return NOT_APPLICABLE
+        return NaN
 
     return len(text)
