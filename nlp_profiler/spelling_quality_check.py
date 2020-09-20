@@ -1,10 +1,14 @@
 import string
+import tempfile
 
+from joblib import Memory
 from nltk.tokenize import word_tokenize
 from textblob import Word
 
 from nlp_profiler.constants import NOT_APPLICABLE
 from nlp_profiler.sentences import count_sentences
+
+memory = Memory(tempfile.gettempdir(), compress=9, verbose=0)
 
 ### Spell check
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
@@ -21,6 +25,7 @@ spelling_quality_score_to_words_mapping = [
 ]
 
 
+@memory.cache
 def spelling_quality_summarised(quality: str) -> str:
     if quality == NOT_APPLICABLE:
         return NOT_APPLICABLE
@@ -35,16 +40,19 @@ def spelling_quality_score(text: str) -> float:
     if (not isinstance(text, str)) or (len(text.strip()) == 0):
         return NOT_APPLICABLE
 
-    tokenized_text = word_tokenize(text.lower())
+    tokenized_text = get_tokenized_text(text)
 
-    misspelt_words_count = 0
-    total_words_checks = 0
-    for each_word in tokenized_text:
-        if each_word not in string.punctuation:
-            misspelt_words_count, total_words_checks = \
-                actual_spell_check(each_word, misspelt_words_count,
-                                   total_words_checks)
-    num_of_sentences = count_sentences(text)
+    tokenized_text = [
+        token for token in tokenized_text if token not in string.punctuation
+    ]
+    total_words_checks = len(tokenized_text)
+    misspelt_words = [
+        each_word for each_word in tokenized_text
+        if actual_spell_check(each_word) is not None
+    ]
+    misspelt_words_count = len(misspelt_words)
+
+    num_of_sentences = get_sentence_count(text)
     avg_words_per_sentence = total_words_checks / num_of_sentences
     result = (avg_words_per_sentence - misspelt_words_count) \
              / avg_words_per_sentence
@@ -52,15 +60,24 @@ def spelling_quality_score(text: str) -> float:
     return result if result >= 0.0 else 0.0
 
 
-def actual_spell_check(each_word, misspelt_words_count, total_words_checks):
+@memory.cache
+def get_sentence_count(text: str) -> int:
+    return count_sentences(text)
+
+
+@memory.cache
+def get_tokenized_text(text: str) -> list:
+    return word_tokenize(text.lower())
+
+
+@memory.cache
+def actual_spell_check(each_word: str) -> str:
     spellchecked_word = Word(each_word).spellcheck()
     _, score = spellchecked_word[0]
-    if score != 1:
-        misspelt_words_count += 1
-    total_words_checks += 1
-    return misspelt_words_count, total_words_checks
+    return each_word if score != 1 else None
 
 
+@memory.cache
 def spelling_quality(score: float) -> str:
     if score == NOT_APPLICABLE:
         return NOT_APPLICABLE

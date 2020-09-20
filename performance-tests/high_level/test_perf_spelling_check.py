@@ -1,6 +1,7 @@
 import os
 import sys
-import time
+from datetime import datetime
+from time import time
 
 sys.path.insert(0, '.')
 from nlp_profiler.spelling_quality_check import spelling_quality_score
@@ -12,21 +13,28 @@ EXPECTED_DATA_PATH = f'{os.path.dirname(CURRENT_SOURCE_FILEPATH)}/data'
 
 def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_then_it_finishes_quick():
     # given
+    TARGET_PROFILE_REPORT_FOLDER = '.cprofile/'
+    if not os.path.exists(TARGET_PROFILE_REPORT_FOLDER):
+        os.makedirs(TARGET_PROFILE_REPORT_FOLDER)
     profile = LineProfiler()
     source_data = generate_data()
-    expected_execution_time = 0.025  # seconds
+    expected_execution_time = 32  # benchmarked: (first-time) 31.051079034805298, (cached) 0.918392 seconds
 
     # when: using default method (joblib Parallel) for parallelisation
-    start_execution_time = time.time()
+    start_execution_time = time()
     profile_wrapper = profile(spelling_quality_score)
-    [profile_wrapper(each) for each in source_data]
-    end_execution_time = time.time()
+    for each in source_data:
+        profile_wrapper(each)
+    end_execution_time = time()
     actual_execution_time = end_execution_time - start_execution_time
     profile.print_stats()
-    profile.dump_stats(f'.cprofile/spelling_quality_check-{time.time()}.lprof')
+    profile.dump_stats(
+        f'{TARGET_PROFILE_REPORT_FOLDER}/'
+        f'spelling_quality_check-{datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}.lprof'
+    )
 
     # then
-    assert expected_execution_time <= actual_execution_time
+    assert actual_execution_time <= expected_execution_time
 
 
 def generate_data() -> list:
@@ -42,6 +50,6 @@ def generate_data() -> list:
             text_with_punctuations, text_with_a_date, text_with_dates, text_with_duplicates]
 
     new_data = []
-    for index in range(5):
+    for index in range(1):
         new_data.extend(data)
     return new_data
