@@ -14,3 +14,4 @@ nlp_profiler.egg*
 datasets
 googleplaystore_user_reviews.csv
 expected_high_level_googleplaystore_user_reviews.csv
+stats.log
