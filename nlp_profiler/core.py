@@ -33,7 +33,7 @@ from nltk.tokenize import word_tokenize
 # Sentiment Analysis
 from textblob import TextBlob
 from tqdm.auto import tqdm
-import swifter #noqa
+import swifter  #noqa
 
 from nlp_profiler.constants import \
     NOT_APPLICABLE, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
