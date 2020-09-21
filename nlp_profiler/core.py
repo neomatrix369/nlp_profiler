@@ -22,8 +22,6 @@ from itertools import groupby
 
 import emoji
 import joblib
-# Grammar Check
-import language_tool_python
 import nltk
 import pandas as pd
 from joblib import Parallel, delayed
@@ -34,7 +32,7 @@ import sys
 import swifter  # noqa
 
 from nlp_profiler.constants import \
-    NOT_APPLICABLE, NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
+    NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
     GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK
 from nlp_profiler.sentences import count_sentences
 from nlp_profiler.sentiment_polarity \
@@ -43,6 +41,8 @@ from nlp_profiler.sentiment_subjectivity import sentiment_subjectivity_score, \
     sentiment_subjectivity_summarised, sentiment_subjectivity
 from nlp_profiler.spelling_quality_check \
     import spelling_quality_score, spelling_quality, spelling_quality_summarised
+from nlp_profiler.grammar_quality_check \
+    import grammar_quality, grammar_check_score
 
 nltk.download('stopwords')
 STOP_WORDS = set(stopwords.words('english'))
@@ -223,29 +223,6 @@ def apply_grammar_check(heading: str,
         heading, grammar_checks_steps,
         new_dataframe, parallelisation_method
     )
-
-
-### Grammar check: this is a very slow process
-### take a lot of time per text it analysis
-def grammar_check_score(text: str) -> int:
-    if (not isinstance(text, str)) or (len(text.strip()) == 0):
-        return NaN
-
-    tool = language_tool_python.LanguageTool('en-GB')
-    matches = tool.check(text)
-    return len(matches)
-
-
-def grammar_quality(score: float) -> str:
-    if score is NaN:
-        return NOT_APPLICABLE
-
-    if score == 1:
-        return "1 issue"
-    elif score > 1:
-        return f"{score} issues"
-
-    return "No issues"
 
 
 ### Emojis
