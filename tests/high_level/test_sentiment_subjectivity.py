@@ -12,53 +12,34 @@ objective_text = "Today's date is 04/28/2020 for format mm/dd/yyyy, not 28/04/20
 subjective_text = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
 
 text_to_return_value_mapping = [
-    (np.nan, NaN, NOT_APPLICABLE),
-    (float('nan'), NaN, NOT_APPLICABLE),
-    (None, NaN, NOT_APPLICABLE),
-    ("", NaN, NOT_APPLICABLE),
+    (None, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (np.nan, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (float('nan'), NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    ("", NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (objective_subjective_text, 0.50, 'Objective/subjective', 'Objective/subjective'),
+    (subjective_text, 0.75, 'Pretty subjective', 'Subjective'),
+    (objective_text, 0.0, 'Very objective', 'Objective'),
 ]
 
 
-@pytest.mark.parametrize("text,expected_score,expected_subjectivity",
+@pytest.mark.parametrize("text,"
+                         "expected_score,"
+                         "expected_subjectivity,"
+                         "expected_subjectivity_summarised",
                          text_to_return_value_mapping)
-def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentiment_analysis_info_is_returned(
-        text: str, expected_score: float, expected_subjectivity: str
+def test_given_a_text_when_sentiment_subjectivity_analysis_is_applied_then_subjective_analysis_info_is_returned(
+        text: str,
+        expected_score: float,
+        expected_subjectivity: str,
+        expected_subjectivity_summarised: str
 ):
-    # given, when: text is not defined
-    actual_score = sentiment_subjectivity_score(text)
-
-    # then
-    assert actual_score is expected_score, \
-        f"Sentiment subjectivity score should NOT " \
-        f"have been returned, expected {expected_score}"
-
-    # given, when
-    actual_subjectivity = sentiment_subjectivity(actual_score)
-
-    # then
-    assert actual_subjectivity == expected_subjectivity, \
-        f"Sentiment subjectivity should NOT " \
-        f"have been returned, expected {expected_subjectivity}"
-
-
-def test_given_a_text_when_sentiment_subjectivity_analysis_is_applied_then_subjective_analysis_info_is_returned():
-    verify_sentiment_subjectivity(objective_subjective_text, 0.50, 'Objective/subjective', 'Objective/subjective')
-    verify_sentiment_subjectivity(subjective_text, 0.75, 'Pretty subjective', 'Subjective')
-    verify_sentiment_subjectivity(objective_text, 0.0, 'Very objective', 'Objective')
-    verify_sentiment_subjectivity(None, NaN, NOT_APPLICABLE, NOT_APPLICABLE)
-
-
-def verify_sentiment_subjectivity(text,
-                                  expected_subjectivity_score,
-                                  expected_subjectivity,
-                                  expected_summarised_subjectivity):
     # given, when
     actual_score = sentiment_subjectivity_score(text)
     # then
-    if expected_subjectivity_score is NaN:
-        assert actual_score is expected_subjectivity_score
+    if expected_score is NaN:
+        assert actual_score is expected_score
     else:
-        assert math.isclose(expected_subjectivity_score, actual_score,
+        assert math.isclose(expected_score, actual_score,
                             rel_tol=1e-09, abs_tol=0.0), \
             "Subjectivity/objectivity score didn't match for the text"
     # given, when
@@ -67,9 +48,9 @@ def verify_sentiment_subjectivity(text,
     assert expected_subjectivity == actual_subjectivity, \
         "Sentiment subjectivity didn't match for the text"
     # given,  when
-    actual_summarised_subjectivity = sentiment_subjectivity_summarised(actual_subjectivity)
+    actual_subjectivity_summarised = sentiment_subjectivity_summarised(actual_subjectivity)
     # then
-    assert expected_summarised_subjectivity == actual_summarised_subjectivity, \
+    assert expected_subjectivity_summarised == actual_subjectivity_summarised, \
         "Summarised Sentiment subjectivity didn't match for the text"
 
 
