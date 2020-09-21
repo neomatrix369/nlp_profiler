@@ -33,7 +33,7 @@ import swifter  # noqa
 
 from nlp_profiler.constants import \
     NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
-    GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK
+    GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK, SPELLING_CHECK
 from nlp_profiler.sentences import count_sentences
 from nlp_profiler.sentiment_polarity \
     import sentiment_polarity_score, sentiment_polarity, sentiment_polarity_summarised
@@ -71,7 +71,8 @@ def apply_text_profiling(dataframe: pd.DataFrame,
     default_params = {
         HIGH_LEVEL: True,
         GRANULAR: True,
-        GRAMMAR_CHECK: False,
+        GRAMMAR_CHECK: False,  # default: False as slow process but can Enabled
+        SPELLING_CHECK: True,  # default: True although slightly slow process but can Disabled
         PARALLELISATION_METHOD: DEFAULT_PARALLEL
     }
 
@@ -81,7 +82,8 @@ def apply_text_profiling(dataframe: pd.DataFrame,
     actions_mappings = [
         (GRANULAR, "Granular features", apply_granular_features),
         (HIGH_LEVEL, "High-level features", apply_high_level_features),
-        (GRAMMAR_CHECK, "Grammar checks", apply_grammar_check)
+        (GRAMMAR_CHECK, "Grammar checks", apply_grammar_check),
+        (SPELLING_CHECK, "Spelling checks", apply_spelling_check)
     ]
 
     for index, item in enumerate(actions_mappings.copy()):
@@ -137,10 +139,6 @@ def apply_high_level_features(heading: str,
         ('sentiment_subjectivity_score', text_column, sentiment_subjectivity_score),
         ('sentiment_subjectivity', 'sentiment_subjectivity_score', sentiment_subjectivity),
         ('sentiment_subjectivity_summarised', 'sentiment_subjectivity', sentiment_subjectivity_summarised),
-        ('spelling_quality_score', text_column, spelling_quality_score),
-        ('spelling_quality', 'spelling_quality_score', spelling_quality),
-        ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
-
     ]
     generate_features(
         heading, high_level_features_steps,
@@ -209,6 +207,21 @@ def generate_features(main_header: str,
             source_field, transformation_function,
             source_column, new_column
         )
+
+
+def apply_spelling_check(heading: str,
+                         new_dataframe: pd.DataFrame,
+                         text_column: dict,
+                         parallelisation_method: str = DEFAULT_PARALLEL):
+    spelling_checks_steps = [
+        ('spelling_quality_score', text_column, spelling_quality_score),
+        ('spelling_quality', 'spelling_quality_score', spelling_quality),
+        ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
+    ]
+    generate_features(
+        heading, spelling_checks_steps,
+        new_dataframe, parallelisation_method
+    )
 
 
 def apply_grammar_check(heading: str,
