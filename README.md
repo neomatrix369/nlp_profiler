@@ -72,7 +72,7 @@ See [Notebooks](#Notebooks) section for further illustrations.
 
 ## Notebooks
 
-_After succesful installation of library, RESTART Jupyter kernels or Google Colab runtimes for the changes to take effect._
+_After succesful installation of the library, RESTART Jupyter kernels or Google Colab runtimes for the changes to take effect._
 
 ### Jupyter
 
