@@ -57,7 +57,7 @@ pip install git+https://github.com/neomatrix369/nlp_profiler.git@master
 ```python
 import nlp_profiler.core as nlpprof
 
-new_text_column_dataset = nlpprof.apply_text_profiling(dataset['text_column'])
+new_text_column_dataset = nlpprof.apply_text_profiling(dataset, 'text_column')
 ```
 
 or 
@@ -65,7 +65,7 @@ or
 ```python
 from nlp_profiler.core import apply_text_profiling
 
-new_text_column_dataset = apply_text_profiling(dataset['text_column'])
+new_text_column_dataset = apply_text_profiling(dataset, 'text_column')
 ```
 
 See [Notebooks](#Notebooks) section for further illustrations.
