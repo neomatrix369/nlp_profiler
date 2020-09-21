@@ -6,3 +6,8 @@ build
 dist
 nlp_profiler.egg*
 .ipynb_checkpoints/
+.coverage*
+.coverage-reports/
+.test-run-reports
+.pytest_cache
+.cprofile/
