@@ -3,7 +3,9 @@ import os
 import pandas as pd
 from pandas.util.testing import assert_frame_equal
 
-from nlp_profiler.core import PARALLELISATION_METHOD, SWIFTER, apply_text_profiling
+from nlp_profiler.constants \
+    import PARALLELISATION_METHOD, SWIFTER, HIGH_LEVEL, GRANULAR
+from nlp_profiler.core import apply_text_profiling
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
 EXPECTED_DATA_PATH = f'{os.path.dirname(CURRENT_SOURCE_FILEPATH)}/data'
@@ -45,7 +47,7 @@ def test_given_a_text_column_when_profiler_is_applied_without_high_level_analysi
 
     # when
     actual_dataframe = apply_text_profiling(
-        source_dataframe, "text", {'high_level': False}
+        source_dataframe, "text", {HIGH_LEVEL: False}
     )
 
     # then
@@ -60,7 +62,7 @@ def test_given_a_text_column_when_profiler_is_applied_without_granular_analysis_
 
     # when
     actual_dataframe = apply_text_profiling(
-        source_dataframe, "text", {'granular': False}
+        source_dataframe, "text", {GRANULAR: False}
     )
 
     # then
@@ -74,7 +76,7 @@ def test_given_a_text_column_when_profiler_is_applied_with_then_all_options_disa
 
     # when
     actual_dataframe = apply_text_profiling(
-        source_dataframe, "text", {'high_level': False, 'granular': False}
+        source_dataframe, "text", {HIGH_LEVEL: False, GRANULAR: False}
     )
 
     # then
