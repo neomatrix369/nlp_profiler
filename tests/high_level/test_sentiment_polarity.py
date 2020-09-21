@@ -12,45 +12,31 @@ negative_text = "2833047 people live in this area. It is not a good area."
 neutral_text = "Today's date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020."
 
 text_to_return_value_mapping = [
-    (np.nan, NaN, NOT_APPLICABLE),
-    (float('nan'), NaN, NOT_APPLICABLE),
-    (None, NaN, NOT_APPLICABLE),
-    ("", NaN, NOT_APPLICABLE),
+    (float('nan'), NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (np.nan, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (None, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    ("", NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (positive_text, 0.375000, 'Pretty positive', 'Positive'),
+    (negative_text, -0.10681818181818181, 'Pretty negative', 'Negative'),
+    (neutral_text, 0.0, 'Neutral', 'Neutral'),
+    # (np.nan, NaN, NOT_APPLICABLE),
+    # (float('nan'), NaN, NOT_APPLICABLE),
+    # (None, NaN, NOT_APPLICABLE),
+    # ("", NaN, NOT_APPLICABLE),
 ]
 
 
-@pytest.mark.parametrize("text,expected_score,expected_polarity",
+@pytest.mark.parametrize("text,"
+                         "expected_polarity_score,"
+                         "expected_polarity,"
+                         "expected_polarity_summarised",
                          text_to_return_value_mapping)
-def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentiment_analysis_info_is_returned(
-        text: str, expected_score: float, expected_polarity: str
+def test_given_a_text_when_sentiment_analysis_is_applied_then_sentiment_analysis_info_is_returned(
+        text: str,
+        expected_polarity_score: float,
+        expected_polarity: str,
+        expected_polarity_summarised: str
 ):
-    # given, when: text is not defined
-    actual_score = sentiment_polarity_score(text)
-
-    # then
-    assert actual_score is expected_score, \
-        f"Sentiment polarity score should NOT " \
-        f"have been returned, expected {expected_score}"
-
-    # given, when
-    actual_polarity = sentiment_polarity(actual_score)
-
-    # then
-    assert actual_polarity == expected_polarity, \
-        f"Sentiment polarity should NOT " \
-        f"have been returned, expected {expected_polarity}"
-
-
-def test_given_a_text_when_sentiment_analysis_is_applied_then_sentiment_analysis_info_is_returned():
-    verify_text_polarity(positive_text, 0.375000, 'Pretty positive', 'Positive')
-    verify_text_polarity(negative_text, -0.10681818181818181, 'Pretty negative', 'Negative')
-    verify_text_polarity(neutral_text, 0.0, 'Neutral', 'Neutral')
-
-
-def verify_text_polarity(text: str,
-                         expected_polarity_score: float,
-                         expected_polarity: str,
-                         expected_polarity_summarised: str):
     # given, when
     actual_score = sentiment_polarity_score(text)
     # then
