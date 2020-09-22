@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NaN
-from nlp_profiler.core import gather_emojis, count_emojis  # noqa
+from nlp_profiler.emojis import gather_emojis, count_emojis  # noqa
 
 text_with_emojis = "I love ⚽ very much 😁"
 

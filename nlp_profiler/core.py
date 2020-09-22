@@ -20,7 +20,6 @@ import re
 import tempfile
 from itertools import groupby
 
-import emoji
 import joblib
 import nltk
 import pandas as pd
@@ -35,6 +34,8 @@ from nlp_profiler.constants import \
     NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
     GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK, SPELLING_CHECK
 from nlp_profiler.sentences import count_sentences
+from nlp_profiler.emojis import count_emojis
+
 from nlp_profiler.sentiment_polarity \
     import sentiment_polarity_score, sentiment_polarity, sentiment_polarity_summarised
 from nlp_profiler.sentiment_subjectivity import sentiment_subjectivity_score, \
@@ -236,24 +237,6 @@ def apply_grammar_check(heading: str,
         heading, grammar_checks_steps,
         new_dataframe, parallelisation_method
     )
-
-
-### Emojis
-
-def gather_emojis(text: str) -> list:
-    if (not isinstance(text, str)) or (len(text.strip()) == 0):
-        return []
-
-    emoji_expaned_text = emoji.demojize(text)
-    return re.findall(r'\:(.*?)\:', emoji_expaned_text)
-
-
-def count_emojis(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    list_of_emojis = gather_emojis(text)
-    return len(list_of_emojis)
 
 
 ### Numbers
