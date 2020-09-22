@@ -52,6 +52,28 @@ From the GitHub repo:
 pip install git+https://github.com/neomatrix369/nlp_profiler.git@master
 ```
 
+From the source (only for development purposes):
+
+```bash
+git clone https://github.com/neomatrix369/nlp_profiler
+cd nlp_profiler
+```
+
+```
+python setup.py install
+```
+or 
+
+```
+pip install -e .
+```
+
+or 
+
+```
+pip install --prefix .
+```
+
 ## Usage
 
 ```python
@@ -95,6 +117,14 @@ You can open these notebooks directly in [Google Colab](./notebooks/google-colab
 ---
 
 ![Pandas describe() function](https://user-images.githubusercontent.com/1570917/92324242-cf4cb600-f037-11ea-9c5a-e22806b4be5b.png)
+
+# Credits and supporters
+
+See [CREDITS_AND_SUPPORTERS.md](./CREDITS_AND_SUPPORTERS.md)
+
+# Changes
+
+See [CHANGELOG.md](./CHANGELOG.md)
 
 # License
 
