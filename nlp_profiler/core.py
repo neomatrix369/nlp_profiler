@@ -19,20 +19,18 @@
 import re
 import sys
 import tempfile
-from itertools import groupby
 
 import joblib
 import nltk
 import pandas as pd
 import swifter  # noqa
 from joblib import Parallel, delayed
-# NLP
-from nltk.tokenize import word_tokenize
 
 from nlp_profiler.alphanumeric import count_alpha_numeric
 from nlp_profiler.constants import \
     NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
     GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK, SPELLING_CHECK
+from nlp_profiler.duplicates import count_duplicates
 from nlp_profiler.emojis import count_emojis
 from nlp_profiler.grammar_quality_check \
     import grammar_quality, grammar_check_score
@@ -47,6 +45,8 @@ from nlp_profiler.sentiment_subjectivity import sentiment_subjectivity_score, \
 from nlp_profiler.spelling_quality_check \
     import spelling_quality_score, spelling_quality, spelling_quality_summarised
 from nlp_profiler.stop_words import count_stop_words
+
+# NLP
 
 nltk.download('punkt')
 
@@ -260,30 +260,6 @@ def count_spaces(text: str) -> int:
 
     spaces = re.findall(r' ', text)
     return len(spaces)
-
-
-### Number of characters without spaces
-def gather_duplicates(text: str) -> dict:
-    if not isinstance(text, str):
-        return []
-
-    tokenized_text = word_tokenize(text.lower())
-    sorted_tokenized_text = sorted(tokenized_text)
-    duplicates = {}
-    for _, (value, group) in enumerate(groupby(sorted_tokenized_text)):
-        frequency = len(list(group))
-        if frequency > 1:
-            duplicates.update({value: frequency})
-
-    return duplicates
-
-
-### Duplicates
-def count_duplicates(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_duplicates(text))
 
 
 def count_characters_excluding_spaces(text: str) -> int:
