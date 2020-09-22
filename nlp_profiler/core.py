@@ -30,14 +30,15 @@ from nltk.corpus import stopwords
 # NLP
 from nltk.tokenize import word_tokenize
 
+from nlp_profiler.alphanumeric import count_alpha_numeric
 from nlp_profiler.constants import \
     NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
     GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK, SPELLING_CHECK
 from nlp_profiler.emojis import count_emojis
-from nlp_profiler.numbers import count_whole_numbers
-from nlp_profiler.alphanumeric import count_alpha_numeric
 from nlp_profiler.grammar_quality_check \
     import grammar_quality, grammar_check_score
+from nlp_profiler.non_alphanumeric import count_non_alpha_numeric
+from nlp_profiler.numbers import count_whole_numbers
 from nlp_profiler.sentences import count_sentences
 from nlp_profiler.sentiment_polarity \
     import sentiment_polarity_score, sentiment_polarity, sentiment_polarity_summarised
@@ -238,21 +239,6 @@ def apply_grammar_check(heading: str,
         heading, grammar_checks_steps,
         new_dataframe, parallelisation_method
     )
-
-
-### Non-alphanumeric
-def gather_non_alpha_numeric(text: str) -> list:
-    if not isinstance(text, str):
-        return []
-
-    return re.findall('[^A-Za-z0-9]', text)
-
-
-def count_non_alpha_numeric(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_non_alpha_numeric(text))
 
 
 ### Punctuations
