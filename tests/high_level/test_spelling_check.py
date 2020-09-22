@@ -1,68 +1,60 @@
 import math
 
+import numpy as np
 import pytest
 
-from nlp_profiler.core import NOT_APPLICABLE, spelling_quality_score, \
+from nlp_profiler.constants import NOT_APPLICABLE, NaN
+from nlp_profiler.spelling_quality_check import spelling_quality_score, \
     spelling_quality, spelling_quality_summarised  # noqa
 
 good_spelling_text = 'People live in this area. It is not a good area. People live in this area. It is not a good area. 2833047 people live in this area. It is not a good area.'
 bad_spelling_text = "2833047 people live in this arae. It is not a good area. swa peeeple live in this area."
 very_bad_spelling_text = "I am asdasd asdasd good asdasd."
 
+text_to_return_value_mapping = [
+    (np.nan, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (float('nan'), NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (None, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    ("", NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (good_spelling_text, 1.0, 'Very good', 'Good'),
+    (bad_spelling_text, 0.6190476190476191, 'Bad', 'Bad'),
+    (very_bad_spelling_text, 0.14285714285714285, 'Pretty bad', 'Bad')
+]
 
-def test_given_an_invalid_text_when_spell_check_is_applied_then_no_spell_check_info_is_returned():
-    # given, when: text is not defined
-    actual_results = spelling_quality_score(None)
 
+@pytest.mark.parametrize("text,"
+                         "expected_spelling_check_score,"
+                         "expected_spelling_quality,"
+                         "expected_spelling_check_summarised",
+                         text_to_return_value_mapping)
+def test_given_a_text_when_spell_check_is_applied_then_spell_check_analysis_info_is_returned(
+        text: str,
+        expected_spelling_check_score: float,
+        expected_spelling_quality: str,
+        expected_spelling_check_summarised: str
+):
+    # given, when
+    actual_score = spelling_quality_score(text)
     # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Spell quality check score should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
-
-    # given, when: empty text
-    actual_results = spelling_quality_score("")
-
-    # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Spell quality check score should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
+    if expected_spelling_check_score is NaN:
+        assert actual_score is expected_spelling_check_score
+    else:
+        assert math.isclose(expected_spelling_check_score, actual_score,
+                            rel_tol=1e-09, abs_tol=0.0), \
+            "Spell check score didn't match for the text"
 
     # given, when
-    actual_results = spelling_quality(NOT_APPLICABLE)
-
+    actual_spelling_check = spelling_quality(actual_score)
     # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Spell quality check should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
-
-
-def test_given_a_text_when_spell_check_is_applied_then_spell_check_analysis_info_is_returned():
-    verify_spelling_check(good_spelling_text, 1.0, 'Very good', 'Good')
-    verify_spelling_check(bad_spelling_text, 0.5555555555555556, 'Bad', 'Bad')
-    verify_spelling_check(very_bad_spelling_text, 0, 'Very bad', 'Bad')
-
-
-def verify_spelling_check(text,
-                          expected_spelling_check_score,
-                          expected_spelling_check,
-                          expected_summarised_spelling_check):
-    # given, when
-    actual_results = spelling_quality_score(text)
-    # then
-    assert math.isclose(expected_spelling_check_score, actual_results,
-                        rel_tol=1e-09, abs_tol=0.0), \
-        "Spell check score didn't match for the text"
-    # given, when
-    actual_results = spelling_quality(actual_results)
-    # then
-    assert expected_spelling_check == actual_results, \
+    assert expected_spelling_quality == actual_spelling_check, \
         "Spelling quality check didn't match for the text"
+
     # given, when
-    actual_results = spelling_quality_summarised(actual_results)
+    actual_summarised_spelling = spelling_quality_summarised(actual_spelling_check)
     # then
-    assert expected_summarised_spelling_check == actual_results, \
+    assert expected_spelling_check_summarised == actual_summarised_spelling, \
         f"Summarised spelling quality check didn't match for the text '{text}'. " \
-        f"Expected: {expected_summarised_spelling_check}, Actual: {actual_result}"
+        f"Expected: {expected_spelling_check_summarised}, Actual: {actual_summarised_spelling}"
 
 
 ### The General Area of Possibility
@@ -92,5 +84,5 @@ def test_given_spelling_check_score_when_converted_to_words_then_return_right_wo
 
     # then
     assert expected_spelling_quality_in_words == actual_result, \
-        f"Expected: {expected_spelling_quality_in_words}, Actual: {actual_result} " \
+        f"Expected: {expected_spelling_quality_in_words}, Actual: {actual_result}" \
         f"original_score: {original_score}, normalised_score: {normalised_score}"

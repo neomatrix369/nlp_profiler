@@ -27,6 +27,7 @@ delete_the_old_coverage_report_folder_and_create_a_new_one() {
     COVERAGE_REPORT_FOLDER="${COVERAGE_REPORT_FOLDER}/coverage-report-${CURRENT_GIT_BRANCH}"
     rm -fr ${COVERAGE_REPORT_FOLDER} && echo "Deleting old test coverage folder: ${COVERAGE_REPORT_FOLDER}"
     COVERAGE_REPORT_FILE="${COVERAGE_REPORT_FOLDER}/index.html"
+    rm -f .coverage.*
 }
 
 test_for_pytest(){

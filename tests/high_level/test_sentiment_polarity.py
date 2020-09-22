@@ -1,68 +1,62 @@
 import math
 
+import numpy as np
 import pytest
 
-from nlp_profiler.core import NOT_APPLICABLE, sentiment_polarity_score, \
+from nlp_profiler.constants import NOT_APPLICABLE, NaN
+from nlp_profiler.sentiment_polarity import sentiment_polarity_score, \
     sentiment_polarity_summarised, sentiment_polarity  # noqa
 
 positive_text = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
 negative_text = "2833047 people live in this area. It is not a good area."
 neutral_text = "Today's date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020."
 
+text_to_return_value_mapping = [
+    (float('nan'), NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (np.nan, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (None, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    ("", NaN, NOT_APPLICABLE, NOT_APPLICABLE),
+    (positive_text, 0.375000, 'Pretty positive', 'Positive'),
+    (negative_text, -0.10681818181818181, 'Pretty negative', 'Negative'),
+    (neutral_text, 0.0, 'Neutral', 'Neutral'),
+    # (np.nan, NaN, NOT_APPLICABLE),
+    # (float('nan'), NaN, NOT_APPLICABLE),
+    # (None, NaN, NOT_APPLICABLE),
+    # ("", NaN, NOT_APPLICABLE),
+]
 
-def test_given_an_invalid_text_when_sentiment_analysis_is_applied_then_no_sentiment_analysis_info_is_returned():
-    # given, when: text is not defined
-    actual_results = sentiment_polarity_score(None)
 
+@pytest.mark.parametrize("text,"
+                         "expected_polarity_score,"
+                         "expected_polarity,"
+                         "expected_polarity_summarised",
+                         text_to_return_value_mapping)
+def test_given_a_text_when_sentiment_analysis_is_applied_then_sentiment_analysis_info_is_returned(
+        text: str,
+        expected_polarity_score: float,
+        expected_polarity: str,
+        expected_polarity_summarised: str
+):
+    # given, when
+    actual_score = sentiment_polarity_score(text)
     # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Sentiment polarity score should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
-
-    # given, when: empty text
-    actual_results = sentiment_polarity_score("")
-
-    # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Sentiment polarity score should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
+    if expected_polarity_score is NaN:
+        assert actual_score is expected_polarity_score
+    else:
+        assert math.isclose(expected_polarity_score, actual_score,
+                            rel_tol=1e-09, abs_tol=0.0), \
+            "Sentiment polarity score didn't match for the text"
 
     # given, when
-    actual_results = sentiment_polarity(NOT_APPLICABLE)
-
+    actual_polarity = sentiment_polarity(actual_score)
     # then
-    assert actual_results == NOT_APPLICABLE, \
-        f"Sentiment polarity should NOT " \
-        f"have been returned, expected {NOT_APPLICABLE}"
-
-
-def test_given_a_text_when_sentiment_analysis_is_applied_then_sentiment_analysis_info_is_returned():
-    assert_text_polarity(positive_text, 0.375000, 'Pretty positive', 'Positive')
-    assert_text_polarity(negative_text, -0.10681818181818181, 'Pretty negative', 'Negative')
-    assert_text_polarity(neutral_text, 0.0, 'Neutral', 'Neutral')
-
-
-def assert_text_polarity(text,
-                         expected_polarity_score,
-                         expected_polarity,
-                         expected_polarity_summarised):
-    # given, when
-    actual_results = sentiment_polarity_score(text)
-    # then
-    assert math.isclose(expected_polarity_score, actual_results,
-                        rel_tol=1e-09, abs_tol=0.0), \
-        "Sentiment polarity score didn't match for the text"
-
-    # given, when
-    actual_results = sentiment_polarity(actual_results)
-    # then
-    assert expected_polarity == actual_results, \
+    assert expected_polarity == actual_polarity, \
         "Sentiment polarity didn't match for the text"
 
     # given, when
-    actual_results = sentiment_polarity_summarised(actual_results)
+    actual_summarised_polarity = sentiment_polarity_summarised(actual_polarity)
     # then
-    assert expected_polarity_summarised == actual_results, \
+    assert expected_polarity_summarised == actual_summarised_polarity, \
         "Summarised Sentiment polarity didn't match for the text"
 
 

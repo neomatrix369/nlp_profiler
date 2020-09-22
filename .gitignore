@@ -11,3 +11,8 @@ nlp_profiler.egg*
 .test-run-reports
 .pytest_cache
 .cprofile/
+datasets
+googleplaystore_user_reviews.csv
+expected_high_level_googleplaystore_user_reviews.csv
+*.log*
+*.zip
