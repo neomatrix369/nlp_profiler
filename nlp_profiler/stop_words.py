@@ -5,6 +5,7 @@ from nltk.tokenize import word_tokenize
 from nlp_profiler.constants import NaN
 
 nltk.download('stopwords')
+nltk.download('punkt')
 STOP_WORDS = set(stopwords.words('english'))
 
 

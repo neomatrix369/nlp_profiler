@@ -16,24 +16,23 @@
 ### Kaggle kernel: https://www.kaggle.com/neomatrix369/nlp-profiler-simple-dataset
 ### Jupyter Notebook: https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/examples/better-nlp/notebooks/jupyter/nlp_profiler.ipynb
 
-import re
 import sys
 import tempfile
 
-import joblib
-import nltk
 import pandas as pd
 import swifter  # noqa
-from joblib import Parallel, delayed
+from joblib import Parallel, delayed, Memory
+from tqdm.auto import tqdm
 
 from nlp_profiler.alphanumeric import count_alpha_numeric
 from nlp_profiler.chars_and_spaces \
     import count_spaces, count_chars, count_characters_excluding_spaces
 from nlp_profiler.constants \
-    import NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
+    import PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
     GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK, SPELLING_CHECK
 from nlp_profiler.duplicates import count_duplicates
 from nlp_profiler.emojis import count_emojis
+from nlp_profiler.dates import count_dates
 from nlp_profiler.grammar_quality_check \
     import grammar_quality, grammar_check_score
 from nlp_profiler.non_alphanumeric import count_non_alpha_numeric
@@ -41,27 +40,24 @@ from nlp_profiler.numbers import count_whole_numbers
 from nlp_profiler.punctuations import count_punctuations
 from nlp_profiler.sentences import count_sentences
 from nlp_profiler.sentiment_polarity \
-    import sentiment_polarity_score, sentiment_polarity, sentiment_polarity_summarised
+    import sentiment_polarity_score, sentiment_polarity, \
+    sentiment_polarity_summarised
 from nlp_profiler.sentiment_subjectivity \
     import sentiment_subjectivity_score, \
     sentiment_subjectivity_summarised, sentiment_subjectivity
 from nlp_profiler.spelling_quality_check \
-    import spelling_quality_score, spelling_quality, spelling_quality_summarised
+    import spelling_quality_score, spelling_quality, \
+    spelling_quality_summarised
 from nlp_profiler.stop_words import count_stop_words
+from nlp_profiler.words import count_words
 
-# NLP
-
-nltk.download('punkt')
-
-memory = joblib.Memory(tempfile.gettempdir(), compress=9, verbose=0)
+memory = Memory(tempfile.gettempdir(), compress=9, verbose=0)
 
 
 def is_running_from_ipython():
     inJupyter = sys.argv[-1].endswith('json')
     return inJupyter
 
-
-from tqdm.auto import tqdm
 
 PROGRESS_BAR_WIDTH = 900 if is_running_from_ipython() else None
 
@@ -240,17 +236,3 @@ def apply_grammar_check(heading: str,
         heading, grammar_checks_steps,
         new_dataframe, parallelisation_method
     )
-
-
-### Words count
-def gather_words(text: str) -> list:
-    if not isinstance(text, str):
-        return []
-
-    return re.findall(r'\b[^\d\W]+\b', text)
-
-
-def count_words(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-    return len(gather_words(text))

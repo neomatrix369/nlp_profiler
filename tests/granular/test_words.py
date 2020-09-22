@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NaN
-from nlp_profiler.core \
+from nlp_profiler.words \
     import gather_words, count_words  # noqa
 
 text_with_a_number = '2833047 people live in this area'
