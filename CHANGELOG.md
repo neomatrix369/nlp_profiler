@@ -35,5 +35,7 @@ Added parallelisation and some caching to improve the initial slow-down in the p
 
 Verification and tests have been performed, although this is a continuous process.
 
+For performance metrics before and after changes see this [comment](https://github.com/neomatrix369/nlp_profiler/issues/2#issuecomment-696675059) on github issue [#2](https://github.com/neomatrix369/nlp_profiler/issues/2).
+
 [00a68e2](https://github.com/neomatrix369/nlp_profiler/commit/00a68e2) - [1ff5082](https://github.com/neomatrix369/nlp_profiler/commit/1ff5082) [@neomatrix369](https://github.com/neomatrix369) _Fri Sep 18 14:09:12 2020 +0100_
 
