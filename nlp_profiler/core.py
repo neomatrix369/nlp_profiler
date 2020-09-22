@@ -35,6 +35,7 @@ from nlp_profiler.constants import \
     GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK, SPELLING_CHECK
 from nlp_profiler.emojis import count_emojis
 from nlp_profiler.numbers import count_whole_numbers
+from nlp_profiler.alphanumeric import count_alpha_numeric
 from nlp_profiler.grammar_quality_check \
     import grammar_quality, grammar_check_score
 from nlp_profiler.sentences import count_sentences
@@ -237,21 +238,6 @@ def apply_grammar_check(heading: str,
         heading, grammar_checks_steps,
         new_dataframe, parallelisation_method
     )
-
-
-### Alphanumeric
-def gather_alpha_numeric(text: str) -> list:
-    if not isinstance(text, str):
-        return []
-
-    return re.findall('[A-Za-z0-9]', text)
-
-
-def count_alpha_numeric(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_alpha_numeric(text))
 
 
 ### Non-alphanumeric
