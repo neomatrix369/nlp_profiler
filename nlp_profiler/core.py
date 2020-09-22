@@ -27,8 +27,10 @@ import swifter  # noqa
 from joblib import Parallel, delayed
 
 from nlp_profiler.alphanumeric import count_alpha_numeric
-from nlp_profiler.constants import \
-    NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
+from nlp_profiler.chars_and_spaces \
+    import count_spaces, count_chars, count_characters_excluding_spaces
+from nlp_profiler.constants \
+    import NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
     GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK, SPELLING_CHECK
 from nlp_profiler.duplicates import count_duplicates
 from nlp_profiler.emojis import count_emojis
@@ -40,7 +42,8 @@ from nlp_profiler.punctuations import count_punctuations
 from nlp_profiler.sentences import count_sentences
 from nlp_profiler.sentiment_polarity \
     import sentiment_polarity_score, sentiment_polarity, sentiment_polarity_summarised
-from nlp_profiler.sentiment_subjectivity import sentiment_subjectivity_score, \
+from nlp_profiler.sentiment_subjectivity \
+    import sentiment_subjectivity_score, \
     sentiment_subjectivity_summarised, sentiment_subjectivity
 from nlp_profiler.spelling_quality_check \
     import spelling_quality_score, spelling_quality, spelling_quality_summarised
@@ -251,26 +254,3 @@ def count_words(text: str) -> int:
     if not isinstance(text, str):
         return NaN
     return len(gather_words(text))
-
-
-### Number of spaces
-def count_spaces(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    spaces = re.findall(r' ', text)
-    return len(spaces)
-
-
-def count_characters_excluding_spaces(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(text) - count_spaces(text)
-
-
-def count_chars(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(text)

@@ -1,8 +1,9 @@
-from nlp_profiler.constants import NaN
-from nlp_profiler.core \
-    import count_chars, count_spaces, count_characters_excluding_spaces  # noqa
 import numpy as np
 import pytest
+
+from nlp_profiler.chars_and_spaces \
+    import count_chars, count_spaces, count_characters_excluding_spaces  # noqa
+from nlp_profiler.constants import NaN
 
 text_with_a_number = '2833047 people live in this area'
 
