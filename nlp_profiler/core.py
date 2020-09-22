@@ -17,33 +17,33 @@
 ### Jupyter Notebook: https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/examples/better-nlp/notebooks/jupyter/nlp_profiler.ipynb
 
 import re
+import sys
 import tempfile
 from itertools import groupby
 
 import joblib
 import nltk
 import pandas as pd
+import swifter  # noqa
 from joblib import Parallel, delayed
 from nltk.corpus import stopwords
 # NLP
 from nltk.tokenize import word_tokenize
-import sys
-import swifter  # noqa
 
 from nlp_profiler.constants import \
     NaN, PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
     GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK, SPELLING_CHECK
-from nlp_profiler.sentences import count_sentences
 from nlp_profiler.emojis import count_emojis
-
+from nlp_profiler.numbers import count_whole_numbers
+from nlp_profiler.grammar_quality_check \
+    import grammar_quality, grammar_check_score
+from nlp_profiler.sentences import count_sentences
 from nlp_profiler.sentiment_polarity \
     import sentiment_polarity_score, sentiment_polarity, sentiment_polarity_summarised
 from nlp_profiler.sentiment_subjectivity import sentiment_subjectivity_score, \
     sentiment_subjectivity_summarised, sentiment_subjectivity
 from nlp_profiler.spelling_quality_check \
     import spelling_quality_score, spelling_quality, spelling_quality_summarised
-from nlp_profiler.grammar_quality_check \
-    import grammar_quality, grammar_check_score
 
 nltk.download('stopwords')
 STOP_WORDS = set(stopwords.words('english'))
@@ -237,22 +237,6 @@ def apply_grammar_check(heading: str,
         heading, grammar_checks_steps,
         new_dataframe, parallelisation_method
     )
-
-
-### Numbers
-def gather_whole_numbers(text: str) -> list:
-    if not isinstance(text, str):
-        return []
-
-    line = re.findall(r'[0-9]+', text)
-    return line
-
-
-def count_whole_numbers(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_whole_numbers(text))
 
 
 ### Alphanumeric
