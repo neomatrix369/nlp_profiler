@@ -39,6 +39,7 @@ from nlp_profiler.grammar_quality_check \
     import grammar_quality, grammar_check_score
 from nlp_profiler.non_alphanumeric import count_non_alpha_numeric
 from nlp_profiler.numbers import count_whole_numbers
+from nlp_profiler.punctuations import count_punctuations
 from nlp_profiler.sentences import count_sentences
 from nlp_profiler.sentiment_polarity \
     import sentiment_polarity_score, sentiment_polarity, sentiment_polarity_summarised
@@ -239,23 +240,6 @@ def apply_grammar_check(heading: str,
         heading, grammar_checks_steps,
         new_dataframe, parallelisation_method
     )
-
-
-### Punctuations
-def gather_punctuations(text: str) -> list:
-    if not isinstance(text, str):
-        return []
-
-    line = re.findall(r'[!"\$%&\'()*+,\-.\/:;=#@?\[\\\]^_`{|}~]*', text)
-    string = "".join(line)
-    return list(string)
-
-
-def count_punctuations(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_punctuations(text))
 
 
 ### Stop words
