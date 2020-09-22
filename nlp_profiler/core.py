@@ -26,7 +26,6 @@ import nltk
 import pandas as pd
 import swifter  # noqa
 from joblib import Parallel, delayed
-from nltk.corpus import stopwords
 # NLP
 from nltk.tokenize import word_tokenize
 
@@ -47,9 +46,7 @@ from nlp_profiler.sentiment_subjectivity import sentiment_subjectivity_score, \
     sentiment_subjectivity_summarised, sentiment_subjectivity
 from nlp_profiler.spelling_quality_check \
     import spelling_quality_score, spelling_quality, spelling_quality_summarised
-
-nltk.download('stopwords')
-STOP_WORDS = set(stopwords.words('english'))
+from nlp_profiler.stop_words import count_stop_words
 
 nltk.download('punkt')
 
@@ -240,24 +237,6 @@ def apply_grammar_check(heading: str,
         heading, grammar_checks_steps,
         new_dataframe, parallelisation_method
     )
-
-
-### Stop words
-def gather_stop_words(text: str) -> list:
-    if not isinstance(text, str):
-        return []
-
-    word_tokens = word_tokenize(text)
-    found_stop_words = [word for _, word in enumerate(word_tokens)
-                        if word in STOP_WORDS]
-    return found_stop_words
-
-
-def count_stop_words(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_stop_words(text))
 
 
 ### Dates
