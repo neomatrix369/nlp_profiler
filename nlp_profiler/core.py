@@ -27,12 +27,24 @@ from tqdm.auto import tqdm
 from nlp_profiler.alphanumeric import count_alpha_numeric
 from nlp_profiler.chars_and_spaces \
     import count_spaces, count_chars, count_characters_excluding_spaces
-from nlp_profiler.constants \
-    import PARALLELISATION_METHOD, DEFAULT_PARALLEL, SWIFTER, \
-    GRANULAR, HIGH_LEVEL, GRAMMAR_CHECK, SPELLING_CHECK
+from nlp_profiler.constants import \
+    ALPHA_NUMERIC_COUNT_COL, WHOLE_NUMBERS_COUNT_COL, EMOJI_COUNT_COL, CHARS_EXCL_SPACES_COUNT_COL
+from nlp_profiler.constants import CHARACTERS_COUNT_COL, SENTENCES_COUNT_COL
+from nlp_profiler.constants import \
+    DATES_COUNT_COL, STOP_WORDS_COUNT_COL, PUNCTUATIONS_COUNT_COL, NON_ALPHA_NUMERIC_COUNT_COL
+from nlp_profiler.constants import DUPLICATES_COUNT_COL, WORDS_COUNT_COL, SPACES_COUNT_COL
+from nlp_profiler.constants import GRAMMAR_CHECK_SCORE_COL, GRAMMAR_CHECK_COL
+from nlp_profiler.constants import \
+    PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, SWIFTER_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION
+from nlp_profiler.constants import \
+    SENTIMENT_POLARITY_SCORE_COL, SENTIMENT_POLARITY_COL, SENTIMENT_POLARITY_SUMMARISED_COL
+from nlp_profiler.constants import \
+    SENTIMENT_SUBJECTIVITY_COL, SENTIMENT_SUBJECTIVITY_SCORE_COL, SENTIMENT_SUBJECTIVITY_SUMMARISED_COL
+from nlp_profiler.constants import \
+    SPELLING_QUALITY_SCORE_COL, SPELLING_QUALITY_COL, SPELLING_QUALITY_SUMMARISED_COL
+from nlp_profiler.dates import count_dates
 from nlp_profiler.duplicates import count_duplicates
 from nlp_profiler.emojis import count_emojis
-from nlp_profiler.dates import count_dates
 from nlp_profiler.grammar_quality_check \
     import grammar_quality, grammar_check_score
 from nlp_profiler.non_alphanumeric import count_non_alpha_numeric
@@ -69,21 +81,21 @@ def apply_text_profiling(dataframe: pd.DataFrame,
     new_dataframe = dataframe.drop(columns=columns_to_drop, axis=1).copy()
 
     default_params = {
-        HIGH_LEVEL: True,
-        GRANULAR: True,
-        GRAMMAR_CHECK: False,  # default: False as slow process but can Enabled
-        SPELLING_CHECK: True,  # default: True although slightly slow process but can Disabled
-        PARALLELISATION_METHOD: DEFAULT_PARALLEL
+        HIGH_LEVEL_OPTION: True,
+        GRANULAR_OPTION: True,
+        GRAMMAR_CHECK_OPTION: False,  # default: False as slow process but can Enabled
+        SPELLING_CHECK_OPTION: True,  # default: True although slightly slow process but can Disabled
+        PARALLELISATION_METHOD_OPTION: DEFAULT_PARALLEL_METHOD
     }
 
     default_params.update(params)
 
     print(f"final params: {default_params}")
     actions_mappings = [
-        (GRANULAR, "Granular features", apply_granular_features),
-        (HIGH_LEVEL, "High-level features", apply_high_level_features),
-        (GRAMMAR_CHECK, "Grammar checks", apply_grammar_check),
-        (SPELLING_CHECK, "Spelling checks", apply_spelling_check)
+        (GRANULAR_OPTION, "Granular features", apply_granular_features),
+        (HIGH_LEVEL_OPTION, "High-level features", apply_high_level_features),
+        (GRAMMAR_CHECK_OPTION, "Grammar checks", apply_grammar_check),
+        (SPELLING_CHECK_OPTION, "Spelling checks", apply_spelling_check)
     ]
 
     for index, item in enumerate(actions_mappings.copy()):
@@ -97,7 +109,7 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         apply_profiling_progress_bar.set_description(action_description)
         action_function(
             action_description, new_dataframe,
-            text_column, default_params[PARALLELISATION_METHOD]
+            text_column, default_params[PARALLELISATION_METHOD_OPTION]
         )
 
     return new_dataframe
@@ -106,21 +118,21 @@ def apply_text_profiling(dataframe: pd.DataFrame,
 def apply_granular_features(heading: str,
                             new_dataframe: pd.DataFrame,
                             text_column: dict,
-                            parallelisation_method: str = DEFAULT_PARALLEL):
+                            parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     granular_features_steps = [
-        ('sentences_count', text_column, count_sentences),
-        ('characters_count', text_column, count_chars),
-        ('spaces_count', text_column, count_spaces),
-        ('words_count', text_column, count_words),
-        ('duplicates_count', text_column, count_duplicates),
-        ('chars_excl_spaces_count', text_column, count_characters_excluding_spaces),
-        ('emoji_count', text_column, count_emojis),
-        ('whole_numbers_count', text_column, count_whole_numbers),
-        ('alpha_numeric_count', text_column, count_alpha_numeric),
-        ('non_alpha_numeric_count', text_column, count_non_alpha_numeric),
-        ('punctuations_count', text_column, count_punctuations),
-        ('stop_words_count', text_column, count_stop_words),
-        ('dates_count', text_column, count_dates),
+        (SENTENCES_COUNT_COL, text_column, count_sentences),
+        (CHARACTERS_COUNT_COL, text_column, count_chars),
+        (SPACES_COUNT_COL, text_column, count_spaces),
+        (WORDS_COUNT_COL, text_column, count_words),
+        (DUPLICATES_COUNT_COL, text_column, count_duplicates),
+        (CHARS_EXCL_SPACES_COUNT_COL, text_column, count_characters_excluding_spaces),
+        (EMOJI_COUNT_COL, text_column, count_emojis),
+        (WHOLE_NUMBERS_COUNT_COL, text_column, count_whole_numbers),
+        (ALPHA_NUMERIC_COUNT_COL, text_column, count_alpha_numeric),
+        (NON_ALPHA_NUMERIC_COUNT_COL, text_column, count_non_alpha_numeric),
+        (PUNCTUATIONS_COUNT_COL, text_column, count_punctuations),
+        (STOP_WORDS_COUNT_COL, text_column, count_stop_words),
+        (DATES_COUNT_COL, text_column, count_dates),
     ]
     generate_features(
         heading, granular_features_steps,
@@ -131,14 +143,14 @@ def apply_granular_features(heading: str,
 def apply_high_level_features(heading: str,
                               new_dataframe: pd.DataFrame,
                               text_column: dict,
-                              parallelisation_method: str = DEFAULT_PARALLEL):
+                              parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     high_level_features_steps = [
-        ('sentiment_polarity_score', text_column, sentiment_polarity_score),
-        ('sentiment_polarity', 'sentiment_polarity_score', sentiment_polarity),
-        ('sentiment_polarity_summarised', 'sentiment_polarity', sentiment_polarity_summarised),
-        ('sentiment_subjectivity_score', text_column, sentiment_subjectivity_score),
-        ('sentiment_subjectivity', 'sentiment_subjectivity_score', sentiment_subjectivity),
-        ('sentiment_subjectivity_summarised', 'sentiment_subjectivity', sentiment_subjectivity_summarised),
+        (SENTIMENT_POLARITY_SCORE_COL, text_column, sentiment_polarity_score),
+        (SENTIMENT_POLARITY_COL, SENTIMENT_POLARITY_SCORE_COL, sentiment_polarity),
+        (SENTIMENT_POLARITY_SUMMARISED_COL, SENTIMENT_POLARITY_COL, sentiment_polarity_summarised),
+        (SENTIMENT_SUBJECTIVITY_SCORE_COL, text_column, sentiment_subjectivity_score),
+        (SENTIMENT_SUBJECTIVITY_COL, SENTIMENT_SUBJECTIVITY_SCORE_COL, sentiment_subjectivity),
+        (SENTIMENT_SUBJECTIVITY_SUMMARISED_COL, SENTIMENT_SUBJECTIVITY_COL, sentiment_subjectivity_summarised),
     ]
     generate_features(
         heading, high_level_features_steps,
@@ -188,12 +200,12 @@ def using_joblib_parallel(
 def generate_features(main_header: str,
                       high_level_features_steps: list,
                       new_dataframe: pd.DataFrame,
-                      parallelisation_method: str = DEFAULT_PARALLEL):
+                      parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     generate_feature_progress_bar = get_progress_bar(high_level_features_steps)
 
     # Using swifter or Using joblib Parallel and delay method:
     parallelisation_method_function = using_joblib_parallel
-    if parallelisation_method == SWIFTER:
+    if parallelisation_method == SWIFTER_METHOD:
         parallelisation_method_function = using_swifter
 
     for _, (new_column, source_column, transformation_function) in \
@@ -212,11 +224,11 @@ def generate_features(main_header: str,
 def apply_spelling_check(heading: str,
                          new_dataframe: pd.DataFrame,
                          text_column: dict,
-                         parallelisation_method: str = DEFAULT_PARALLEL):
+                         parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     spelling_checks_steps = [
-        ('spelling_quality_score', text_column, spelling_quality_score),
-        ('spelling_quality', 'spelling_quality_score', spelling_quality),
-        ('spelling_quality_summarised', 'spelling_quality', spelling_quality_summarised),
+        (SPELLING_QUALITY_SCORE_COL, text_column, spelling_quality_score),
+        (SPELLING_QUALITY_COL, SPELLING_QUALITY_SCORE_COL, spelling_quality),
+        (SPELLING_QUALITY_SUMMARISED_COL, SPELLING_QUALITY_COL, spelling_quality_summarised),
     ]
     generate_features(
         heading, spelling_checks_steps,
@@ -227,10 +239,10 @@ def apply_spelling_check(heading: str,
 def apply_grammar_check(heading: str,
                         new_dataframe: pd.DataFrame,
                         text_column: dict,
-                        parallelisation_method: str = DEFAULT_PARALLEL):
+                        parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     grammar_checks_steps = [
-        ('grammar_check_score', text_column, grammar_check_score),
-        ('grammar_check', 'grammar_check_score', grammar_quality),
+        (GRAMMAR_CHECK_SCORE_COL, text_column, grammar_check_score),
+        (GRAMMAR_CHECK_COL, GRAMMAR_CHECK_SCORE_COL, grammar_quality),
     ]
     generate_features(
         heading, grammar_checks_steps,

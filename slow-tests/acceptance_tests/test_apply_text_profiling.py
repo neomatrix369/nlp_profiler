@@ -1,8 +1,10 @@
 import os
+
 import pandas as pd
 from pandas.util.testing import assert_equal
 
-from nlp_profiler.constants import HIGH_LEVEL, GRANULAR, GRAMMAR_CHECK, SPELLING_CHECK
+from nlp_profiler.constants \
+    import HIGH_LEVEL_OPTION, GRANULAR_OPTION, GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION
 from nlp_profiler.core import apply_text_profiling
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
@@ -18,10 +20,10 @@ def test_given_a_text_column_when_profiler_is_applied_grammar_check_analysis_the
     # when: in the interest of time, only perform grammar check
     # other tests are covering for high_level and granular functionality
     actual_dataframe = apply_text_profiling(
-        source_dataframe, "text", {HIGH_LEVEL: False,
-                                   SPELLING_CHECK: False,
-                                   GRANULAR: False,
-                                   GRAMMAR_CHECK: True}
+        source_dataframe, "text", {HIGH_LEVEL_OPTION: False,
+                                   SPELLING_CHECK_OPTION: False,
+                                   GRANULAR_OPTION: False,
+                                   GRAMMAR_CHECK_OPTION: True}
     )
 
     # then

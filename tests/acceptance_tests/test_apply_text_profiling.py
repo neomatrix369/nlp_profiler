@@ -4,7 +4,8 @@ import pandas as pd
 from pandas.util.testing import assert_frame_equal
 
 from nlp_profiler.constants \
-    import PARALLELISATION_METHOD, SWIFTER, HIGH_LEVEL, GRANULAR, SPELLING_CHECK
+    import PARALLELISATION_METHOD_OPTION, SWIFTER_METHOD, \
+    HIGH_LEVEL_OPTION, GRANULAR_OPTION, SPELLING_CHECK_OPTION
 from nlp_profiler.core import apply_text_profiling
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
@@ -32,7 +33,7 @@ def test_given_a_text_column_when_profiler_using_swifter_then_profiled_dataset_i
 
     # when: using swifter method for parallelisation
     actual_dataframe = apply_text_profiling(
-        source_dataframe, "text", params={PARALLELISATION_METHOD: SWIFTER}
+        source_dataframe, "text", params={PARALLELISATION_METHOD_OPTION: SWIFTER_METHOD}
     )
 
     # then
@@ -47,7 +48,7 @@ def test_given_a_text_column_when_profiler_is_applied_without_high_level_analysi
 
     # when
     actual_dataframe = apply_text_profiling(
-        source_dataframe, "text", {HIGH_LEVEL: False, SPELLING_CHECK: False}
+        source_dataframe, "text", {HIGH_LEVEL_OPTION: False, SPELLING_CHECK_OPTION: False}
     )
 
     # then
@@ -62,7 +63,7 @@ def test_given_a_text_column_when_profiler_is_applied_without_granular_analysis_
 
     # when
     actual_dataframe = apply_text_profiling(
-        source_dataframe, "text", {GRANULAR: False}
+        source_dataframe, "text", {GRANULAR_OPTION: False}
     )
 
     # then
@@ -76,7 +77,7 @@ def test_given_a_text_column_when_profiler_is_applied_with_then_all_options_disa
 
     # when
     actual_dataframe = apply_text_profiling(
-        source_dataframe, "text", {HIGH_LEVEL: False, SPELLING_CHECK: False, GRANULAR: False}
+        source_dataframe, "text", {HIGH_LEVEL_OPTION: False, SPELLING_CHECK_OPTION: False, GRANULAR_OPTION: False}
     )
 
     # then
