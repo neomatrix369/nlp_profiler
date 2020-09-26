@@ -1,14 +1,35 @@
-import string
 import tempfile
 
+import pandas as pd
 from joblib import Memory
 from nltk.tokenize import word_tokenize
 from textblob import Word
 
+from nlp_profiler.constants import \
+    DEFAULT_PARALLEL_METHOD
 from nlp_profiler.constants import NOT_APPLICABLE, NaN
+from nlp_profiler.constants import \
+    SPELLING_QUALITY_SCORE_COL, SPELLING_QUALITY_COL, SPELLING_QUALITY_SUMMARISED_COL
+from nlp_profiler.generate_features import generate_features
 from nlp_profiler.sentences import count_sentences
 
 memory = Memory(tempfile.gettempdir(), compress=9, verbose=0)
+
+
+def apply_spelling_check(heading: str,
+                         new_dataframe: pd.DataFrame,
+                         text_column: dict,
+                         parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
+    spelling_checks_steps = [
+        (SPELLING_QUALITY_SCORE_COL, text_column, spelling_quality_score),
+        (SPELLING_QUALITY_COL, SPELLING_QUALITY_SCORE_COL, spelling_quality),
+        (SPELLING_QUALITY_SUMMARISED_COL, SPELLING_QUALITY_COL, spelling_quality_summarised),
+    ]
+    generate_features(
+        heading, spelling_checks_steps,
+        new_dataframe, parallelisation_method
+    )
+
 
 ### Spell check
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability

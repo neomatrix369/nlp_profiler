@@ -23,16 +23,12 @@ from nlp_profiler.constants import GRAMMAR_CHECK_SCORE_COL, GRAMMAR_CHECK_COL
 from nlp_profiler.constants import \
     PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, \
     GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION
-from nlp_profiler.constants import \
-    SPELLING_QUALITY_SCORE_COL, SPELLING_QUALITY_COL, SPELLING_QUALITY_SUMMARISED_COL
 from nlp_profiler.generate_features import generate_features, get_progress_bar
 from nlp_profiler.grammar_quality_check \
     import grammar_quality, grammar_check_score
 from nlp_profiler.granular_features import apply_granular_features
 from nlp_profiler.high_level_features import apply_high_level_features
-from nlp_profiler.spelling_quality_check \
-    import spelling_quality_score, spelling_quality, \
-    spelling_quality_summarised
+from nlp_profiler.spelling_quality_check import apply_spelling_check
 
 
 def apply_text_profiling(dataframe: pd.DataFrame,
@@ -74,21 +70,6 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         )
 
     return new_dataframe
-
-
-def apply_spelling_check(heading: str,
-                         new_dataframe: pd.DataFrame,
-                         text_column: dict,
-                         parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
-    spelling_checks_steps = [
-        (SPELLING_QUALITY_SCORE_COL, text_column, spelling_quality_score),
-        (SPELLING_QUALITY_COL, SPELLING_QUALITY_SCORE_COL, spelling_quality),
-        (SPELLING_QUALITY_SUMMARISED_COL, SPELLING_QUALITY_COL, spelling_quality_summarised),
-    ]
-    generate_features(
-        heading, spelling_checks_steps,
-        new_dataframe, parallelisation_method
-    )
 
 
 def apply_grammar_check(heading: str,
