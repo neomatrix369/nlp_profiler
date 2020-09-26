@@ -1,5 +1,4 @@
 import pandas as pd
-import swifter  # noqa
 
 from nlp_profiler.constants import \
     DEFAULT_PARALLEL_METHOD

@@ -1,5 +1,4 @@
 import pandas as pd
-import swifter  # noqa
 
 from nlp_profiler.alphanumeric import count_alpha_numeric
 from nlp_profiler.chars_and_spaces \

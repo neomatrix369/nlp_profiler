@@ -1,5 +1,6 @@
-from nlp_profiler.constants import NOT_APPLICABLE, NaN
 from textblob import TextBlob
+
+from nlp_profiler.constants import NOT_APPLICABLE, NaN
 
 
 ### Sentiment Subjectivity

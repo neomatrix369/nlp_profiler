@@ -17,7 +17,6 @@
 ### Jupyter Notebook: https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/examples/better-nlp/notebooks/jupyter/nlp_profiler.ipynb
 
 import pandas as pd
-import swifter  # noqa
 
 from nlp_profiler.constants import \
     PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, \
