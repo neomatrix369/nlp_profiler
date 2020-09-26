@@ -19,13 +19,11 @@
 import pandas as pd
 import swifter  # noqa
 
-from nlp_profiler.constants import GRAMMAR_CHECK_SCORE_COL, GRAMMAR_CHECK_COL
 from nlp_profiler.constants import \
     PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, \
     GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION
-from nlp_profiler.generate_features import generate_features, get_progress_bar
-from nlp_profiler.grammar_quality_check \
-    import grammar_quality, grammar_check_score
+from nlp_profiler.generate_features import get_progress_bar
+from nlp_profiler.grammar_quality_check import apply_grammar_check
 from nlp_profiler.granular_features import apply_granular_features
 from nlp_profiler.high_level_features import apply_high_level_features
 from nlp_profiler.spelling_quality_check import apply_spelling_check
@@ -70,17 +68,3 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         )
 
     return new_dataframe
-
-
-def apply_grammar_check(heading: str,
-                        new_dataframe: pd.DataFrame,
-                        text_column: dict,
-                        parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
-    grammar_checks_steps = [
-        (GRAMMAR_CHECK_SCORE_COL, text_column, grammar_check_score),
-        (GRAMMAR_CHECK_COL, GRAMMAR_CHECK_SCORE_COL, grammar_quality),
-    ]
-    generate_features(
-        heading, grammar_checks_steps,
-        new_dataframe, parallelisation_method
-    )
