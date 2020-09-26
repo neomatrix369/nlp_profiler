@@ -21,36 +21,22 @@ import tempfile
 
 import pandas as pd
 import swifter  # noqa
-from joblib import Parallel, delayed, Memory
-from tqdm.auto import tqdm
+from joblib import Memory
 
-from nlp_profiler.alphanumeric import count_alpha_numeric
-from nlp_profiler.chars_and_spaces \
-    import count_spaces, count_chars, count_characters_excluding_spaces
-from nlp_profiler.constants import \
-    ALPHA_NUMERIC_COUNT_COL, WHOLE_NUMBERS_COUNT_COL, EMOJI_COUNT_COL, CHARS_EXCL_SPACES_COUNT_COL
-from nlp_profiler.constants import CHARACTERS_COUNT_COL, SENTENCES_COUNT_COL
-from nlp_profiler.constants import \
-    DATES_COUNT_COL, STOP_WORDS_COUNT_COL, PUNCTUATIONS_COUNT_COL, NON_ALPHA_NUMERIC_COUNT_COL
-from nlp_profiler.constants import DUPLICATES_COUNT_COL, WORDS_COUNT_COL, SPACES_COUNT_COL
 from nlp_profiler.constants import GRAMMAR_CHECK_SCORE_COL, GRAMMAR_CHECK_COL
 from nlp_profiler.constants import \
-    PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, SWIFTER_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION
+    PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, \
+    GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION
 from nlp_profiler.constants import \
     SENTIMENT_POLARITY_SCORE_COL, SENTIMENT_POLARITY_COL, SENTIMENT_POLARITY_SUMMARISED_COL
 from nlp_profiler.constants import \
     SENTIMENT_SUBJECTIVITY_COL, SENTIMENT_SUBJECTIVITY_SCORE_COL, SENTIMENT_SUBJECTIVITY_SUMMARISED_COL
 from nlp_profiler.constants import \
     SPELLING_QUALITY_SCORE_COL, SPELLING_QUALITY_COL, SPELLING_QUALITY_SUMMARISED_COL
-from nlp_profiler.dates import count_dates
-from nlp_profiler.duplicates import count_duplicates
-from nlp_profiler.emojis import count_emojis
+from nlp_profiler.generate_features import generate_features, get_progress_bar
 from nlp_profiler.grammar_quality_check \
     import grammar_quality, grammar_check_score
-from nlp_profiler.non_alphanumeric import count_non_alpha_numeric
-from nlp_profiler.numbers import count_whole_numbers
-from nlp_profiler.punctuations import count_punctuations
-from nlp_profiler.sentences import count_sentences
+from nlp_profiler.granular_features import apply_granular_features
 from nlp_profiler.sentiment_polarity \
     import sentiment_polarity_score, sentiment_polarity, \
     sentiment_polarity_summarised
@@ -60,8 +46,6 @@ from nlp_profiler.sentiment_subjectivity \
 from nlp_profiler.spelling_quality_check \
     import spelling_quality_score, spelling_quality, \
     spelling_quality_summarised
-from nlp_profiler.stop_words import count_stop_words
-from nlp_profiler.words import count_words
 
 memory = Memory(tempfile.gettempdir(), compress=9, verbose=0)
 
@@ -115,31 +99,6 @@ def apply_text_profiling(dataframe: pd.DataFrame,
     return new_dataframe
 
 
-def apply_granular_features(heading: str,
-                            new_dataframe: pd.DataFrame,
-                            text_column: dict,
-                            parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
-    granular_features_steps = [
-        (SENTENCES_COUNT_COL, text_column, count_sentences),
-        (CHARACTERS_COUNT_COL, text_column, count_chars),
-        (SPACES_COUNT_COL, text_column, count_spaces),
-        (WORDS_COUNT_COL, text_column, count_words),
-        (DUPLICATES_COUNT_COL, text_column, count_duplicates),
-        (CHARS_EXCL_SPACES_COUNT_COL, text_column, count_characters_excluding_spaces),
-        (EMOJI_COUNT_COL, text_column, count_emojis),
-        (WHOLE_NUMBERS_COUNT_COL, text_column, count_whole_numbers),
-        (ALPHA_NUMERIC_COUNT_COL, text_column, count_alpha_numeric),
-        (NON_ALPHA_NUMERIC_COUNT_COL, text_column, count_non_alpha_numeric),
-        (PUNCTUATIONS_COUNT_COL, text_column, count_punctuations),
-        (STOP_WORDS_COUNT_COL, text_column, count_stop_words),
-        (DATES_COUNT_COL, text_column, count_dates),
-    ]
-    generate_features(
-        heading, granular_features_steps,
-        new_dataframe, parallelisation_method
-    )
-
-
 def apply_high_level_features(heading: str,
                               new_dataframe: pd.DataFrame,
                               text_column: dict,
@@ -156,69 +115,6 @@ def apply_high_level_features(heading: str,
         heading, high_level_features_steps,
         new_dataframe, parallelisation_method
     )
-
-
-def run_task(task_function, value: str):  # pragma: no cover
-    # pragma: no cover => multiprocessing leads to loss of test coverage info
-    cached_task_function = memory.cache(task_function)
-    return cached_task_function(value)
-
-
-def get_progress_bar(values: list) -> tqdm:
-    cached_tqdm = memory.cache(tqdm)
-    return cached_tqdm(values, ncols=PROGRESS_BAR_WIDTH)
-
-
-def using_swifter(
-        source_field, apply_function,
-        source_column: str = None, new_column: str = None
-) -> pd.DataFrame:
-    return source_field \
-        .swifter \
-        .set_dask_scheduler(scheduler="processes") \
-        .allow_dask_on_strings(enable=True) \
-        .progress_bar(enable=True, desc=new_column) \
-        .apply(apply_function, axis=1)
-
-
-def using_joblib_parallel(
-        source_field, apply_function,
-        source_column: str, new_column: str,
-) -> pd.DataFrame:
-    source_values_to_transform = get_progress_bar(source_field.values)
-    source_values_to_transform.set_description(new_column)
-
-    result = Parallel(n_jobs=-1)(
-        delayed(run_task)(
-            apply_function, each_value
-        ) for _, each_value in enumerate(source_values_to_transform)
-    )
-    source_values_to_transform.update()
-    return result
-
-
-def generate_features(main_header: str,
-                      high_level_features_steps: list,
-                      new_dataframe: pd.DataFrame,
-                      parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
-    generate_feature_progress_bar = get_progress_bar(high_level_features_steps)
-
-    # Using swifter or Using joblib Parallel and delay method:
-    parallelisation_method_function = using_joblib_parallel
-    if parallelisation_method == SWIFTER_METHOD:
-        parallelisation_method_function = using_swifter
-
-    for _, (new_column, source_column, transformation_function) in \
-            enumerate(generate_feature_progress_bar):
-        source_field = new_dataframe[source_column]
-        generate_feature_progress_bar.set_description(
-            f'{main_header}: {source_column} => {new_column}'
-        )
-
-        new_dataframe[new_column] = parallelisation_method_function(
-            source_field, transformation_function,
-            source_column, new_column
-        )
 
 
 def apply_spelling_check(heading: str,
