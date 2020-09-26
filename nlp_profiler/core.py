@@ -16,46 +16,23 @@
 ### Kaggle kernel: https://www.kaggle.com/neomatrix369/nlp-profiler-simple-dataset
 ### Jupyter Notebook: https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/examples/better-nlp/notebooks/jupyter/nlp_profiler.ipynb
 
-import sys
-import tempfile
-
 import pandas as pd
 import swifter  # noqa
-from joblib import Memory
 
 from nlp_profiler.constants import GRAMMAR_CHECK_SCORE_COL, GRAMMAR_CHECK_COL
 from nlp_profiler.constants import \
     PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, \
     GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION
 from nlp_profiler.constants import \
-    SENTIMENT_POLARITY_SCORE_COL, SENTIMENT_POLARITY_COL, SENTIMENT_POLARITY_SUMMARISED_COL
-from nlp_profiler.constants import \
-    SENTIMENT_SUBJECTIVITY_COL, SENTIMENT_SUBJECTIVITY_SCORE_COL, SENTIMENT_SUBJECTIVITY_SUMMARISED_COL
-from nlp_profiler.constants import \
     SPELLING_QUALITY_SCORE_COL, SPELLING_QUALITY_COL, SPELLING_QUALITY_SUMMARISED_COL
 from nlp_profiler.generate_features import generate_features, get_progress_bar
 from nlp_profiler.grammar_quality_check \
     import grammar_quality, grammar_check_score
 from nlp_profiler.granular_features import apply_granular_features
-from nlp_profiler.sentiment_polarity \
-    import sentiment_polarity_score, sentiment_polarity, \
-    sentiment_polarity_summarised
-from nlp_profiler.sentiment_subjectivity \
-    import sentiment_subjectivity_score, \
-    sentiment_subjectivity_summarised, sentiment_subjectivity
+from nlp_profiler.high_level_features import apply_high_level_features
 from nlp_profiler.spelling_quality_check \
     import spelling_quality_score, spelling_quality, \
     spelling_quality_summarised
-
-memory = Memory(tempfile.gettempdir(), compress=9, verbose=0)
-
-
-def is_running_from_ipython():
-    inJupyter = sys.argv[-1].endswith('json')
-    return inJupyter
-
-
-PROGRESS_BAR_WIDTH = 900 if is_running_from_ipython() else None
 
 
 def apply_text_profiling(dataframe: pd.DataFrame,
@@ -97,24 +74,6 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         )
 
     return new_dataframe
-
-
-def apply_high_level_features(heading: str,
-                              new_dataframe: pd.DataFrame,
-                              text_column: dict,
-                              parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
-    high_level_features_steps = [
-        (SENTIMENT_POLARITY_SCORE_COL, text_column, sentiment_polarity_score),
-        (SENTIMENT_POLARITY_COL, SENTIMENT_POLARITY_SCORE_COL, sentiment_polarity),
-        (SENTIMENT_POLARITY_SUMMARISED_COL, SENTIMENT_POLARITY_COL, sentiment_polarity_summarised),
-        (SENTIMENT_SUBJECTIVITY_SCORE_COL, text_column, sentiment_subjectivity_score),
-        (SENTIMENT_SUBJECTIVITY_COL, SENTIMENT_SUBJECTIVITY_SCORE_COL, sentiment_subjectivity),
-        (SENTIMENT_SUBJECTIVITY_SUMMARISED_COL, SENTIMENT_SUBJECTIVITY_COL, sentiment_subjectivity_summarised),
-    ]
-    generate_features(
-        heading, high_level_features_steps,
-        new_dataframe, parallelisation_method
-    )
 
 
 def apply_spelling_check(heading: str,
