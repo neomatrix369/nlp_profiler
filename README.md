@@ -1,4 +1,4 @@
-# NLP Profiler [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+# NLP Profiler [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![PyPI version](https://badge.fury.io/py/nlp-profiler.svg)](https://badge.fury.io/py/nlp-profiler) [![Python versions](https://img.shields.io/pypi/pyversions/nlp_profiler.svg)](https://pypi.org/project/nlp_profiler/) [![PyPi stats](https://img.shields.io/pypi/dm/nlp_profiler.svg?label=pypi%20downloads&logo=PyPI&logoColor=white)](https://pypistats.org/packages/nlp_profiler)
 
 A simple NLP library allows profiling datasets with one or more text columns. 
 
@@ -46,7 +46,7 @@ Look at this short demo of the NLP Profiler library by clicking on the below ima
 
 ## Installation
 
-From the PyPi:
+From PyPi:
 
 ```bash
 pip install nlp_profiler
