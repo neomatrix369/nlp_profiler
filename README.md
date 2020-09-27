@@ -46,6 +46,12 @@ Look at this short demo of the NLP Profiler library by clicking on the below ima
 
 ## Installation
 
+From the PyPi:
+
+```bash
+pip install nlp_profiler
+```
+
 From the GitHub repo:
 
 ```bash

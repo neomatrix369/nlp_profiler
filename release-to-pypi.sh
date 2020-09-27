@@ -24,14 +24,14 @@ set -o pipefail
 
 echo ""
 echo "Creating the distribution artifacts"
-echo "  -- removing older version of build, dist and nlp_profiler.egg-info"
-rm -fr build dist nlp_profiler.egg-info
+echo "  -- removing older version of build and nlp_profiler.egg-info"
+rm -fr build nlp_profiler.egg-info
 echo "  -- running python setup.py"
-python setup.py sdist
+python setup.py sdist bdist_wheel
 
 echo ""
 echo "Uploading package using twine"
-twine upload dist/*
+twine upload --skip-existing dist/*
 echo ""
 
 PACKAGE_VERSION=$(grep  "__version__ = " nlp_profiler/__init__.py | awk '{print $3}' | tr -d '"' || true)
