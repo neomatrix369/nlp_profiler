@@ -20,7 +20,7 @@ Under the hood it does make use of a number of libraries that are popular in the
 
 A simple [notebook](#Notebooks) have been provided to illustrate the usage of the library.
 
-_**Note:** this is a new endeavour and it's may have rough edges i.e. probably NOT capable of doing many things yet, including running at _scale_. _Many of these gaps are opportunities we can work on and plug, as we go along using it. Please provide constructive feedback to help with the improvement of this library._
+_**Note:** this is a new endeavour and it's may have rough edges i.e. probably NOT capable of doing many things atm. _Many of these gaps are opportunities we can work on and plug, as we go along using it. Please provide constructive feedback to help with the improvement of this library. We just recently achieved this with [scaling with larger datasets](https://github.com/neomatrix369/nlp_profiler/issues/2#issuecomment-696675059)._
 
 ## Requirements
 
