@@ -25,7 +25,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     download_url=download_url,
-    keywords="nlpprofiler nlpprof nlp_profiler nlp-profiler profile profiling",
+    keywords="nlp profiler nlpprofiler nlp_profiler nlp-profiler nlpprof profile profiling",
     install_requires=install_requirements,
     python_requires=">=3.6.0",
     classifiers=[
