@@ -48,3 +48,11 @@ For performance metrics before and after changes see this [comment](https://gith
 [00a68e2](https://github.com/neomatrix369/nlp_profiler/commit/00a68e2) - [1ff5082](https://github.com/neomatrix369/nlp_profiler/commit/1ff5082) [@neomatrix369](https://github.com/neomatrix369) _Fri Sep 18 14:09:12 2020 +0100_
 
 ---
+
+## 0.0.1-dev
+
+### GitHub branch `create-update-release` releasing NLP Profiler on GitHub and PyPi
+
+Just releasing to GitHub under the Releases tab and on PyPi
+
+[00a68e2](https://github.com/neomatrix369/nlp_profiler/commit/d5d0bc1) - [1ff5082](https://github.com/neomatrix369/nlp_profiler/commit/6510131) [@neomatrix369](https://github.com/neomatrix369) _Sun Sep 27 11:56:48 2020 +0100_
