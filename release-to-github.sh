@@ -23,14 +23,18 @@ set -o pipefail
 PACKAGE_VERSION=$(grep  "__version__ = " nlp_profiler/__init__.py | awk '{print $3}' | tr -d '"' || true)
 TARGET_REPO="neomatrix369/nlp_profiler"
 
-if [[ -z "${PACKAGE_VERSION}" ]]; then
+if [[ -z "${PACKAGE_VERSION:-}" ]]; then
   echo "ERROR: Cannot find the version number in 'nlp_profiler/__init__.py', cannot proceed. Exiting..."
   exit -1
 fi
 
-if [[ -z "${GITHUB_TOKEN}" ]]; then
+if [[ -z "${GITHUB_TOKEN:-}" ]]; then
   echo "GITHUB_TOKEN cannot be found in the current environment, please populate to proceed."
-  exit 0
+  echo "For e.g."
+  echo "     $ GITHUB_TOKEN=<your token> ./release-to-github.sh"
+  echo ""
+
+  exit -1
 fi
 
 TAG_NAME="v${PACKAGE_VERSION}"
