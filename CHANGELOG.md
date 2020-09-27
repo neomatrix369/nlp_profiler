@@ -9,9 +9,13 @@ Based on the issue raised on github [#1](https://github.com/neomatrix369/nlp_pro
 
 [b2a002a](https://github.com/neomatrix369/nlp_profiler/commit/b2a002a) - [4f117a6](https://github.com/neomatrix369/nlp_profiler/commit/4f117a6) [@neomatrix369](https://github.com/neomatrix369) _Wed Sep 16 17:15:29 2020 +0100_
 
+---
+
 ### GitHub branch `create-test-cases` write tests to verify implementation and for test coverage
 
 [6bdc799](https://github.com/neomatrix369/nlp_profiler/commit/6bdc799) - [4c49ae5](https://github.com/neomatrix369/nlp_profiler/commit/4c49ae5) [@neomatrix369](https://github.com/neomatrix369) _Thu Sep 17 17:27:14 2020 +0100_
+
+---
 
 ### GitHub branch `add-progress-bars` add progress bars to the various levels of transformation for better UX/UI experience
 
@@ -21,11 +25,15 @@ Based on the issue raised on github [#3](https://github.com/neomatrix369/nlp_pro
 
 [a83bc23](https://github.com/neomatrix369/nlp_profiler/commit/a83bc23) - [7c72b0e](https://github.com/neomatrix369/nlp_profiler/commit/7c72b0e) [@neomatrix369](https://github.com/neomatrix369) _Thu Sep 17 19:50:30 2020 +0100_
 
+---
+
 ### GitHub branch `add-progress-bars` add progress bars to the various levels of transformation for better UX/UI experience
 
 Continuing with the above changes, third-level progress-bar is in place (row-level progress)
 
 [7c72b0e](https://github.com/neomatrix369/nlp_profiler/commit/a83bc23) - [c3ada30](https://github.com/neomatrix369/nlp_profiler/commit/c3ada30) [@neomatrix369](https://github.com/neomatrix369) _Fri Sep 18 13:44:48 2020 +0100_
+
+---
 
 ### GitHub pull request https://github.com/neomatrix369/nlp_profiler/pull/9  improve performance of the library when used on larger datasets
 
@@ -39,3 +47,4 @@ For performance metrics before and after changes see this [comment](https://gith
 
 [00a68e2](https://github.com/neomatrix369/nlp_profiler/commit/00a68e2) - [1ff5082](https://github.com/neomatrix369/nlp_profiler/commit/1ff5082) [@neomatrix369](https://github.com/neomatrix369) _Fri Sep 18 14:09:12 2020 +0100_
 
+---
