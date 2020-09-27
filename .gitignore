@@ -16,3 +16,4 @@ googleplaystore_user_reviews.csv
 expected_high_level_googleplaystore_user_reviews.csv
 *.log*
 *.zip
+release-artifacts

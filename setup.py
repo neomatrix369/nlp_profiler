@@ -11,6 +11,8 @@ with open("README.md", encoding='utf8') as readme:
 with open("requirements.txt", encoding='utf8') as requirements_txt:
     install_requirements = requirements_txt.read().split(",")
 
+download_url = f"https://github.com/neomatrix369/nlp_profiler/releases/tag/v{nlp_profiler.__version__}"
+
 setup(
     name="nlp_profiler",
     version=nlp_profiler.__version__,
@@ -22,11 +24,14 @@ setup(
     license = "Apache 2.0",
     packages=find_packages(),
     include_package_data=True,
-    keywords="nlpprofiler, nlpprof, nlp_profiler, nlp-profiler",
+    download_url=download_url
+    keywords="nlpprofiler nlpprof nlp_profiler nlp-profiler profile profiling",
     install_requires=install_requirements,
     python_requires=">=3.6.0",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
+        "Topic :: Software Development :: Build Tools",
+        "Operating System :: OS Independent",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache 2.0 License",
         "Natural Language :: English",
@@ -35,4 +40,5 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
+    options={"bdist_wheel": {"universal": True}},
 )
