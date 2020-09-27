@@ -67,5 +67,6 @@ RELEASE_VERSION=$(cat "${CURL_OUTPUT}" | grep id | head -n 1 | tr -d " " | tr ",
 echo ""
 echo "GitHub RELEASE_VERSION: ${RELEASE_VERSION}"
 echo "PACKAGE_VERSION: ${PACKAGE_VERSION}. TAG_NAME: ${TAG_NAME}."
-echo "Finished uploading to GitHub."
+echo "~~~ Finished creating tag and release on GitHub ~~~"
+echo ""
 echo ""
