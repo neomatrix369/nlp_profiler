@@ -4,7 +4,9 @@ Citing the well-deserved folks for being an influencer
 
 - [@Abhishek Thakur](https://github.com/abhishekkrthakur/): inspiration from [his repo](https://github.com/abhishekkrthakur/wtfml) and [helpful videos (Tips and Tricks)](https://www.youtube.com/AbhishekThakurAbhi?sub_confirmation=1).
 - [@Marco Gorelli](https://github.com/MarcoGorelli/): inspiration from [his repo](https://github.com/MarcoGorelli/nbQA/) to help with basic setup layout
+- **[Raenish David](https://www.kaggle.com/raenish) for his inspiring [kernel](https://www.kaggle.com/raenish/cheatsheet-text-helper-functions) which lead to the inception of this library**
 - And the contributors to this repo for raising [issues](https://github.com/neomatrix369/nlp_profiler/issues) and [pull requests](https://github.com/neomatrix369/nlp_profiler/pulls).
+- Not forgetting those who are [watching](https://github.com/neomatrix369/nlp_profiler/watchers), [starred](https://github.com/neomatrix369/nlp_profiler/stargazers) and [forked](https://github.com/neomatrix369/nlp_profiler/network/members) this repo
 
 # Supporters and well wishers
 
