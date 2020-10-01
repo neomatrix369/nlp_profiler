@@ -6,6 +6,26 @@ NLP Profiler returns either high-level insights or low-level/granular statistica
 
 In short: Think of it as using the `pandas.describe()` function or running [Pandas Profiling](https://github.com/pandas-profiling/pandas-profiling) on your data frame, but for datasets containing text columns rather than the usual columnar datasets.
 
+# Table of contents
+
+- [What do you get from the library?](#what-do-you-get-from-the-library)
+- [Requirements](#requirements)
+- [Getting started](#getting-started)
+  - [Demo](#Demo)
+  - [Installation](#installation)
+  - [Usage](#usage)
+- [Notebooks](#notebooks)
+  - [Jupyter](#jupyter)
+  - [Google Colab](#google-colab)
+  - [Kaggle kernels](#kaggle-kernels)
+- [Screenshots](#screenshots)
+- [Credits and supporters](#credits-and-supporters)
+- [Changes](#changes)
+- [License](#license)
+- [Contributing](#contributing)
+
+---
+
 ## What do you get from the library?
 
 - Input a Pandas dataframe series as input paramater.
@@ -44,7 +64,7 @@ _**Note:** this is a new endeavour and it's may have rough edges i.e. probably N
 Look at this short demo of the NLP Profiler library by clicking on the below image: 
 [![Demo of the NLP Profiler library](https://user-images.githubusercontent.com/1570917/88474968-8fb48980-cf23-11ea-944d-0a1069174ede.png)](https://youtu.be/sdPOyqMfK7M?t=2274)or you find the rest of the [talk here](https://www.youtube.com/watch?v=sdPOyqMfK7M).
 
-## Installation
+### Installation
 
 From PyPi:
 
@@ -80,7 +100,7 @@ or
 pip install --prefix .
 ```
 
-## Usage
+### Usage
 
 ```python
 import nlp_profiler.core as nlpprof
@@ -124,19 +144,19 @@ You can open these notebooks directly in [Google Colab](./notebooks/google-colab
 
 ![Pandas describe() function](https://user-images.githubusercontent.com/1570917/92324242-cf4cb600-f037-11ea-9c5a-e22806b4be5b.png)
 
-# Credits and supporters
+## Credits and supporters
 
 See [CREDITS_AND_SUPPORTERS.md](./CREDITS_AND_SUPPORTERS.md)
 
-# Changes
+## Changes
 
 See [CHANGELOG.md](./CHANGELOG.md)
 
-# License
+## License
 
 Refer [licensing](LICENSE.md) (and warranty) policy.
 
-# Contributing
+## Contributing
 
 Contributions are Welcome!
 
