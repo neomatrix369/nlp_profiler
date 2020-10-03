@@ -1,4 +1,5 @@
 import language_tool_python
+language_tool = language_tool_python.LanguageTool('en-GB')
 import pandas as pd
 
 from nlp_profiler.constants import NOT_APPLICABLE, NaN, DEFAULT_PARALLEL_METHOD, \
@@ -26,8 +27,7 @@ def grammar_check_score(text: str) -> int:
     if (not isinstance(text, str)) or (len(text.strip()) == 0):
         return NaN
 
-    tool = language_tool_python.LanguageTool('en-GB')
-    matches = tool.check(text)
+    matches = language_tool.check(text)
     return len(matches)
 
 
