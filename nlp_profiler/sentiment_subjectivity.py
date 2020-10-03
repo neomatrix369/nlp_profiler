@@ -1,6 +1,7 @@
 from textblob import TextBlob
 
 from nlp_profiler.constants import NOT_APPLICABLE, NaN
+import math
 
 
 ### Sentiment Subjectivity
@@ -31,7 +32,7 @@ sentiment_subjectivity_to_words_mapping = [
 
 
 def sentiment_subjectivity(score: float) -> str:
-    if score is NaN:
+    if math.isnan(score):
         return NOT_APPLICABLE
 
     score = float(score) * 100

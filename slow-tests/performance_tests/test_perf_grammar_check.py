@@ -6,7 +6,7 @@ from contextlib import redirect_stdout
 import git
 
 sys.path.insert(0, '../../performance-tests/high_level')
-from nlp_profiler.spelling_quality_check import spelling_quality_score
+from nlp_profiler.grammar_quality_check import grammar_check_score
 from line_profiler import LineProfiler
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
@@ -20,18 +20,18 @@ def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_t
         os.makedirs(TARGET_PROFILE_REPORT_FOLDER)
     profile = LineProfiler()
     source_data = generate_data()
-    expected_execution_time = 32  # benchmarked: (first-time) 31.051079034805298, (cached) 0.918392 seconds
+    expected_execution_time = 4  # benchmarked: (first-time) 46.694923639297485, (cached) 5.918392 seconds
 
     # when: using default method (joblib Parallel) for parallelisation
     start_execution_time = time()
-    profile_wrapper = profile(spelling_quality_score)
+    profile_wrapper = profile(grammar_check_score)
     for each in source_data:
         profile_wrapper(each)
     end_execution_time = time()
     actual_execution_time = end_execution_time - start_execution_time
 
     short_sha = shorten_sha(git_current_head_sha())
-    output_filename = f'{TARGET_PROFILE_REPORT_FOLDER}/spelling_quality_check-' \
+    output_filename = f'{TARGET_PROFILE_REPORT_FOLDER}/grammar_check_score-' \
                       f'{datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}-{short_sha}'
     with open(f'{output_filename}.txt', 'w') as file:
         with redirect_stdout(file):
@@ -43,7 +43,7 @@ def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_t
     assert actual_execution_time <= expected_execution_time, \
         f"Expected duration: {expected_execution_time}, Actual duration: {actual_execution_time}. " \
         f"Slow down by: {abs(actual_execution_time - expected_execution_time)} seconds. " \
-        f"We have crossed the benchmark limit after a speed up via commit a81ed70."
+        f"We have crossed the benchmark limit after a speed up via commit 51a8952."
 
 
 def shorten_sha(long_sha):

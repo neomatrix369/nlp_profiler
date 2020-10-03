@@ -55,4 +55,13 @@ For performance metrics before and after changes see this [comment](https://gith
 
 Just releasing to GitHub under the Releases tab and on PyPi
 
-[00a68e2](https://github.com/neomatrix369/nlp_profiler/commit/d5d0bc1) - [1ff5082](https://github.com/neomatrix369/nlp_profiler/commit/6510131) [@neomatrix369](https://github.com/neomatrix369) _Sun Sep 27 11:56:48 2020 +0100_
+[d5d0bc1](https://github.com/neomatrix369/nlp_profiler/commit/d5d0bc1) - [6510131](https://github.com/neomatrix369/nlp_profiler/commit/6510131) [@neomatrix369](https://github.com/neomatrix369) _Sun Sep 27 11:56:48 2020 +0100
+_
+
+---
+
+### GitHub branch `scale-when-applied-to-larger-datasets` Improving performance of Grammar check on large datasets
+
+Tweaking the Grammar check function to perform better than the previous version
+
+[81d055f](https://github.com/neomatrix369/nlp_profiler/commit/81d055f) - [2e311f7](https://github.com/neomatrix369/nlp_profiler/commit/2e311f7) [@neomatrix369](https://github.com/neomatrix369) _Sat Oct 3 07:57:39 2020 +0100_

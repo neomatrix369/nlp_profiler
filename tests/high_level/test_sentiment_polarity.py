@@ -40,7 +40,7 @@ def test_given_a_text_when_sentiment_analysis_is_applied_then_sentiment_analysis
     # given, when
     actual_score = sentiment_polarity_score(text)
     # then
-    if expected_polarity_score is NaN:
+    if math.isnan(expected_polarity_score):
         assert actual_score is expected_polarity_score
     else:
         assert math.isclose(expected_polarity_score, actual_score,
