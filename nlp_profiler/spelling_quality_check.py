@@ -4,6 +4,7 @@ import pandas as pd
 from joblib import Memory
 from nltk.tokenize import word_tokenize
 from textblob import Word
+import math
 
 from nlp_profiler.constants import \
     DEFAULT_PARALLEL_METHOD
@@ -91,7 +92,7 @@ def actual_spell_check(each_word: str) -> str:  # pragma: no cover
 
 
 def spelling_quality(score: float) -> str:
-    if score is NaN:
+    if math.isnan(score):
         return NOT_APPLICABLE
 
     score = float(score) * 100
