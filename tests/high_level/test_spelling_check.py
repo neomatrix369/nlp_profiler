@@ -36,7 +36,7 @@ def test_given_a_text_when_spell_check_is_applied_then_spell_check_analysis_info
     # given, when
     actual_score = spelling_quality_score(text)
     # then
-    if expected_spelling_check_score is NaN:
+    if math.isnan(expected_spelling_check_score):
         assert actual_score is expected_spelling_check_score
     else:
         assert math.isclose(expected_spelling_check_score, actual_score,

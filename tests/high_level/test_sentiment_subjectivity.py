@@ -36,7 +36,7 @@ def test_given_a_text_when_sentiment_subjectivity_analysis_is_applied_then_subje
     # given, when
     actual_score = sentiment_subjectivity_score(text)
     # then
-    if expected_score is NaN:
+    if math.isnan(expected_score):
         assert actual_score is expected_score
     else:
         assert math.isclose(expected_score, actual_score,
