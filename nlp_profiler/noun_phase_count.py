@@ -1,20 +1,18 @@
 import en_core_web_sm
-import spacy
 from nlp_profiler.constants import NaN
 nlp = en_core_web_sm.load()
 
 
-def gather_nouns(sent: str):
+def gather_nouns(sentence: str):
 
-    if not isinstance(sent, str) or len(sent) == 0:
+    if not isinstance(sentence, str) or len(sentence) == 0:
         return []
     
-    doc = nlp(sent)
+    doc = nlp(sentence)
     return [(x.text, x.label_) for x in doc.ents]
 
 
-def count_phase(text: str) -> int:
-    print ("Text Type: ", type(text) )
+def count_noun_phase(text: str) -> int:
     if not isinstance(text, str):
         return NaN
 

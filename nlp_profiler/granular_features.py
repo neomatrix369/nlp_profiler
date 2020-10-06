@@ -21,7 +21,7 @@ from nlp_profiler.punctuations import count_punctuations
 from nlp_profiler.sentences import count_sentences
 from nlp_profiler.stop_words import count_stop_words
 from nlp_profiler.words import count_words
-from nlp_profiler.noun_phase_count import count_phase
+from nlp_profiler.noun_phase_count import count_noun_phase
 
 
 def apply_granular_features(heading: str,
@@ -42,7 +42,7 @@ def apply_granular_features(heading: str,
         (PUNCTUATIONS_COUNT_COL, text_column, count_punctuations),
         (STOP_WORDS_COUNT_COL, text_column, count_stop_words),
         (DATES_COUNT_COL, text_column, count_dates),
-        (NOUN_PHASE_COUNT_COL, text_column, count_phase)
+        (NOUN_PHASE_COUNT_COL, text_column, count_noun_phase)
     ]
     generate_features(
         heading, granular_features_steps,
