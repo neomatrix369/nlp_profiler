@@ -47,7 +47,7 @@ text_to_return_value_mapping = [
                          text_to_return_value_mapping)
 def test_count_noun(text: str, expected_result: str): 
 
-    actual_result = count_phase(text)
+    actual_result = count_noun_phase(text)
     
     assert actual_result == expected_result, \
     f"Expected Result: {expected_result} \
@@ -61,7 +61,7 @@ text_to_return_value_mapping = [
                          text_to_return_value_mapping)
 def test_failed_count_noun(text: str, expected_result: str): 
 
-    actual_result = count_phase(text)
+    actual_result = count_noun_phase(text)
     
     assert actual_result == expected_result, \
     f"Expected Result: {expected_result} \
