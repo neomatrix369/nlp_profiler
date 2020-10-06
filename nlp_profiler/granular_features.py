@@ -10,7 +10,7 @@ from nlp_profiler.constants import \
     DATES_COUNT_COL, STOP_WORDS_COUNT_COL, PUNCTUATIONS_COUNT_COL, NON_ALPHA_NUMERIC_COUNT_COL
 from nlp_profiler.constants import \
     DEFAULT_PARALLEL_METHOD
-from nlp_profiler.constants import DUPLICATES_COUNT_COL, WORDS_COUNT_COL, SPACES_COUNT_COL
+from nlp_profiler.constants import DUPLICATES_COUNT_COL, WORDS_COUNT_COL, SPACES_COUNT_COL, NOUN_PHASE_COUNT_COL
 from nlp_profiler.dates import count_dates
 from nlp_profiler.duplicates import count_duplicates
 from nlp_profiler.emojis import count_emojis
@@ -21,6 +21,7 @@ from nlp_profiler.punctuations import count_punctuations
 from nlp_profiler.sentences import count_sentences
 from nlp_profiler.stop_words import count_stop_words
 from nlp_profiler.words import count_words
+from nlp_profiler.noun_phase_count import count_phase
 
 
 def apply_granular_features(heading: str,
@@ -41,6 +42,7 @@ def apply_granular_features(heading: str,
         (PUNCTUATIONS_COUNT_COL, text_column, count_punctuations),
         (STOP_WORDS_COUNT_COL, text_column, count_stop_words),
         (DATES_COUNT_COL, text_column, count_dates),
+        (NOUN_PHASE_COUNT_COL, text_column, count_phase)
     ]
     generate_features(
         heading, granular_features_steps,
