@@ -7,18 +7,24 @@ from nlp_profiler.constants import NOT_APPLICABLE, NaN
 from nlp_profiler.spelling_quality_check import spelling_quality_score, \
     spelling_quality, spelling_quality_summarised  # noqa
 
-good_spelling_text = 'People live in this area. It is not a good area. People live in this area. It is not a good area. 2833047 people live in this area. It is not a good area.'
-bad_spelling_text = "2833047 people live in this arae. It is not a good aree. swa peeeple live in this areee."
-very_bad_spelling_text = "I aaaadsd asdasd asdasd asdasd asdasd."
+very_good_spelling_text = 'People live in this area. It is not a good area. People live in this area. It is not a good area. 2833047 people live in this area. It is not a good area.'
+quite_good_spelling_text = 'People live in this area. It is not a good area. People live in this area. It is not a good area. 2833047 people live in this area. It is not a good arae.'
+good_spelling_text = 'People live in this area. It is not a good area. People live in this area. It is not a good area. 2833047 people live in this arae. It is not a good arae.'
+pretty_good_spelling_text = 'People live in this arae. It is not a good area. People live in this area. It is not a good area. 2833047 people live in this arae. It is not a good arae.'
+bad_spelling_text = "2833047 people live in this arae. It is not a good arae. swa arae live in this arae."
+pretty_bad_spelling_text = "I arae arae arae arae arae."
 
 text_to_return_value_mapping = [
     (np.nan, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
     (float('nan'), NaN, NOT_APPLICABLE, NOT_APPLICABLE),
     (None, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
     ("", NaN, NOT_APPLICABLE, NOT_APPLICABLE),
-    (good_spelling_text, 1.0, 'Very good', 'Good'),
-    (bad_spelling_text, 0.5714285714285714, 'Bad', 'Bad'),
-    (very_bad_spelling_text, 0.2857142857142857, 'Pretty bad', 'Bad')
+    (very_good_spelling_text, 1.0, 'Very good', 'Good'),
+    (quite_good_spelling_text, 0.975, 'Quite good', 'Good'),
+    (good_spelling_text, 0.95, 'Good', 'Good'),
+    (pretty_good_spelling_text, 0.925, 'Pretty good', 'Good'),
+    (bad_spelling_text, 0.7619047619047619, 'Bad', 'Bad'),
+    (pretty_bad_spelling_text, 0.2857142857142857, 'Pretty bad', 'Bad')
 ]
 
 
@@ -61,12 +67,12 @@ def test_given_a_text_when_spell_check_is_applied_then_spell_check_analysis_info
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
 spelling_check_score_to_words_mapping = [
     (0.99555, 0.99555, "Very good"),  # ["Very good", 99, 100],  # Certain: 100%: Give or take 0%
-    (0.95, 0.95, "Quite good"),  # ["Quite good", 90, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
-    (0.88, 0.88, "Good"),  # ["Good", 87, 90],  # Quite Good: Almost Certain: 93%: Give or take 6%
-    (0.70, 0.70, "Pretty good"),  # ["Bad", 63, 87],  # Pretty: Good: Probable: 75%: Give or take about 12%
-    (0.50, 0.50, "Bad"),  # ["Pretty bad", 40, 63],  # So/so: Chances About Even: 50%: Give or take about 10%
-    (0.30, 0.30, "Pretty bad"),  # ["Quite bad", 12, 40],  # Pretty bad: Probably Not: 30%: Give or take about 10%
-    (0.08, 0.08, "Quite bad"),  # ["Very bad", 2, 12],  # Quite bad: Almost Certainly Not 7%: Give or take about 5%
+    (0.975, 0.975, "Quite good"),  # ["Quite good", 90, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
+    (0.955, 0.955, "Good"),  # ["Good", 87, 90],  # Quite Good: Almost Certain: 93%: Give or take 6%
+    (0.925, 0.925, "Pretty good"),  # ["Bad", 63, 87],  # Pretty: Good: Probable: 75%: Give or take about 12%
+    (0.65, 0.65, "Bad"),  # ["Pretty bad", 40, 63],  # So/so: Chances About Even: 50%: Give or take about 10%
+    (0.50, 0.50, "Pretty bad"),  # ["Quite bad", 12, 40],  # Pretty bad: Probably Not: 30%: Give or take about 10%
+    (0.10, 0.10, "Quite bad"),  # ["Very bad", 2, 12],  # Quite bad: Almost Certainly Not 7%: Give or take about 5%
     (0.01, 0.01, "Very bad"),  # ["Very bad", 0, 2]  # Impossible 0%: Give or take 0%
 ]
 
