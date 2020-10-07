@@ -8,8 +8,8 @@ from nlp_profiler.spelling_quality_check import spelling_quality_score, \
     spelling_quality, spelling_quality_summarised  # noqa
 
 good_spelling_text = 'People live in this area. It is not a good area. People live in this area. It is not a good area. 2833047 people live in this area. It is not a good area.'
-bad_spelling_text = "2833047 people live in this arae. It is not a good area. swa peeeple live in this area."
-very_bad_spelling_text = "I am asdasd asdasd good asdasd."
+bad_spelling_text = "2833047 people live in this arae. It is not a good aree. swa peeeple live in this areee."
+very_bad_spelling_text = "I aaaadsd asdasd asdasd asdasd asdasd."
 
 text_to_return_value_mapping = [
     (np.nan, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
@@ -17,8 +17,8 @@ text_to_return_value_mapping = [
     (None, NaN, NOT_APPLICABLE, NOT_APPLICABLE),
     ("", NaN, NOT_APPLICABLE, NOT_APPLICABLE),
     (good_spelling_text, 1.0, 'Very good', 'Good'),
-    (bad_spelling_text, 0.6190476190476191, 'Bad', 'Bad'),
-    (very_bad_spelling_text, 0.14285714285714285, 'Pretty bad', 'Bad')
+    (bad_spelling_text, 0.5714285714285714, 'Bad', 'Bad'),
+    (very_bad_spelling_text, 0.2857142857142857, 'Pretty bad', 'Bad')
 ]
 
 
