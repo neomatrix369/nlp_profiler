@@ -54,7 +54,7 @@ def git_current_head_sha():
     return repo.head.commit.hexsha
 
 
-def generate_data():
+def generate_data() -> list:
     text_with_emojis = "I love ⚽ very much 😁."
     text_with_a_number = '2833047 people live in this area. It is not a good area.'
     text_with_two_numbers = '2833047 and 1111 people live in this area.'
