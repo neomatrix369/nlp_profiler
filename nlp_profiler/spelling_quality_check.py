@@ -1,10 +1,10 @@
+import math
 import tempfile
 
 import pandas as pd
 from joblib import Memory
 from nltk.tokenize import word_tokenize
 from textblob import Word
-import math
 
 from nlp_profiler.constants import \
     DEFAULT_PARALLEL_METHOD
@@ -12,7 +12,6 @@ from nlp_profiler.constants import NOT_APPLICABLE, NaN
 from nlp_profiler.constants import \
     SPELLING_QUALITY_SCORE_COL, SPELLING_QUALITY_COL, SPELLING_QUALITY_SUMMARISED_COL
 from nlp_profiler.generate_features import generate_features
-from nlp_profiler.sentences import count_sentences
 
 memory = Memory(tempfile.gettempdir(), compress=9, verbose=0)
 
@@ -37,11 +36,11 @@ def apply_spelling_check(heading: str,
 ### The General Area of Possibility
 spelling_quality_score_to_words_mapping = [
     ["Very good", 99, 100],  # Very good: Certain: 100%: Give or take 0%
-    ["Quite good", 90, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
-    ["Good", 87, 90],  # Quite Good: Almost Certain: 93%: Give or take 6%
-    ["Pretty good", 63, 87],  # Pretty: Good: Probable: 75%: Give or take about 12%
-    ["Bad", 40, 63],  # So/so: Chances About Even: 50%: Give or take about 10%
-    ["Pretty bad", 12, 40],  # Pretty bad: Probably Not: 30%: Give or take about 10%
+    ["Quite good", 97, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
+    ["Good", 95, 97],  # Quite Good: Almost Certain: 93%: Give or take 6%
+    ["Pretty good", 90, 95],  # Pretty: Good: Probable: 75%: Give or take about 12%
+    ["Bad", 60, 90],  # So/so: Chances About Even: 50%: Give or take about 10%
+    ["Pretty bad", 12, 60],  # Pretty bad: Probably Not: 30%: Give or take about 10%
     ["Quite bad", 2, 12],  # Quite bad: Almost Certainly Not 7%: Give or take about 5%
     ["Very bad", 0, 2]  # Impossible 0%: Give or take 0%
 ]
@@ -66,16 +65,9 @@ def spelling_quality_score(text: str) -> float:
         each_word for _, each_word in enumerate(tokenized_text)
         if actual_spell_check(each_word) is not None
     ]
-    avg_words_per_sentence = \
-        len(tokenized_text) / get_sentence_count(text)
-    result = 1 - (len(misspelt_words) / avg_words_per_sentence)
+    result = 1 - (len(misspelt_words) / len(tokenized_text))
 
     return result if result >= 0.0 else 0.0
-
-
-def get_sentence_count(text: str) -> int:
-    cached_function = memory.cache(count_sentences)
-    return cached_function(text)
 
 
 def get_tokenized_text(text: str) -> list:
