@@ -6,7 +6,7 @@ See [slides (PDF)](NLP_Profiler_Profiling_textual_datasets.pdf)
 
 ### Video
 
-_(When available)_
+See [on YouTube](https://www.youtube.com/watch?v=wHIcQWeOugI)
 
 ### Speaker
 
