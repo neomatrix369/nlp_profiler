@@ -40,7 +40,7 @@ python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tq
 
 ### Install nlp-profiler
 
-Do the below to start getting reading to work in the developer mode.
+Do the below to start getting ready to work in the developer mode.
 
 ```bash
 git clone https://github.com/neomatrix369/nlp_profiler
@@ -89,13 +89,17 @@ At the moment we have only implemented the CI part of CI/CD. This is work in pro
 
 ### Contribution steps
 
-In addition to have read the [Contribution guide](#CONTRIBUTING.md), please also follow the steps in the [Table of Contents](#table-of-content) above.
+Do these in the sequential order:
 
-Creating a Pull request will also result in these steps to be executed on Windows and Linux instances via the GitHub action(s).
+- In addition to have read the [Contribution guide](#CONTRIBUTING.md), please also follow the steps in the [Table of Contents](#table-of-content) above.
 
-Any failures on the PR would need to be addressed. More details on specific changes will be addressed at a later time, but the failures in tests or at any othe aspect should more or less indicate the reason for failure. If not, please look for past reported issues under [GitHub issues](https://github.com/neomatrix369/nlp_profiler/issues) or report a new one with the specifics of the issue in hand.
+- Creating a Pull request will also result in these steps to be executed on Windows and Linux instances via the GitHub action(s).
 
-Additional to help the process please also feel free to the amend/improve the GitHub actions under [.github/workflows](.github/workflows).
+- Any failures on the PR would need to be addressed. More details on specific changes will be addressed at a later time, but the failures in tests or at any othe aspect should more or less indicate the reason for failure. If not, please look for past reported issues under [GitHub issues](https://github.com/neomatrix369/nlp_profiler/issues) or report a new one with the specifics of the issue in hand.
+
+- Check if all the notebooks in the repo reflect your changes, if not please renenerate them and make them part of the pull request.
+
+- Additional to help the process please also feel free to the amend/improve the GitHub actions under [.github/workflows](.github/workflows).
 
 ---
 
