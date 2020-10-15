@@ -48,3 +48,17 @@ jobs:
           env_vars: OS,PYTHON
           name: codecov-umbrella
           fail_ci_if_error: true
+      - name: Archive build and test artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports-and-cprofile-reports
+          path: |
+            .coverage
+            .test-run-reports/**/*.*
+            .cprofile/**/*.*
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-coverage-reports
+          path: |
+            .coverage-reports/**/*.*
