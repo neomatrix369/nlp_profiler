@@ -69,8 +69,17 @@ _**Note:** this is a new endeavour and it's may have rough edges i.e. probably N
 
 ### Demo
 
-Look at this short demo of the NLP Profiler library by clicking on the below image: 
-[![Demo of the NLP Profiler library](https://user-images.githubusercontent.com/1570917/88474968-8fb48980-cf23-11ea-944d-0a1069174ede.png)](https://youtu.be/sdPOyqMfK7M?t=2274)or you find the rest of the [talk here](https://www.youtube.com/watch?v=sdPOyqMfK7M).
+Look at a short demo of the NLP Profiler library at one of these:
+
+<table>
+  <tr>
+    <td align="center"><a href="https://youtu.be/sdPOyqMfK7M?t=2274"><img alt="Demo of the NLP Profiler library (Abhishek talks #6)" src=https://user-images.githubusercontent.com/1570917/88474968-8fb48980-cf23-11ea-944d-0a1069174ede.png></a> or you find the rest of the <a href=https://www.youtube.com/watch?v=sdPOyqMfK7M>talk here</a></td>
+<td>
+  <td align="center"><a href="https://youtu.be/wHIcQWeOugI?t=808"><img alt="Demo of the NLP Profiler library (NLP Zurich talk)" src=https://secure.meetupstatic.com/photos/event/5/7/3/highres_492541395.jpeg></a> or you find the rest of the <a href=https://www.youtube.com/watch?v=wHIcQWeOugI>talk here</a></td>
+  
+  </tr>
+</table>
+
 
 ### Installation
 
