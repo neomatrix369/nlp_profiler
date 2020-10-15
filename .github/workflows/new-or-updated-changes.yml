@@ -38,7 +38,7 @@ jobs:
         run: |
           ./test-coverage.sh "tests slow-tests"
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-actions@v1
+        uses: codecov/codecov-action@v1
         if: matrix.python-version == '3.8' && matrix.os == 'ubuntu-18.04'
         with:
           env_vars: OS,PYTHON
