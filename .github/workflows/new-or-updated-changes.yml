@@ -37,7 +37,9 @@ jobs:
           path: |
              ~/.cache/pip
              ~\AppData\Local\pip\Cache
-          key: ${{ runner.os }}-${{ hashFiles('**lockfiles') }}
+             /opt/hostedtoolcache/Python/
+             c:\hostedtoolcache\windows\python\
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
 
       # Runs a single command using the runners shell
       - name: install-dev-requirements
