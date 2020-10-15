@@ -20,7 +20,7 @@ pip install -r requirements.txt
 Install `line-profiler` for Linux or macOS environments:
 
 ```
-pip install -r requirements-linux-dev.txt
+pip install -r requirements-nix-dev.txt
 ```
 
 **Windows**
@@ -93,7 +93,7 @@ Do these in the sequential order:
 
 - In addition to have read the [Contribution guide](#CONTRIBUTING.md), please also follow the steps in the [Table of Contents](#table-of-content) above.
 
-- Creating a Pull request will also result in these steps to be executed on Windows and Linux instances via the GitHub action(s).
+- Creating a Pull request will also result in these steps to be executed on Windows and Linux instances via the GitHub action(s) (this also covers for macOS environments as it is equivalent to the Linux environment to a good extend).
 
 - Any failures on the PR would need to be addressed. More details on specific changes will be addressed at a later time, but the failures in tests or at any othe aspect should more or less indicate the reason for failure. If not, please look for past reported issues under [GitHub issues](https://github.com/neomatrix369/nlp_profiler/issues) or report a new one with the specifics of the issue in hand.
 
