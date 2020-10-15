@@ -16,3 +16,8 @@ See what others have to say about this library:
 - [LinkedIn post](https://www.linkedin.com/feed/update/urn:li:activity:6708394732621582336/) by [Philip Voilet](https://www.linkedin.com/in/philipvollet)
 - [Tweet](https://twitter.com/kurianbenoy2/status/1300482632413667335) by [Kurian Benoy](https://in.linkedin.com/in/kurianbenoy)
 - Kernel [NLP Profiler: A Python tool for profiling of Textual Dataset](https://www.kaggle.com/viratkothari/nlp-profiler-profiling-of-textual-dataset) by [Virat Kothari](https://www.kaggle.com/viratkothari/)
+
+---
+
+Return to [README.md](README.md)
+
