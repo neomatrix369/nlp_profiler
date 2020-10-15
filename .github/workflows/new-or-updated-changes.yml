@@ -1,0 +1,89 @@
+# This is a basic workflow to help you get started with Actions
+
+name: new-or-updated-changes
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    strategy:
+      matrix:
+        python-version: ["3.6", "3.7", "3.8"]
+        os: [windows-latest, ubuntu-18.04]
+
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+
+    timeout-minutes: 15
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          path: |
+             ~/.cache/pip
+             ~\AppData\Local\pip\Cache
+          key: ${{ runner.os }}-${{ hashFiles('**lockfiles') }}
+
+      # Runs a single command using the runners shell
+      - name: install-dev-requirements
+        run: python -m pip install --upgrade -r requirements-dev.txt
+
+      - name: install-dev-requirements-linux-specific
+        run: python -m pip install --upgrade -r requirements-linux-dev.txt
+        if: matrix.os != 'windows-latest'
+
+      - name: install-line-profiler-on-windows-python-3.6
+        run: python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/line_profiler-3.0.2-cp36-cp36m-win_amd64.whl
+        if: matrix.python-version == '3.6' &&  matrix.os == 'windows-latest'
+
+      - name: install-line-profiler-on-windows-python-3.7
+        run: python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/line_profiler-3.0.2-cp37-cp37m-win_amd64.whl
+        if: matrix.python-version == '3.7' &&  matrix.os == 'windows-latest'
+
+      - name: install-line-profiler-on-windows-python-3.8
+        run: python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/line_profiler-3.0.2-cp38-cp38-win_amd64.whl
+        if: matrix.python-version == '3.8' &&  matrix.os == 'windows-latest'
+
+      - name: install-requirements
+        run: python -m pip install --upgrade -r requirements.txt
+
+      # Runs a set of commands using the runners shell
+      - name: run-test-coverage-shell-script
+        run: |
+          ./test-coverage.sh "tests slow-tests"
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        if: matrix.python-version == '3.8' && matrix.os == 'ubuntu-18.04'
+        with:
+          env_vars: OS,PYTHON
+          name: codecov-umbrella
+          fail_ci_if_error: true
+      - name: Archive build and test artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports-and-cprofile-reports
+          path: |
+            .coverage
+            .test-run-reports/**/*.*
+            .cprofile/**/*.*
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-coverage-reports
+          path: |
+            .coverage-reports/**/*.*

@@ -14,6 +14,7 @@ In short: Think of it as using the `pandas.describe()` function or running [Pand
   - [Demo](#Demo)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Developer guide](#developer-guide)
 - [Notebooks](#notebooks)
   - [Jupyter](#jupyter)
   - [Google Colab](#google-colab)
@@ -78,27 +79,7 @@ From the GitHub repo:
 pip install git+https://github.com/neomatrix369/nlp_profiler.git@master
 ```
 
-From the source (only for development purposes):
-
-```bash
-git clone https://github.com/neomatrix369/nlp_profiler
-cd nlp_profiler
-```
-
-```
-python setup.py install
-```
-or 
-
-```
-pip install -e .
-```
-
-or 
-
-```
-pip install --prefix .
-```
+From the source (only for development purposes), see [Developer guide](#developer-guide)
 
 ### Usage
 
@@ -117,6 +98,10 @@ new_text_column_dataset = apply_text_profiling(dataset, 'text_column')
 ```
 
 See [Notebooks](#Notebooks) section for further illustrations.
+
+### Developer guide
+
+See [Developer guide](developer-guide.md) to know how to build, test, and contribute to the library.
 
 ## Notebooks
 
