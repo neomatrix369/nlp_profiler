@@ -33,12 +33,16 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: install-dev-requirements-on-linux
-        run: python -m pip install --upgrade -r requirements-dev.txt
+        run: |
+           python -m pip install --upgrade -r requirements-dev.txt
+           python -m pip install --upgrade -r requirements-linux-dev.txt
         if: matrix.os != 'windows-latest'
 
       - name: install-line-profiler-on-windows
+        run: |
+           python -m pip install --upgrade -r requirements-dev.txt
+           python -m pip install --upgrade -r line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/line_profiler-3.0.2-cp37-cp37m-win_amd64.whl
         if: matrix.os == 'windows-latest'
-        run: python -m pip install --upgrade -r requirements-dev-windows.txt
 
       - name: install-requirements
         run: python -m pip install --upgrade -r requirements.txt
