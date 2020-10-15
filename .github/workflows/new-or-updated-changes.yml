@@ -37,8 +37,8 @@ jobs:
           path: |
              ~/.cache/pip
              ~\AppData\Local\pip\Cache
-             /opt/hostedtoolcache/Python/
-             c:\hostedtoolcache\windows\python\
+             /opt/hostedtoolcache/Python/**/site-packages
+             c:\hostedtoolcache\windows\python\**\site-packages
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
       # Runs a single command using the runners shell
