@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ''
+title: '[BUG]'
 labels: bug
 assignees: ''
 
@@ -14,6 +14,8 @@ A clear and concise description of what the bug is.
 If the description consists of multiple non-related bugs, you are encouraged to create separate issues.
 
 Try to ellaborate wth examples with text, code-snippets, visuals or links to resources.
+
+Please let the title reflect this intent.
 
 Note: In case the issue is small enough that a few lines of code (or small changes to the code-base) would fix the issue then please just raise a Pull Request with your changes. We can discuss the issue there.
 -->
