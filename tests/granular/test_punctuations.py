@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NaN
-from nlp_profiler.punctuations import gather_punctuations, count_punctuations  # noqa
+from nlp_profiler.granular_features.punctuations import gather_punctuations, count_punctuations  # noqa
 
 text_with_punctuations = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
 

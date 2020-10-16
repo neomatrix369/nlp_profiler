@@ -1,7 +1,7 @@
 import pandas as pd
 
-from nlp_profiler.alphanumeric import count_alpha_numeric
-from nlp_profiler.chars_and_spaces \
+from nlp_profiler.granular_features.alphanumeric import count_alpha_numeric
+from nlp_profiler.granular_features.chars_and_spaces \
     import count_spaces, count_chars, count_characters_excluding_spaces
 from nlp_profiler.constants import \
     ALPHA_NUMERIC_COUNT_COL, WHOLE_NUMBERS_COUNT_COL, EMOJI_COUNT_COL, CHARS_EXCL_SPACES_COUNT_COL
@@ -11,16 +11,16 @@ from nlp_profiler.constants import \
 from nlp_profiler.constants import \
     DEFAULT_PARALLEL_METHOD
 from nlp_profiler.constants import DUPLICATES_COUNT_COL, COUNT_WORDS_COL, SPACES_COUNT_COL
-from nlp_profiler.dates import count_dates
-from nlp_profiler.duplicates import count_duplicates
-from nlp_profiler.emojis import count_emojis
+from nlp_profiler.granular_features.dates import count_dates
+from nlp_profiler.granular_features.duplicates import count_duplicates
+from nlp_profiler.granular_features.emojis import count_emojis
 from nlp_profiler.generate_features import generate_features
-from nlp_profiler.non_alphanumeric import count_non_alpha_numeric
-from nlp_profiler.numbers import count_whole_numbers
-from nlp_profiler.punctuations import count_punctuations
-from nlp_profiler.sentences import count_sentences
-from nlp_profiler.stop_words import count_stop_words
-from nlp_profiler.words import count_words
+from nlp_profiler.granular_features.non_alphanumeric import count_non_alpha_numeric
+from nlp_profiler.granular_features.numbers import count_whole_numbers
+from nlp_profiler.granular_features.punctuations import count_punctuations
+from nlp_profiler.granular_features.sentences import count_sentences
+from nlp_profiler.granular_features.stop_words import count_stop_words
+from nlp_profiler.granular_features.words import count_words
 
 
 def apply_granular_features(heading: str,
