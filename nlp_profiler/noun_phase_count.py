@@ -3,7 +3,7 @@ from nltk.tag import pos_tag
 from nlp_profiler.constants import NaN
 import re, emoji
 
-def gather_nouns(sentence: str):
+def gather_nouns(sentence):
 
     if not isinstance(sentence, str) or len(sentence) == 0:
         return []
@@ -14,7 +14,7 @@ def gather_nouns(sentence: str):
     return tags
 
 
-def count_noun_phase(text: str) -> int:
+def count_noun_phase(text):
     if not isinstance(text, str):
         return NaN
 
