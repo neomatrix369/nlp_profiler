@@ -18,7 +18,8 @@ text_to_return_value_mapping = [
 
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_value_mapping)
-def test_gather_noun(text, expected_result):
+def test_gather_noun(text: str, expected_result: str):
+    
     actual_result = gather_nouns(text)
 
     assert actual_result == expected_result, \
@@ -28,7 +29,8 @@ def test_gather_noun(text, expected_result):
 
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_value_mapping)
-def test_failed_gather_noun(text, expected_result):
+def test_failed_gather_noun(text: str, expected_result: str):
+
     actual_result = gather_nouns(text)
 
     assert actual_result == expected_result, \
@@ -45,7 +47,8 @@ text_to_return_value_mapping = [
 
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_value_mapping)
-def test_count_noun(text, expected_result):
+def test_count_noun(text: str, expected_result: str): 
+
     actual_result = count_noun_phase(text)
 
     assert actual_result == expected_result, \
