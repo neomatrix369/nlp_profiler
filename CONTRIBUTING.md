@@ -22,6 +22,7 @@ At the moment it's we are open to these kinds of high-level ideas and contributi
 - Feature enhancement
 - Bug reports
 - Documentation enhancements
+- Notebook enhancements
 - Anything else that helps with the improvement of the library for the community using it
 
 Furthermore, please ensure your pull request follows the following guidelines:
