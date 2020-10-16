@@ -38,7 +38,7 @@ def sentiment_polarity(score: float) -> str:
 
     score = float(score)
     score = (score + 1) / 2  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
-    score = score * 100
+    score *= 100
     for _, each_slab in enumerate(sentiment_polarity_to_words_mapping):  # pragma: no cover
         # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
