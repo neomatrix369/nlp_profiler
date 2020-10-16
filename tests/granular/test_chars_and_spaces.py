@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from nlp_profiler.chars_and_spaces \
+from nlp_profiler.granular_features.chars_and_spaces \
     import count_chars, count_spaces, count_characters_excluding_spaces  # noqa
 from nlp_profiler.constants import NaN
 

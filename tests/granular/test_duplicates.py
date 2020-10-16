@@ -2,7 +2,8 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NaN
-from nlp_profiler.duplicates import gather_duplicates, count_duplicates  # noqa
+from nlp_profiler.granular_features.duplicates \
+    import gather_duplicates, count_duplicates  # noqa
 
 text_with_a_number = '2833047 people live in this area'
 text_with_duplicates = 'Everyone here is so hardworking. hardworking people. ' \
