@@ -8,8 +8,7 @@ def gather_whole_numbers(text: str) -> list:
     if not isinstance(text, str):
         return []
 
-    line = re.findall(r'[0-9]+', text)
-    return line
+    return re.findall(r'[0-9]+', text)
 
 
 def count_whole_numbers(text: str) -> int:

@@ -15,9 +15,8 @@ def gather_stop_words(text: str) -> list:
         return []
 
     word_tokens = word_tokenize(text)
-    found_stop_words = [word for _, word in enumerate(word_tokens)
+    return [word for _, word in enumerate(word_tokens)
                         if word in STOP_WORDS]
-    return found_stop_words
 
 
 def count_stop_words(text: str) -> int:
