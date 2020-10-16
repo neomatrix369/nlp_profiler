@@ -1,7 +1,7 @@
 # NLP Profiler 
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
-[![GitHub actions](https://github.com/neomatrix369/nlp_profiler/workflows/new-or-updated-changes/badge.svg)](https://github.com/neomatrix369/nlp_profiler/actions?workflow=new-or-updated-changes)
+[![GitHub actions](https://github.com/neomatrix369/nlp_profiler/workflows/end-to-end-flow/badge.svg)](https://github.com/neomatrix369/nlp_profiler/actions?workflow=end-to-end-flow)
 [![Code coverage](https://codecov.io/gh/neomatrix369/nlp_profiler/branch/master/graph/badge.svg)](https://codecov.io/gh/neomatrix369/nlp_profiler)
 [![PyPI version](https://badge.fury.io/py/nlp-profiler.svg)](https://badge.fury.io/py/nlp-profiler) 
 [![Python versions](https://img.shields.io/pypi/pyversions/nlp_profiler.svg)](https://pypi.org/project/nlp_profiler/) 
