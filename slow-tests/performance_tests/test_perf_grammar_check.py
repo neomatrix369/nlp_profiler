@@ -69,6 +69,6 @@ def generate_data() -> list:
             text_with_punctuations, text_with_a_date, text_with_dates, text_with_duplicates]
 
     new_data = []
-    for index in range(1):
+    for _ in range(1):
         new_data.extend(data)
     return new_data
