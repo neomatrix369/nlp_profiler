@@ -10,7 +10,7 @@ from nlp_profiler.constants import \
     DATES_COUNT_COL, STOP_WORDS_COUNT_COL, PUNCTUATIONS_COUNT_COL, NON_ALPHA_NUMERIC_COUNT_COL
 from nlp_profiler.constants import \
     DEFAULT_PARALLEL_METHOD
-from nlp_profiler.constants import DUPLICATES_COUNT_COL, WORDS_COUNT_COL, SPACES_COUNT_COL
+from nlp_profiler.constants import DUPLICATES_COUNT_COL, COUNT_WORDS_COL, SPACES_COUNT_COL
 from nlp_profiler.dates import count_dates
 from nlp_profiler.duplicates import count_duplicates
 from nlp_profiler.emojis import count_emojis
@@ -31,7 +31,7 @@ def apply_granular_features(heading: str,
         (SENTENCES_COUNT_COL, text_column, count_sentences),
         (CHARACTERS_COUNT_COL, text_column, count_chars),
         (SPACES_COUNT_COL, text_column, count_spaces),
-        (WORDS_COUNT_COL, text_column, count_words),
+        (COUNT_WORDS_COL, text_column, count_words),
         (DUPLICATES_COUNT_COL, text_column, count_duplicates),
         (CHARS_EXCL_SPACES_COUNT_COL, text_column, count_characters_excluding_spaces),
         (EMOJI_COUNT_COL, text_column, count_emojis),
