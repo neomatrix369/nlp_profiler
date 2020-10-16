@@ -5,7 +5,8 @@ from time import time
 
 from line_profiler import LineProfiler
 
-from nlp_profiler.spelling_quality_check import spelling_quality_score
+from nlp_profiler.high_level_features.spelling_quality_check \
+    import spelling_quality_score
 from .common_functions import shorten_sha, git_current_head_sha, generate_data
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
