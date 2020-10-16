@@ -2,7 +2,7 @@ import pandas as pd
 import swifter  # noqa
 
 from nlp_profiler.constants import DEFAULT_PARALLEL_METHOD, SWIFTER_METHOD
-from nlp_profiler.parallelisation_methods \
+from nlp_profiler.generate_features.parallelisation_methods \
     import get_progress_bar, using_joblib_parallel, using_swifter
 
 
