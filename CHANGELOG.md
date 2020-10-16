@@ -71,7 +71,9 @@ Tweaking the Grammar check function to perform better than the previous version
 
 ### GitHub branch `ci-cd-github-action` Automate CI/CD process on GitHub
 
-Enable running tests with coverage when a new PR is created or commits are pushed to the repo
+Enable running tests with coverage when a new PR is created or commits are pushed to the repo, across Linux and Windows instances.
+
+Producing the Code coverage report with each commit. And uploading the artifacts to GitHub.
 
 [a806716](https://github.com/neomatrix369/nlp_profiler/commit/a806716bdc0312509ee55d7dfb5e26769493a46b) - [7e4ca87](https://github.com/neomatrix369/nlp_profiler/commit/7e4ca8756bfd73d0b7f805d3c19e536bf0d7e266) [@neomatrix369](https://github.com/neomatrix369) _Thu Oct 15 16:50:59 2020 +0100_
 
