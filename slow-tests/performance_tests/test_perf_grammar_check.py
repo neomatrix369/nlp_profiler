@@ -6,7 +6,8 @@ from contextlib import redirect_stdout
 import git
 
 sys.path.insert(0, '../../performance-tests/high_level')
-from nlp_profiler.grammar_quality_check import grammar_check_score
+from nlp_profiler.high_level_features.grammar_quality_check \
+    import grammar_check_score
 from line_profiler import LineProfiler
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)

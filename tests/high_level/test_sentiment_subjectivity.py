@@ -4,8 +4,8 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NOT_APPLICABLE, NaN
-from nlp_profiler.sentiment_subjectivity import sentiment_subjectivity_score, \
-    sentiment_subjectivity_summarised, sentiment_subjectivity  # noqa
+from nlp_profiler.high_level_features.sentiment_subjectivity \
+    import sentiment_subjectivity_score, sentiment_subjectivity_summarised, sentiment_subjectivity  # noqa
 
 objective_subjective_text = '2833047 and 1111 people live in this area.'
 objective_text = "Today's date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020."
