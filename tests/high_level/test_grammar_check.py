@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NaN, NOT_APPLICABLE
-from nlp_profiler.grammar_quality_check \
+from nlp_profiler.high_level_features.grammar_quality_check \
     import grammar_check_score, grammar_quality  # noqa
 
 grammar_issues_text = 'Everyone here is so hardworking. Hardworking people. ' \
