@@ -90,11 +90,11 @@ def create_source_dataframe():
     text_with_emojis = "I love ⚽ very much 😁."
     text_with_a_number = '2833047 people live in this area. It is not a good area.'
     text_with_two_numbers = '2833047 and 1111 people live in this area.'
-    text_with_punctuations = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
-    text_with_a_date = "Todays date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020."
-    text_with_dates = "Todays date is 28/04/2020 and tomorrow's date is 29/04/2020."
-    text_with_duplicates = 'Everyone here is so hardworking. Hardworking people. ' \
-                           'I think hardworking people are a good trait in our company.'
+    text_with_punctuations = "This sentence does not seem to have too many commas, periods or semicolons (;)."
+    text_with_a_date = "The date today is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020."
+    text_with_dates = "The date today is 28/04/2020 and tomorrow's date is 29/04/2020."
+    text_with_duplicates = 'Everyone here works so hard. People work hard. ' \
+                           'I think they have a good trait.'
     data = [text_with_emojis, text_with_a_number, text_with_two_numbers,
             text_with_punctuations, text_with_a_date, text_with_dates, text_with_duplicates]
     return pd.DataFrame(data, columns=['text'])

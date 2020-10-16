@@ -5,8 +5,9 @@ from nlp_profiler.constants import NaN
 from nlp_profiler.sentences import gather_sentences, count_sentences  # noqa
 
 text_with_emojis = "I love ⚽ very much 😁"
-text_with_a_number = '2833047 people live in this area'
-text_with_two_sentences = text_with_a_number + "." + text_with_emojis
+text_with_emojis_ends_with_period = "I love ⚽ very much 😁."
+text_with_a_number = '2833047 people live in this area.'
+text_with_two_sentences = text_with_a_number + " " + text_with_emojis
 
 text_to_return_value_mapping = [
     (np.nan, []),
@@ -48,39 +49,43 @@ def test_given_invalid_text_when_counted_then_return_NaN(
         f"Expected: {expected_result}, Actual: {actual_result}"
 
 
-def test_given_a_text_with_sentences_when_parsed_then_return_the_sentences():
-    # given
-    expected_results = [text_with_a_number]
-
-    # when
-    actual_results = gather_sentences(text_with_a_number)
-
-    # then
-    assert expected_results == actual_results, \
-        "Didn't find the expected sentence in the text"
-
-    # given
-    expected_results = [text_with_a_number, text_with_emojis]
-
-    # when
-    actual_results = gather_sentences(text_with_two_sentences)
-
-    # then
-    assert expected_results == actual_results, \
-        "Didn't find the expected two sentences in the text"
-
-
-def test_given_a_text_with_sentences_when_counted_then_return_the_count_of_sentences():
+@pytest.mark.parametrize("text,expected_result",
+                         [
+                             (text_with_emojis, 1),
+                             (text_with_emojis_ends_with_period, 1),
+                             (text_with_a_number, 1),
+                             (text_with_two_sentences, 2),
+                             ('....', 1),
+                             (';;;;;;', 1),
+                             ('', 0),
+                             (' ', 0),
+                             ('a', 1),
+                             ('⚽😁', 1),
+                         ])
+def test_given_a_text_with_sentences_when_counted_then_return_the_count_of_sentences(
+        text, expected_result
+):
     # given, when
-    actual_results = count_sentences(text_with_a_number)
+    actual_result = count_sentences(text)
 
     # then
-    assert actual_results == 1, \
-        "Didn't find the single expected sentence in the text"
+    assert actual_result == expected_result, \
+        "Didn't find the expected number of sentence in the text. " \
+        f"Expected: {expected_result}, Actual: {actual_result}"
 
+
+@pytest.mark.parametrize("text,expected_result",
+                         [
+                             (text_with_a_number, [text_with_a_number]),
+                             (text_with_two_sentences, [text_with_a_number, text_with_emojis]),
+                         ])
+def test_given_a_text_with_sentences_when_parsed_then_return_the_sentences(
+        text: str, expected_result: list
+):
     # given, when
-    actual_results = count_sentences(text_with_two_sentences)
+    actual_result = gather_sentences(text)
 
     # then
-    assert actual_results == 2, \
-        "Didn't find the two sentences in the text"
+    assert expected_result == actual_result, \
+        "Didn't find the expected sentence(s) in the text." \
+        f"Expected: {expected_result}, Actual: {actual_result}"
