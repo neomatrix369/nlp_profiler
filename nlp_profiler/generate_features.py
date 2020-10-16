@@ -12,8 +12,7 @@ memory = Memory(tempfile.gettempdir(), compress=9, verbose=0)
 
 
 def is_running_from_ipython():
-    inJupyter = sys.argv[-1].endswith('json')
-    return inJupyter
+    return sys.argv[-1].endswith('json')
 
 
 PROGRESS_BAR_WIDTH = 900 if is_running_from_ipython() else None
