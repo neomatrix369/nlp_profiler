@@ -7,10 +7,10 @@ from nlp_profiler.constants import \
 from nlp_profiler.constants import \
     SENTIMENT_SUBJECTIVITY_COL, SENTIMENT_SUBJECTIVITY_SCORE_COL, SENTIMENT_SUBJECTIVITY_SUMMARISED_COL
 from nlp_profiler.generate_features import generate_features
-from nlp_profiler.sentiment_polarity \
+from nlp_profiler.high_level_features.sentiment_polarity \
     import sentiment_polarity_score, sentiment_polarity, \
     sentiment_polarity_summarised
-from nlp_profiler.sentiment_subjectivity \
+from nlp_profiler.high_level_features.sentiment_subjectivity \
     import sentiment_subjectivity_score, \
     sentiment_subjectivity_summarised, sentiment_subjectivity
 
