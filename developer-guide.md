@@ -84,7 +84,7 @@ Also files with the name `.coverage*` will be created. The shell script will giv
 
 ### Notebooks
 
-In order to know how to change notebooks, see [How to update the notebooks?](#how-to-update-the-notebooks) section in the [Notebooks](../notebooks/README.md) docs.
+In order to know how to change notebooks, see [How to update the notebooks?](./notebooks/README.md#how-to-update-the-notebooks) section in the [Notebooks](./notebooks/README.md) docs.
 
 ### CI/CD
 
