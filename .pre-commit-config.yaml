@@ -1,6 +1,6 @@
 repos:
   - repo: https://www.github.com/nbQA-dev/nbQA
-    rev: pre-commit-hooks
+    rev: 0.3.2
     hooks:
       - id: nbqa-black
         files: ^notebooks/
