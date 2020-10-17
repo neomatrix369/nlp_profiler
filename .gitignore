@@ -17,3 +17,4 @@ expected_high_level_googleplaystore_user_reviews.csv
 *.log*
 *.zip
 release-artifacts
+.DS_Store
