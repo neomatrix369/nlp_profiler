@@ -54,6 +54,7 @@ Open [Notebook](./nlp_profiler.ipynb) in Jupyter on your local machine or you ca
 
 ![](https://user-images.githubusercontent.com/1570917/88475060-73651c80-cf24-11ea-8c44-21352f7be5bc.png)
 
+All the notebooks in this folder are dual notebooks - you should be able to use them in both Google Colab and in Jupyter.
 
 ## Kaggle kernels
 
