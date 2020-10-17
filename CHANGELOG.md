@@ -79,4 +79,18 @@ Producing the Code coverage report with each commit. And uploading the artifacts
 
 ---
 
+### GitHub branch `add-docs-for-developers` and `add-github-templates` Update docs for Developers and Add Github templates for issues and pull request
+
+To improve communication with developers and also to create a streamlined process for the same, docs and templates have been added and updated to the repo. These do not change the functionality of the library in any form or shape.
+
+[6d40570](https://github.com/neomatrix369/nlp_profiler/commit/6d4057057c00dd9b359429e40941d0fee15313ee) - [6d40570](https://github.com/neomatrix369/nlp_profiler/commit/6d4057057c00dd9b359429e40941d0fee15313ee) [@neomatrix369](https://github.com/neomatrix369) _TSat Oct 17 19:24:30 2020 +0100_
+
+---
+
+
+
+
+  
+  
+
 Return to [README.md](README.md)

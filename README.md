@@ -26,9 +26,6 @@ In short: Think of it as using the `pandas.describe()` function or running [Pand
   - [Usage](#usage)
   - [Developer guide](#developer-guide)
 - [Notebooks](#notebooks)
-  - [Jupyter](#jupyter)
-  - [Google Colab](#google-colab)
-  - [Kaggle kernels](#kaggle-kernels)
 - [Screenshots](#screenshots)
 - [Credits and supporters](#credits-and-supporters)
 - [Changes](#changes)
@@ -60,6 +57,7 @@ A simple [notebook](#Notebooks) have been provided to illustrate the usage of th
 - High-level including Grammar checks:
   - faster processor
   - higher RAM capacity
+  - working disk-space of 1 to 3 GBytes (depending on the dataset size)
 - (Optional)
   - Jupyter Lab (on your local machine).
   - Google Colab account.
@@ -116,7 +114,7 @@ from nlp_profiler.core import apply_text_profiling
 new_text_column_dataset = apply_text_profiling(dataset, 'text_column')
 ```
 
-See [Notebooks](#Notebooks) section for further illustrations.
+See [Notebooks](./notebooks/README.md) section for further illustrations.
 
 ### Developer guide
 
@@ -124,29 +122,13 @@ See [Developer guide](developer-guide.md) to know how to build, test, and contri
 
 ## Notebooks
 
-_After succesful installation of the library, RESTART Jupyter kernels or Google Colab runtimes for the changes to take effect._
+After successful installation of the library, RESTART Jupyter kernels or Google Colab runtimes for the changes to take effect.
 
-### Jupyter
-
-See [Jupyter Notebook](./notebooks/jupyter/nlp_profiler.ipynb)
-
-![](https://user-images.githubusercontent.com/1570917/88475060-73651c80-cf24-11ea-8c44-21352f7be5bc.png)
-
-### Google Colab
-
-You can open these notebooks directly in [Google Colab](./notebooks/google-colab/nlp_profiler.ipynb)
-
-### Kaggle kernels
-
-**[Notebook/Kernel](https://www.kaggle.com/neomatrix369/nlp-profiler-simple-dataset)** | [Script](https://www.kaggle.com/neomatrix369/nlp-profiler-class) | [Other related links](https://www.kaggle.com/general/166954)
+See [Notebooks](./notebooks/README.md) for usage and further details.
 
 ## Screenshots
 
-![Importing the library](https://user-images.githubusercontent.com/1570917/92324238-ccea5c00-f037-11ea-9369-89b0e034ef16.png)
-
----
-
-![Pandas describe() function](https://user-images.githubusercontent.com/1570917/92324242-cf4cb600-f037-11ea-9c5a-e22806b4be5b.png)
+See [Screenshots](./notebooks/README.md#screenshots)
 
 ## Credits and supporters
 
