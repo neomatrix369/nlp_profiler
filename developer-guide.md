@@ -4,6 +4,7 @@
 - [Install requirements](#install-requirements)
 - [Install nlp-profiler](#install-nlp-profiler)
 - [Tests](#tests)
+- [Notebooks](#notebooks)
 - [CI/CD](#ci-cd)
 - [Contribution steps](#contribution-steps)
 
@@ -80,6 +81,10 @@ On the tests passing (or partially passing), these folders will be created:
 ```
 
 Also files with the name `.coverage*` will be created. The shell script will give enough guidance to be able to know where to find the respective reports.
+
+### Notebooks
+
+In order to know how to change notebooks, see [How to update the notebooks?](#how-to-update-the-notebooks) section in the [Notebooks](../notebooks/README.md) docs.
 
 ### CI/CD
 
