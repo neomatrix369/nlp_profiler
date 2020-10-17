@@ -4,6 +4,7 @@
 [![GitHub actions](https://github.com/neomatrix369/nlp_profiler/workflows/end-to-end-flow/badge.svg)](https://github.com/neomatrix369/nlp_profiler/actions?workflow=end-to-end-flow)
 [![Code coverage](https://codecov.io/gh/neomatrix369/nlp_profiler/branch/master/graph/badge.svg)](https://codecov.io/gh/neomatrix369/nlp_profiler)
 [![Sourcery](https://img.shields.io/badge/Sourcery-enabled-brightgreen)](https://sourcery.ai) 
+[![Codeac](https://static.codeac.io/badges/2-293235950.svg "Codeac.io")](https://app.codeac.io/github/neomatrix369/nlp_profiler)
 [![PyPI version](https://badge.fury.io/py/nlp-profiler.svg)](https://badge.fury.io/py/nlp-profiler) 
 [![Python versions](https://img.shields.io/pypi/pyversions/nlp_profiler.svg)](https://pypi.org/project/nlp_profiler/) 
 [![PyPi stats](https://img.shields.io/pypi/dm/nlp_profiler.svg?label=pypi%20downloads&logo=PyPI&logoColor=white)](https://pypistats.org/packages/nlp_profiler)
