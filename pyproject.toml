@@ -1,3 +1,6 @@
+[tool.black]
+line_length=120
+
 [tool.coverage.run]
 branch = true
 
@@ -12,3 +15,9 @@ omit = [
   "slow_tests/*/__init__.py",
 ]
 exclude_lines = ["pragma: no cover", "raise NotImplementedError", "pass"]
+
+[tool.nbqa.config]
+black = "pyproject.toml"
+
+[tool.nbqa.mutate]
+black = 1

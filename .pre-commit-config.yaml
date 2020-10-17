@@ -1,0 +1,5 @@
+repos:
+  - repo: https://www.github.com/nbQA-dev/nbQA
+    rev: pre-commit-hooks
+    hooks:
+      - id: nbqa-black
