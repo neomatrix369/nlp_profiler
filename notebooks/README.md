@@ -55,13 +55,13 @@ $ jupyter notebook .
 
 ## Jupyter
 
-See [Jupyter Notebook](./notebooks/jupyter/nlp_profiler.ipynb)
+See [Jupyter Notebook](./jupyter/nlp_profiler.ipynb)
 
 ![](https://user-images.githubusercontent.com/1570917/88475060-73651c80-cf24-11ea-8c44-21352f7be5bc.png)
 
 ## Google Colab
 
-You can open these notebooks directly in [Google Colab](./notebooks/google-colab/nlp_profiler.ipynb)
+You can open these notebooks directly in [Google Colab](./google-colab/nlp_profiler.ipynb)
 
 ## Kaggle kernels
 
@@ -77,13 +77,13 @@ You can open these notebooks directly in [Google Colab](./notebooks/google-colab
 
 ## Developer guide
 
-See [Developer guide](developer-guide.md) to know how to build, test, and contribute to the library.
+See [Developer guide](../developer-guide.md) to know how to build, test, and contribute to the library.
 
 ## Contributing
 
 Contributions are Welcome!
 
-Please have a look at the [CONTRIBUTING](CONTRIBUTING.md) guidelines.
+Please have a look at the [CONTRIBUTING](../CONTRIBUTING.md) guidelines.
 
 Please share it with the wider community (and get credited for it)!
 
