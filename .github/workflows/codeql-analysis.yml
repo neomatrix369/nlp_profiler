@@ -32,6 +32,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Cache multiple paths
+      uses: actions/cache@v2
+      with:
+        path: |
+           ~/.cache/pip
+           ~\AppData\Local\pip\Cache
+           /opt/hostedtoolcache/Python/*
+           /opt/hostedtoolcache/CodeQL/*
+           c:\hostedtoolcache\windows\python\*
+           c:\hostedtoolcache\CodeQL\*
+        key: ${{ runner.os }}-build
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
