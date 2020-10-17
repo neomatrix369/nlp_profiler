@@ -3,3 +3,4 @@ repos:
     rev: pre-commit-hooks
     hooks:
       - id: nbqa-black
+        files: ^notebooks/
