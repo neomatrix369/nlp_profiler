@@ -43,7 +43,9 @@ or
 $ jupyter notebook .
 ```
 
-- Regenerate the notebooks by running all the cells. 
+- Regenerate the relevant notebook(s) by running all the cells. 
+- Fix any error, issues in it/them
+- Run the formatting as mentioned in the [Developer guide: Notebooks](../developer-guide.md#notebooks)
 - Once you are happy, then commit your changes.
 - Push commits to remote branch
 - Create pull request
