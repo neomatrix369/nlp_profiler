@@ -4,12 +4,14 @@ To be able to merge a pull request, there are a few checks:
 
 Please check the options that you have completed and strike-out the options that do not apply via this pull request:
 
-[ ] clear title and description to the Pull Request has been provided
-[ ] you have read the [Contributing doc](https://github.com/neomatrix369/nlp_profiler/blob/master/CONTRIBUTING.md) and [Developer Guide](https://github.com/neomatrix369/nlp_profiler/blob/master/developer-guide.md)
-[ ] the pull request should pass the tests (`./test-coverage "tests slow-tests"``) - this will be visible via the Code coverage report and CI/CD task on the Pull Request
-[ ] you have performed some kind of smoke test by running your changes in an isolated environment i.e. Docker container, Google Colab, Kaggle, etc...
-[ ] the notebooks are updated (see `notebooks` folder)
-[ ] `CHANGELOG.md` has been updated (please follow the existing format)
+- [ ] a clear title and description to the Pull Request has been provided
+- [ ] you have read
+    - [ ] the [Contributing doc](https://github.com/neomatrix369/nlp_profiler/blob/master/CONTRIBUTING.md) 
+    - [ ] the [Developer Guide](https://github.com/neomatrix369/nlp_profiler/blob/master/developer-guide.md)
+- [ ] the pull request passes the tests (`./test-coverage "tests slow-tests"``) - this will also be visible via the Code coverage report and CI/CD task on the Pull Request
+- [ ] you have performed some kind of smoke test by running your changes in an isolated environment i.e. Docker container, Google Colab, Kaggle, etc...
+- [ ] the notebooks are updated (see `notebooks` folder, read the [Notebooks](./notebooks/README.md) docs)    
+- [ ] `CHANGELOG.md` has been updated (please follow the existing format)
 
 
 ## Goal or purpose of the PR
