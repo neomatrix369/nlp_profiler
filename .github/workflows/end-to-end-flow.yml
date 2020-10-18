@@ -37,9 +37,8 @@ jobs:
           path: |
              ~/.cache/pip
              ~\AppData\Local\pip\Cache
-             /opt/hostedtoolcache/Python/*
-             c:\hostedtoolcache\windows\python\*
-          key: ${{ runner.os }}-build-${{ matrix.os }}-${{ matrix.python-version }}
+             $RUNNER_TOOL_CACHE/Python/*
+          key: ${{ runner.os }}-${{ matrix.python-version }}-build
 
       # Runs a single command using the runners shell
       - name: install-dev-requirements
