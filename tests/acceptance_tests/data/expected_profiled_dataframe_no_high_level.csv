@@ -1,4 +1,4 @@
-text,sentences_count,characters_count,spaces_count,words_count,duplicates_count,chars_excl_spaces_count,emoji_count,whole_numbers_count,alpha_numeric_count,non_alpha_numeric_count,punctuations_count,stop_words_count,dates_count,noun_phase_count
+text,sentences_count,characters_count,spaces_count,count_words,duplicates_count,chars_excl_spaces_count,emoji_count,whole_numbers_count,alpha_numeric_count,non_alpha_numeric_count,punctuations_count,stop_words_count,dates_count,noun_phase_count
 I love ⚽ very much 😁.,1,21,5,4,0,16,2,0,13,8,1,1,0,3
 2833047 people live in this area. It is not a good area.,2,56,11,11,2,45,0,1,43,13,2,5,0,4
 2833047 and 1111 people live in this area.,1,42,7,6,0,35,0,2,34,8,1,3,0,2

@@ -4,8 +4,13 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NOT_APPLICABLE, NaN
+<<<<<<< HEAD
 from nlp_profiler.high_level_features.sentiment_polarity \
     import sentiment_polarity_score, sentiment_polarity_summarised, sentiment_polarity  # noqa
+=======
+from nlp_profiler.high_level_features.sentiment_polarity import sentiment_polarity_score, \
+    sentiment_polarity_summarised, sentiment_polarity  # noqa
+>>>>>>> 70cda3d... Project Structure Changed
 
 positive_text = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
 negative_text = "2833047 people live in this area. It is not a good area."
