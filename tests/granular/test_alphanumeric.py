@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NaN
-from nlp_profiler.alphanumeric \
+from nlp_profiler.granular_features.alphanumeric \
     import gather_alpha_numeric, count_alpha_numeric  # noqa
 
 text_with_alphanumeric_chars = '2833047 people live in this area'

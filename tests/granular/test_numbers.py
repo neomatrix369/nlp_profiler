@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from nlp_profiler.numbers import \
+from nlp_profiler.granular_features.numbers import \
     NaN, gather_whole_numbers, count_whole_numbers  # noqa
 
 text_with_a_number = '2833047 people live in this area'

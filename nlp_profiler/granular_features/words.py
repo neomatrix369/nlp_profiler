@@ -3,7 +3,7 @@ import re
 from nlp_profiler.constants import NaN
 
 
-### Words count
+### Count words
 def gather_words(text: str) -> list:
     if not isinstance(text, str):
         return []

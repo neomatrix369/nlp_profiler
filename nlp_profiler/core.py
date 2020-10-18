@@ -22,10 +22,12 @@ from nlp_profiler.constants import \
     PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, \
     GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION
 from nlp_profiler.generate_features import get_progress_bar
-from nlp_profiler.grammar_quality_check import apply_grammar_check
 from nlp_profiler.granular_features import apply_granular_features
 from nlp_profiler.high_level_features import apply_high_level_features
-from nlp_profiler.spelling_quality_check import apply_spelling_check
+from nlp_profiler.high_level_features.grammar_quality_check \
+    import apply_grammar_check
+from nlp_profiler.high_level_features.spelling_quality_check \
+    import apply_spelling_check
 
 
 def apply_text_profiling(dataframe: pd.DataFrame,

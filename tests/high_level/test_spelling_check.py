@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NOT_APPLICABLE, NaN
-from nlp_profiler.spelling_quality_check import spelling_quality_score, \
+from nlp_profiler.high_level_features.spelling_quality_check import spelling_quality_score, \
     spelling_quality, spelling_quality_summarised  # noqa
 
 very_good_spelling_text = 'People live in this area. It is not a good area. People live in this area. It is not a good area. 2833047 people live in this area. It is not a good area.'

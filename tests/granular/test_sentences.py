@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NaN
-from nlp_profiler.sentences import gather_sentences, count_sentences  # noqa
+from nlp_profiler.granular_features.sentences import gather_sentences, count_sentences  # noqa
 
 text_with_emojis = "I love ⚽ very much 😁"
 text_with_emojis_ends_with_period = "I love ⚽ very much 😁."
