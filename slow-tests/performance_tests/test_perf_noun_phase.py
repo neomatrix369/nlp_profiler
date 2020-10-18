@@ -1,16 +1,16 @@
 import os
-import sys
+from contextlib import redirect_stdout
 from datetime import datetime
 from time import time
-from contextlib import redirect_stdout
-import git
 
-sys.path.insert(0, '../../performance-tests/high_level')
-from nlp_profiler.granular_features.noun_phase_count import count_noun_phase
 from line_profiler import LineProfiler
+
+from nlp_profiler.granular_features.noun_phase_count import count_noun_phase
+from .common_functions import shorten_sha, git_current_head_sha, generate_data
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
 EXPECTED_DATA_PATH = f'{os.path.dirname(CURRENT_SOURCE_FILEPATH)}/data'
+
 
 def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_then_it_finishes_quick():
     # given
@@ -30,7 +30,7 @@ def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_t
     actual_execution_time = end_execution_time - start_execution_time
 
     short_sha = shorten_sha(git_current_head_sha())
-    output_filename = f'{TARGET_PROFILE_REPORT_FOLDER}/grammar_check_score-' \
+    output_filename = f'{TARGET_PROFILE_REPORT_FOLDER}/noun_phrase_count' \
                       f'{datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}-{short_sha}'
     with open(f'{output_filename}.txt', 'w') as file:
         with redirect_stdout(file):
@@ -43,30 +43,3 @@ def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_t
         f"Expected duration: {expected_execution_time}, Actual duration: {actual_execution_time}. " \
         f"Slow down by: {abs(actual_execution_time - expected_execution_time)} seconds. " \
         f"We have crossed the benchmark limit after a speed up via commit 51a8952."
-
-
-def shorten_sha(long_sha):
-    return long_sha[:7]
-
-
-def git_current_head_sha():
-    repo = git.Repo(search_parent_directories=True)
-    return repo.head.commit.hexsha
-
-
-def generate_data():
-    text_with_emojis = "I love ⚽ very much 😁."
-    text_with_a_number = '2833047 people live in this area. It is not a good area.'
-    text_with_two_numbers = '2833047 and 1111 people live in this area.'
-    text_with_punctuations = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
-    text_with_a_date = "Todays date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020."
-    text_with_dates = "Todays date is 28/04/2020 and tomorrow's date is 29/04/2020."
-    text_with_duplicates = 'Everyone here is so hardworking. Hardworking people. ' \
-                           'I think hardworking people are a good trait in our company.'
-    data = [text_with_emojis, text_with_a_number, text_with_two_numbers,
-            text_with_punctuations, text_with_a_date, text_with_dates, text_with_duplicates]
-
-    new_data = []
-    for _ in range(1):
-        new_data.extend(data)
-    return new_data
