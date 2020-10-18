@@ -1,4 +1,4 @@
-import os
+import os, sys
 from contextlib import redirect_stdout
 from datetime import datetime
 from time import time
