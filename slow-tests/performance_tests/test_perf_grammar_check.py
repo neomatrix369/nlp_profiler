@@ -30,8 +30,13 @@ def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_t
     actual_execution_time = time() - start_execution_time
 
     output_filename = f'{TARGET_PROFILE_REPORT_FOLDER}/grammar_check_score-' \
+<<<<<<< HEAD
                       f'{datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}-' \
                       f'{shorten_sha(git_current_head_sha())}'
+=======
+                      f'{datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}-{short_sha}'
+                      
+>>>>>>> cd00ea1... Performance Test Issues
     with open(f'{output_filename}.txt', 'w') as file:
         with redirect_stdout(file):
             profile.print_stats()
