@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import os
+
+>>>>>>> All Rebased
 from nlp_profiler.high_level_features.grammar_quality_check \
     import grammar_check_score
 from .common_functions import assert_benchmark
