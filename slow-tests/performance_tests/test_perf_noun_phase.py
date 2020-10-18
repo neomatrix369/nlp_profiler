@@ -6,7 +6,7 @@ from contextlib import redirect_stdout
 import git
 
 sys.path.insert(0, '../../performance-tests/high_level')
-from nlp_profiler.noun_phase_count import count_noun_phase
+from nlp_profiler.granular_features.noun_phase_count import count_noun_phase
 from line_profiler import LineProfiler
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)

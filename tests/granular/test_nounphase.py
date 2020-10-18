@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 
-from nlp_profiler.noun_phase_count import count_noun_phase, gather_nouns
+from nlp_profiler.granular_features.noun_phase_count import count_noun_phase, gather_nouns
 from nlp_profiler.constants import NaN
 
 
