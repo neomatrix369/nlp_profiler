@@ -33,6 +33,7 @@ def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_t
     short_sha = shorten_sha(git_current_head_sha())
     output_filename = f'{TARGET_PROFILE_REPORT_FOLDER}/grammar_check_score-' \
                       f'{datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}-{short_sha}'
+                      
     with open(f'{output_filename}.txt', 'w') as file:
         with redirect_stdout(file):
             profile.print_stats()
