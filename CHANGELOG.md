@@ -83,14 +83,19 @@ Producing the Code coverage report with each commit. And uploading the artifacts
 
 To improve communication with developers and also to create a streamlined process for the same, docs and templates have been added and updated to the repo. These do not change the functionality of the library in any form or shape.
 
-[6d40570](https://github.com/neomatrix369/nlp_profiler/commit/6d4057057c00dd9b359429e40941d0fee15313ee) - [6d40570](https://github.com/neomatrix369/nlp_profiler/commit/6d4057057c00dd9b359429e40941d0fee15313ee) [@neomatrix369](https://github.com/neomatrix369) _TSat Oct 17 19:24:30 2020 +0100_
+[6d40570](https://github.com/neomatrix369/nlp_profiler/commit/6d4057057c00dd9b359429e40941d0fee15313ee) - [6d40570](https://github.com/neomatrix369/nlp_profiler/commit/6d4057057c00dd9b359429e40941d0fee15313ee) [@neomatrix369](https://github.com/neomatrix369) _Sat Oct 17 19:24:30 2020 +0100_
 
 ---
 
 
+### GitHub branch `addNounPhraseCount` Add noun phrase count in text data
 
+Count the number of noun phrases in a the text data and return it as part of granular features.
 
-  
-  
+Thanks @ritikjain51 for your contribution originally via PR #13, which was fixed and refactored via PR #47.
+
+[f8a22ba](https://github.com/neomatrix369/nlp_profiler/commit/f8a22baf24c39e58f2c8f7cb3faecdb6b87f8462) - [fcd706b](https://github.com/neomatrix369/nlp_profiler/commit/fcd706b39bc426532ad0ccc72d434bda6668bd72) [@neomatrix369](https://github.com/neomatrix369) _Wed Oct 21 13:40:20 2020 +0100_
+
+---
 
 Return to [README.md](README.md)
