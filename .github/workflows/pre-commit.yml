@@ -7,6 +7,7 @@ on:
 
 jobs:
   pre-commit:
+    if: (github.event_name == 'pull') || ((github.event_name == 'push') && (contains(toJson(github.event.commits), '[skip ci]') == false))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
