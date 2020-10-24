@@ -98,4 +98,14 @@ Thanks @ritikjain51 for your contribution originally via PR #13, which was fixed
 
 ---
 
+### GitHub branch `ci-cd-github-action` Fix GitHub to run on Windows instances
+
+Now the build and test action runs on Windows instances as well. Fixes issue reported via #21.
+
+[5e7f999](https://github.com/neomatrix369/nlp_profiler/commit/5e7f99910da27a65237abcae9c409e1b3d462db9)  
+[@neomatrix369](https://github.com/neomatrix369) _Sat Oct 24 16:43:49 2020 +0100_
+
+---
+
+
 Return to [README.md](README.md)
