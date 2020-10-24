@@ -66,6 +66,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: run-test-coverage-shell-script
+        shell: bash
         run: |
           ./test-coverage.sh "tests slow-tests"
       - name: Upload coverage to Codecov
