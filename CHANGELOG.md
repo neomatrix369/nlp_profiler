@@ -3,6 +3,7 @@
 Changelog for nlp_profiler.
 
 ## 0.0.1
+
 ### GitHub branch `test-python-3.6-compatibility` enable support for Python 3.6
 
 Based on the issue raised on github [#1](https://github.com/neomatrix369/nlp_profiler/issues/1)
@@ -59,6 +60,8 @@ Just releasing to GitHub under the Releases tab and on PyPi
 _
 
 ---
+
+## 0.0.2
 
 ### GitHub branch `scale-when-applied-to-larger-datasets` Improving performance of Grammar check on large datasets
 
