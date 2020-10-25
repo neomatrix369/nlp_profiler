@@ -37,15 +37,19 @@ if [[ -z "${GITHUB_TOKEN:-}" ]]; then
   exit -1
 fi
 
+echo "Synchronising local repo with master"
+git pull --rebase origin master
+git push origin master
+
 TAG_NAME="v${PACKAGE_VERSION}"
 POST_DATA=$(printf '{
   "tag_name": "%s",
   "target_commitish": "master",
   "name": "%s",
-  "body": "Release %s: changelog available at https://github.com/neomatrix369/nlp_profiler/blob/master/CHANGELOG.md#${PACKAGE_VERSION}",
+  "body": "Release %s: changelog available at https://github.com/neomatrix369/nlp_profiler/blob/master/CHANGELOG.md#%s",
   "draft": false,
   "prerelease": false
-}' ${TAG_NAME} ${TAG_NAME} ${TAG_NAME})
+}' ${TAG_NAME} ${TAG_NAME} ${TAG_NAME} ${PACKAGE_VERSION})
 echo "Creating release ${PACKAGE_VERSION}: $POST_DATA"
 curl \
     -H "Authorization: token ${GITHUB_TOKEN}" \
@@ -71,3 +75,6 @@ echo "See change logs at https://github.com/neomatrix369/nlp_profiler/blob/maste
 echo "~~~ Finished creating tag and release on GitHub ~~~"
 echo ""
 echo ""
+echo "Fetching the tags to local machine."
+git fetch --all
+echo "Finished fetching the tags to local machine."
