@@ -22,6 +22,10 @@ set -e
 set -u
 set -o pipefail
 
+echo "Synchronising local repo with master"
+git pull --rebase origin master
+git push origin master
+
 echo ""
 echo "Creating the distribution artifacts"
 echo "  -- removing older version of build and nlp_profiler.egg-info"
