@@ -1,6 +1,7 @@
 # NLP Profiler 
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
+||| [![Gitter](https://badges.gitter.im/nlp_profiler/community.svg)](https://gitter.im/nlp_profiler/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) |||
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![GitHub actions](https://github.com/neomatrix369/nlp_profiler/workflows/end-to-end-flow/badge.svg)](https://github.com/neomatrix369/nlp_profiler/actions?workflow=end-to-end-flow)
 [![Code coverage](https://codecov.io/gh/neomatrix369/nlp_profiler/branch/master/graph/badge.svg)](https://codecov.io/gh/neomatrix369/nlp_profiler)
 [![Sourcery](https://img.shields.io/badge/Sourcery-enabled-brightgreen)](https://sourcery.ai) 
@@ -18,6 +19,7 @@ In short: Think of it as using the `pandas.describe()` function or running [Pand
 
 # Table of contents
 
+- **Community/Chat/Communication:** [![Gitter](https://badges.gitter.im/nlp_profiler/community.svg)](https://gitter.im/nlp_profiler/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 - [What do you get from the library?](#what-do-you-get-from-the-library)
 - [Requirements](#requirements)
 - [Getting started](#getting-started)
@@ -48,7 +50,9 @@ Under the hood it does make use of a number of libraries that are popular in the
 
 A simple [notebook](#Notebooks) have been provided to illustrate the usage of the library.
 
-**Note:** _this is a new endeavour and it's may have rough edges i.e. probably NOT capable of doing many things atm. _Many of these gaps are opportunities we can work on and plug, as we go along using it. Please provide constructive feedback to help with the improvement of this library. We just recently achieved this with [scaling with larger datasets](https://github.com/neomatrix369/nlp_profiler/issues/2#issuecomment-696675059)._
+**_Please join the [Gitter.im community](https://gitter.im/nlp_profiler/community) and say "hello" to us, share your feedback, have a fun time with us._**
+
+**Note:** _this is a new endeavour and it's may have rough edges i.e. probably NOT capable of doing many things atm. Many of these gaps are opportunities we can work on and plug, as we go along using it. Please provide constructive feedback to help with the improvement of this library. We just recently achieved this with [scaling with larger datasets](https://github.com/neomatrix369/nlp_profiler/issues/2#issuecomment-696675059)._
 
 ## Requirements
 
