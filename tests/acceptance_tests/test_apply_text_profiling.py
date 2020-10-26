@@ -1,5 +1,4 @@
 import os
-
 import pandas as pd
 from pandas.util.testing import assert_frame_equal
 
@@ -50,7 +49,7 @@ def test_given_a_text_column_when_profiler_is_applied_without_high_level_analysi
     actual_dataframe = apply_text_profiling(
         source_dataframe, "text", {HIGH_LEVEL_OPTION: False, SPELLING_CHECK_OPTION: False}
     )
-
+    
     # then
     assert_frame_equal(expected_dataframe, actual_dataframe, check_like=True)
 
