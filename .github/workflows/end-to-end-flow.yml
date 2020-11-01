@@ -50,15 +50,15 @@ jobs:
         if: matrix.os != 'windows-latest'
 
       - name: install-line-profiler-on-windows-python-3.6
-        run: python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/line_profiler-3.0.2-cp36-cp36m-win_amd64.whl
+        run: python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/z2tqcw5k/line_profiler-3.0.2-cp36-cp36m-win_amd64.whl
         if: matrix.python-version == '3.6' &&  matrix.os == 'windows-latest'
 
       - name: install-line-profiler-on-windows-python-3.7
-        run: python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/line_profiler-3.0.2-cp37-cp37m-win_amd64.whl
+        run: python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/z2tqcw5k/line_profiler-3.0.2-cp37-cp37m-win_amd64.whl
         if: matrix.python-version == '3.7' &&  matrix.os == 'windows-latest'
 
       - name: install-line-profiler-on-windows-python-3.8
-        run: python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/line_profiler-3.0.2-cp38-cp38-win_amd64.whl
+        run: python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/z2tqcw5k/line_profiler-3.0.2-cp38-cp38-win_amd64.whl
         if: matrix.python-version == '3.8' &&  matrix.os == 'windows-latest'
 
       - name: install-requirements
