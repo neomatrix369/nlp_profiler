@@ -16,7 +16,7 @@ on:
 
 jobs:
   analyze:
-    if: contains(toJson(github.event.commits), '[skip ci]') == false)
+    if: contains(toJson(github.event.commits), '[skip ci]') == false
     name: Analyze
     runs-on: ubuntu-latest
 
