@@ -1,6 +1,6 @@
 # Contribution Guidelines
 
-At the moment there isn't a lot written or spoken about this subject but nevertheless we would like consider contributions that are useful for the wider community, so we think the below would help:
+At present, there isn't a lot of communication about this project and we would like to change that! We aim to spread a word about NLP Profiler to the wider community. If you are interested please go through the below-mentioned pointers:
 
 (a) widely recommended, regardless of personal opinion
 

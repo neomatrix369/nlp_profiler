@@ -11,7 +11,7 @@
 [![PyPi stats](https://img.shields.io/pypi/dm/nlp_profiler.svg?label=pypi%20downloads&logo=PyPI&logoColor=white)](https://pypistats.org/packages/nlp_profiler)
 
 
-A simple NLP library allows profiling datasets with one or more text columns. 
+A simple NLP library that allows profiling datasets with one or more text columns. 
 
 NLP Profiler returns either high-level insights or low-level/granular statistical information about the text when given a dataset and a column name containing text data, in that column. 
 
@@ -38,10 +38,10 @@ In short: Think of it as using the `pandas.describe()` function or running [Pand
 
 ## What do you get from the library?
 
-- Input a Pandas dataframe series as input paramater.
+- Input a Pandas dataframe series as an input parameter.
 - You get back a new dataframe with various features about the parsed text per row.
-  - high-level: sentiment analysis, objectivity/subjectivity analysis, spelling quality check, grammar quality check, etc...
-  - low-level/granular: number of characters in the sentence, number of words, number of emojis, number of words, etc...
+  - High-level: sentiment analysis, objectivity/subjectivity analysis, spelling quality check, grammar quality check, etc...
+  - Low-level/granular: number of characters in the sentence, number of words, number of emojis, number of words, etc...
 - From the above numerical data in the resulting dataframe descriptive statistics can be drawn using the `pandas.describe()` on the dataframe.
 
 See screenshots under the [Jupyter](#Jupyter) section and also under [Screenshots](#Screenshots) for further illustrations.
@@ -52,7 +52,7 @@ A simple [notebook](#Notebooks) have been provided to illustrate the usage of th
 
 **_Please join the [Gitter.im community](https://gitter.im/nlp_profiler/community) and say "hello" to us, share your feedback, have a fun time with us._**
 
-**Note:** _this is a new endeavour and it's may have rough edges i.e. probably NOT capable of doing many things atm. Many of these gaps are opportunities we can work on and plug, as we go along using it. Please provide constructive feedback to help with the improvement of this library. We just recently achieved this with [scaling with larger datasets](https://github.com/neomatrix369/nlp_profiler/issues/2#issuecomment-696675059)._
+**Note:** _this is a new endeavour and it may have rough edges i.e. NLP_Profiler in its current version is probably NOT capable of doing many things. Many of these gaps are opportunities we can work on and plug, as we go along using it. Please provide constructive feedback to help with the improvement of this library. We just recently achieved this with [scaling with larger datasets](https://github.com/neomatrix369/nlp_profiler/issues/2#issuecomment-696675059)._
 
 ## Requirements
 
