@@ -6,7 +6,7 @@ Changelog for nlp_profiler.
 
 ### GitHub branch `test-python-3.6-compatibility` enable support for Python 3.6
 
-Based on the issue raised on github [#1](https://github.com/neomatrix369/nlp_profiler/issues/1)
+Based on the issue raised on GitHub [#1](https://github.com/neomatrix369/nlp_profiler/issues/1)
 
 [b2a002a](https://github.com/neomatrix369/nlp_profiler/commit/b2a002a) - [4f117a6](https://github.com/neomatrix369/nlp_profiler/commit/4f117a6) [@neomatrix369](https://github.com/neomatrix369) _Wed Sep 16 17:15:29 2020 +0100_
 
@@ -20,7 +20,7 @@ Based on the issue raised on github [#1](https://github.com/neomatrix369/nlp_pro
 
 ### GitHub branch `add-progress-bars` add progress bars to the various levels of transformation for better UX/UI experience
 
-Based on the issue raised on github [#3](https://github.com/neomatrix369/nlp_profiler/issues/3) - although only implements progress bars at the first and second levels of iterations, pending level 3 iteration (row/record level)
+Based on the issue raised on GitHub [#3](https://github.com/neomatrix369/nlp_profiler/issues/3) - although only implements progress bars at the first and second levels of iterations, pending level 3 iteration (row/record level)
 
 ![image](https://user-images.githubusercontent.com/1570917/93523649-42ed9d80-f92b-11ea-9c08-c45914ca0c20.png)
 
@@ -44,7 +44,7 @@ Added parallelisation and some caching to improve the initial slow-down in the p
 
 Verification and tests have been performed, although this is a continuous process.
 
-For performance metrics before and after changes see this [comment](https://github.com/neomatrix369/nlp_profiler/issues/2#issuecomment-696675059) on github issue [#2](https://github.com/neomatrix369/nlp_profiler/issues/2).
+For performance metrics before and after changes see this [comment](https://github.com/neomatrix369/nlp_profiler/issues/2#issuecomment-696675059) on GitHub issue [#2](https://github.com/neomatrix369/nlp_profiler/issues/2).
 
 [00a68e2](https://github.com/neomatrix369/nlp_profiler/commit/00a68e2) - [1ff5082](https://github.com/neomatrix369/nlp_profiler/commit/1ff5082) [@neomatrix369](https://github.com/neomatrix369) _Fri Sep 18 14:09:12 2020 +0100_
 
@@ -93,9 +93,9 @@ To improve communication with developers and also to create a streamlined proces
 
 ### GitHub branch `addNounPhraseCount` Add noun phrase count in text data
 
-Count the number of noun phrases in a the text data and return it as part of granular features.
+Count the number of noun phrases in the text data and return it as part of granular features.
 
-Thanks @ritikjain51 for your contribution originally via PR #13, which was fixed and refactored via PR #47.
+Thanks, @ritikjain51 for your contribution originally via PR #13, which was fixed and refactored via PR #47.
 
 [f8a22ba](https://github.com/neomatrix369/nlp_profiler/commit/f8a22baf24c39e58f2c8f7cb3faecdb6b87f8462) - [fcd706b](https://github.com/neomatrix369/nlp_profiler/commit/fcd706b39bc426532ad0ccc72d434bda6668bd72) [@neomatrix369](https://github.com/neomatrix369) _Wed Oct 21 13:40:20 2020 +0100_
 
