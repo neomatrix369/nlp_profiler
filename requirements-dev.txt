@@ -8,3 +8,4 @@ gitpython
 pre-commit
 nbqa
 matplotlib
+black >= 20.8b1
