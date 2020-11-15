@@ -91,13 +91,13 @@ Look at a short demo of the NLP Profiler library at one of these:
 From PyPi:
 
 ```bash
-pip install nlp_profiler
+pip install -U nlp_profiler
 ```
 
 From the GitHub repo:
 
 ```bash
-pip install git+https://github.com/neomatrix369/nlp_profiler.git@master
+pip install -U git+https://github.com/neomatrix369/nlp_profiler.git@master
 ```
 
 From the source (only for development purposes), see [Developer guide](#developer-guide)
