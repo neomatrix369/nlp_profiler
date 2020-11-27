@@ -3,7 +3,7 @@ nltk >= 3.5
 language_tool_python >= 2.3.1
 requests >= 2.23.0
 emoji >= 0.5.4
-tqdm >= 4.46.0
+tqdm == 4.46.0
 joblib >= 0.14.1
 ipython >= 7.12.0
 pandas
