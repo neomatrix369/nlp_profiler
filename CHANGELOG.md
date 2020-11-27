@@ -109,5 +109,26 @@ Now the build and test action runs on Windows instances as well. Fixes issue rep
 
 ---
 
+## [Next release]
+
+### A number of small changes to the code-base via various GitHub branches
+
+Very few impacting the overall functionality of the library but mostly around house-keeping and tidying processes:
+
+- [073e1ef](https://github.com/neomatrix369/nlp_profiler/commit/073e1ef) and [de55f19](https://github.com/neomatrix369/nlp_profiler/commit/de55f19) Docstrings: adding docstrings to all the functions across the various py source files in the nlp_profiler folder (the whole library)
+(_branch_ `apply_doc_strings_to_functions`) 
+- [a610f0e](https://github.com/neomatrix369/nlp_profiler/commit/a610f0e) Progress bar: pinning `tqdm` to `4.46.0` as newer versions cause issues in Notebooks, via _branch_ `add-progress-bars`
+- [00314e9](https://github.com/neomatrix369/nlp_profiler/commit/00314e9) GitHub Action: Updated the URL to the LineProfiler's wheel file via _branch_ `ci-cd-github-action`
+- [ffb2b02](https://github.com/neomatrix369/nlp_profiler/commit/ffb2b02) and [9ca05a4](https://github.com/neomatrix369/nlp_profiler/commit/9ca05a4) updating README with link to talks and slides
+e01fb9b nbqa-pre-commit: adding `black >= 20.8b1` to the `requirements-dev.txt`
+- [1ca1fd3](https://github.com/neomatrix369/nlp_profiler/commit/1ca1fd3), [1305013](https://github.com/neomatrix369/nlp_profiler/commit/1305013) and [7bac9a4](https://github.com/neomatrix369/nlp_profiler/commit/7bac9a4) GitHub action: simplifying the if: directive in the end-to-end-flow.yml github action workflow logic to skip build. CodeQL: refined the check for skip ci, only skip the step if the commit message contains such a text otherwise always run as usual
+- [074dc3b](https://github.com/neomatrix369/nlp_profiler/commit/074dc3b) Lineprofiler: update the URLs to the windows 64bits wheel binaries
+- [5f83f75](https://github.com/neomatrix369/nlp_profiler/commit/5f83f75) Notebooks: installing `matplotlib` to cover a edge-case when end-user does not have it installed. Fixed #24
+- [bcab48f](https://github.com/neomatrix369/nlp_profiler/commit/bcab48f) and [4fae9a6](https://github.com/neomatrix369/nlp_profiler/commit/4fae9a6) README: adding the `gitter.im` chat badge to the README page: https://gitter.im/nlp_profiler/community
+- [d1e7f9f](https://github.com/neomatrix369/nlp_profiler/commit/d1e7f9f) and [346c546](https://github.com/neomatrix369/nlp_profiler/commit/346c546) Release: synching remote to local before pushing to pypi.org, fixing the shell-script to trim the package version number so we can make a working link for the GitHub Release
+
+[@neomatrix369](https://github.com/neomatrix369) between _Sun Oct 25 17:14:54 2020 +0000_ and _Fri Nov 27 18:00:54 2020 +0000_
+
+---
 
 Return to [README.md](README.md)
