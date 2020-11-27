@@ -17,8 +17,7 @@ PROGRESS_BAR_WIDTH = 900 if is_running_from_ipython() else None
 
 
 def get_progress_bar(values: list) -> tqdm:
-    cached_tqdm = memory.cache(tqdm)
-    return cached_tqdm(values, ncols=PROGRESS_BAR_WIDTH)
+    return tqdm(values, ncols=PROGRESS_BAR_WIDTH)
 
 
 def run_task(task_function, value: str):  # pragma: no cover
