@@ -6,7 +6,7 @@ from nlp_profiler.constants import NaN
 ### Numbers
 def gather_whole_numbers(text: str) -> list:
     """
-    Gather all the number of numbers.
+    Gather all whole numbers.
 
     Args:
         text (str) :
@@ -22,7 +22,7 @@ def gather_whole_numbers(text: str) -> list:
 
 def count_whole_numbers(text: str) -> int:
     """
-    Count the number of numbers.
+    Count the number of whole numbers.
 
     Args:
         text (str) :

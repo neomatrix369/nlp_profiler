@@ -6,7 +6,7 @@ from nlp_profiler.constants import NaN
 ### Alphanumeric
 def gather_alpha_numeric(text: str) -> list:
     """
-    Return a list of numeric numbers.
+    Return a list of numbers.
 
     Args:
         text (str) :

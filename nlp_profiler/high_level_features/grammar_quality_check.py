@@ -14,7 +14,7 @@ def apply_grammar_check(heading: str,
                         text_column: dict,
                         parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     """
-    Apply grammar to the grammar.
+    Apply grammar check to the text columns in the dataframe.
 
     Args:
         heading (str) :

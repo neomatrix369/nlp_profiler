@@ -11,7 +11,7 @@ def generate_features(main_header: str,
                       new_dataframe: pd.DataFrame,
                       parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     """
-    Generate feature features.
+    Generate features.
 
     Args:
         main_header (str) :

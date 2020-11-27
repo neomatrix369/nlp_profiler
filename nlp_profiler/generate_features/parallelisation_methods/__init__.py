@@ -23,7 +23,7 @@ PROGRESS_BAR_WIDTH = 900 if is_running_from_ipython() else None
 
 def get_progress_bar(values: list) -> tqdm:
     """
-    Get progress bar bar.
+    Get progress bar.
 
     Args:
         values (list) :
@@ -80,7 +80,7 @@ def using_swifter(
         source_field, apply_function, new_column: str = None
 ) -> pd.DataFrame:
     """
-    Apply a function to the given function.
+    Apply a function to the given task/dataframe.
 
     Args:
         source_field :

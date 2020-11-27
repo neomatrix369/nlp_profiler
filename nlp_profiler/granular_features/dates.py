@@ -6,7 +6,7 @@ from nlp_profiler.constants import NaN
 ### Dates
 def gather_dates(text: str, date_format: str = 'dd/mm/yyyy') -> list:
     """
-    Gather dates from text format
+    Gather dates from text using a date format
 
     Args:
         text (str) :

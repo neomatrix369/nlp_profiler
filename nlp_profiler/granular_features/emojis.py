@@ -9,7 +9,7 @@ from nlp_profiler.constants import NaN
 
 def gather_emojis(text: str) -> list:
     """
-    Return a list of emoji names.
+    Return a list of emojis.
 
     Args:
         text (str) :

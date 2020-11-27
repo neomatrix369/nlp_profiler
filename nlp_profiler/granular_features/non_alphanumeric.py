@@ -6,7 +6,7 @@ from nlp_profiler.constants import NaN
 ### Non-alphanumeric
 def gather_non_alpha_numeric(text: str) -> list:
     """
-    Return a list of non - numeric numbers.
+    Return a list of non-alphanumeric characters.
 
     Args:
         text (str) :
@@ -22,7 +22,7 @@ def gather_non_alpha_numeric(text: str) -> list:
 
 def count_non_alpha_numeric(text: str) -> int:
     """
-    Count number of numeric numbers.
+    Count number of non-alphanumeric characters.
 
     Args:
         text (str) :

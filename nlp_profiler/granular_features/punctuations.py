@@ -6,7 +6,7 @@ from nlp_profiler.constants import NaN
 ### Punctuations
 def gather_punctuations(text: str) -> list:
     """
-    Gather punctuation punctuation.
+    Gather punctuation.
 
     Args:
         text (str) :
@@ -24,7 +24,7 @@ def gather_punctuations(text: str) -> list:
 
 def count_punctuations(text: str) -> int:
     """
-    Count the number of punctuation punctuation.
+    Count the number of punctuations.
 
     Args:
         text (str) :

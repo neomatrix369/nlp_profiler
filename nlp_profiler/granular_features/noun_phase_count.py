@@ -12,12 +12,13 @@ nltk.download('averaged_perceptron_tagger')
 
 def gather_nouns(sentence: str):
     if not isinstance(sentence, str) or len(sentence) == 0:
-       return []
-    
+        return []
+
     emoji_decoded = emoji.demojize(sentence, delimiters=("", "")).lower().strip()  # Decoding Emoji's
 
     token = word_tokenize(emoji_decoded)
-    tags = list(filter(lambda x: re.match(r"(JJ|NN|NNP)", x[1]), pos_tag(token)))  # using RegEx to to check for Noun Phases.
+    tags = list(
+        filter(lambda x: re.match(r"(JJ|NN|NNP)", x[1]), pos_tag(token)))  # using RegEx to to check for Noun Phases.
     return tags
 
 
