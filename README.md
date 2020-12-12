@@ -88,6 +88,14 @@ Look at a short demo of the NLP Profiler library at one of these:
 
 ### Installation
 
+Conda/Miniconda environment:
+
+```bash
+conda config --set pip_interop_enabled True
+
+### now perform any of the below paths/options
+```
+
 From PyPi:
 
 ```bash
