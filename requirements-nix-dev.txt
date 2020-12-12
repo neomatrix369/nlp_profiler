@@ -1,1 +1,2 @@
-line-profiler >= 3.0.2
+scikit-build
+git+git://github.com/pyutils/line_profiler@master

@@ -28,6 +28,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
       # Inspired by the post: https://ben-heil.github.io/2020-08-24-conda-actions/
       - uses: conda-incubator/setup-miniconda@v2
         with:
@@ -48,23 +49,26 @@ jobs:
         run: conda install --force-reinstall -y -q --file requirements-conda-dev.txt
 
       - name: install-dev-requirements-nix-specific
-        run: conda install --force-reinstall -y -q --file requirements-nix-dev.txt
+        run: |
+          conda config --set pip_interop_enabled True
+          pip install scikit-build
+          pip install line_profiler>=3.0.2
         if: matrix.os != 'windows-latest'
 
       - name: install-line-profiler-on-windows-python-3.6
-        run: conda install --force-reinstall -y -q line-profiler@https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/line_profiler-3.1.0-cp36-cp36m-win_amd64.whl
+        run: conda install line-profiler@https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/line_profiler-3.1.0-cp36-cp36m-win_amd64.whl
         if: matrix.python-version == '3.6' &&  matrix.os == 'windows-latest'
 
       - name: install-line-profiler-on-windows-python-3.7
-        run: conda install --force-reinstall -y -q line-profiler@https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/line_profiler-3.1.0-cp37-cp37m-win_amd64.whl
+        run: conda install line-profiler@https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/line_profiler-3.1.0-cp37-cp37m-win_amd64.whl
         if: matrix.python-version == '3.7' &&  matrix.os == 'windows-latest'
 
       - name: install-line-profiler-on-windows-python-3.8
-        run: conda install --force-reinstall -y -q line-profiler@https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/line_profiler-3.1.0-cp38-cp38-win_amd64.whl
+        run: conda install line-profiler@https://download.lfd.uci.edu/pythonlibs/z4tqcw5k/line_profiler-3.1.0-cp38-cp38-win_amd64.whl
         if: matrix.python-version == '3.8' &&  matrix.os == 'windows-latest'
 
       - name: install-requirements
-        run: conda install --force-reinstall -y -q --file requirements.txt
+        run: conda install --file requirements.txt
 
       # Runs a set of commands using the runners shell
       - name: run-test-coverage-shell-script
