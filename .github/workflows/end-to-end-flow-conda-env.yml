@@ -33,6 +33,7 @@ jobs:
         with:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
+          channels: conda-forge,spyder-ide
       - name: Cache multiple paths
         uses: actions/cache@v2
         with:
