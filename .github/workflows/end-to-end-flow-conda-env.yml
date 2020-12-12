@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: end-to-end-flow
+name: end-to-end-flow-conda
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -28,6 +28,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      # Inspired by the post: https://ben-heil.github.io/2020-08-24-conda-actions/
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
