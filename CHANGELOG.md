@@ -124,7 +124,7 @@ Just like spelling check and grammar checks, adding a high-level feature to indi
 
 It returns values between 0 and 100 (I have seen values go past 0 and 100 depending on how bad or good the text is).
 
-[ae91f5c](https://github.com/neomatrix369/nlp_profiler/commit/ae91f5c) [@neomatrix369](https://github.com/neomatrix369) _Sun Dec 13 10:17:17 2020 +0000_
+[4919a51](https://github.com/neomatrix369/nlp_profiler/commit/4919a51) [@neomatrix369](https://github.com/neomatrix369) _Sun Dec 13 18:36:42 2020 +0000_
 
 ---
 
