@@ -88,12 +88,14 @@ Look at a short demo of the NLP Profiler library at one of these:
 
 ### Installation
 
-Conda/Miniconda environment:
+For Conda/Miniconda environments:
 
 ```bash
 conda config --set pip_interop_enabled True
+pip install "spacy >= 2.3.0,<3.0.0"         # in case spacy is not present
+python -m spacy download en_core_web_sm
 
-### now perform any of the below paths/options
+### now perform any of the below pathways/options
 ```
 
 From PyPi:
