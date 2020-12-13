@@ -30,6 +30,12 @@ SENTIMENT_SUBJECTIVITY_SCORE_COL = 'sentiment_subjectivity_score'
 SENTIMENT_SUBJECTIVITY_COL = 'sentiment_subjectivity'
 SENTIMENT_SUBJECTIVITY_SUMMARISED_COL = 'sentiment_subjectivity_summarised'
 
+## Spelling check
+EASE_OF_READING_SCORE_COL = 'ease_of_reading_score'
+EASE_OF_READING_COL = 'ease_of_reading_quality'
+EASE_OF_READING_SUMMARISED_COL = 'ease_of_reading_summarised'
+
+
 # ---
 # Granular
 DATES_COUNT_COL = 'dates_count'
