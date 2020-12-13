@@ -118,5 +118,17 @@ Fixes issue #57 via PR https://github.com/neomatrix369/nlp_profiler/pull/58
 
 ---
 
+### GitHub branch `indicate-ease-of-reading-of-text` High-level feature: Indicate ease of reading of text
+
+Just like spelling check and grammar checks, adding a high-level feature to indicate if a block of text is easy to read or not, based on the library textstat's flesch_reading_ease().
+
+It returns values between 0 and 100 (I have seen values go past 0 and 100 depending on how bad or good the text is).
+
+[4919a51](https://github.com/neomatrix369/nlp_profiler/commit/4919a51) [@neomatrix369](https://github.com/neomatrix369) _Sun Dec 13 18:36:42 2020 +0000_
+
+---
+
+
+
 
 Return to [README.md](README.md)

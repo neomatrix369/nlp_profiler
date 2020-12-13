@@ -51,7 +51,7 @@ grammar_check_score_to_words_mapping = [
 
 @pytest.mark.parametrize("score,expected_result",
                          grammar_check_score_to_words_mapping)
-def test_given_spelling_check_score_when_converted_to_words_then_return_right_word(
+def test_given_grammar_check_score_when_converted_to_words_then_returns_the_score_in_word(
         score: float, expected_result: str
 ):
     # given, when

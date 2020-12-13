@@ -6,6 +6,7 @@ GRANULAR_OPTION = 'granular'
 HIGH_LEVEL_OPTION = 'high_level'
 GRAMMAR_CHECK_OPTION = 'grammar_check'
 SPELLING_CHECK_OPTION = 'spelling_check'
+EASE_OF_READING_CHECK_OPTION = 'ease_of_reading_check'
 PARALLELISATION_METHOD_OPTION = 'parallelisation_method'
 NOT_APPLICABLE = "N/A"
 
@@ -29,6 +30,11 @@ SENTIMENT_POLARITY_SUMMARISED_COL = 'sentiment_polarity_summarised'
 SENTIMENT_SUBJECTIVITY_SCORE_COL = 'sentiment_subjectivity_score'
 SENTIMENT_SUBJECTIVITY_COL = 'sentiment_subjectivity'
 SENTIMENT_SUBJECTIVITY_SUMMARISED_COL = 'sentiment_subjectivity_summarised'
+
+## Spelling check
+EASE_OF_READING_SCORE_COL = 'ease_of_reading_score'
+EASE_OF_READING_COL = 'ease_of_reading_quality'
+EASE_OF_READING_SUMMARISED_COL = 'ease_of_reading_summarised'
 
 # ---
 # Granular

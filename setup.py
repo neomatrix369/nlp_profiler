@@ -9,7 +9,7 @@ with open("README.md", encoding='utf8') as readme:
     long_description = readme.read()
 
 with open("requirements.txt", encoding='utf8') as requirements_txt:
-    install_requirements = requirements_txt.read().split(",")
+    install_requirements = requirements_txt.read().split("\n")
 
 download_url = f"https://github.com/neomatrix369/nlp_profiler/releases/tag/v{nlp_profiler.__version__}"
 
