@@ -9,6 +9,7 @@
 [![PyPI version](https://badge.fury.io/py/nlp-profiler.svg)](https://badge.fury.io/py/nlp-profiler) 
 [![Python versions](https://img.shields.io/pypi/pyversions/nlp_profiler.svg)](https://pypi.org/project/nlp_profiler/) 
 [![PyPi stats](https://img.shields.io/pypi/dm/nlp_profiler.svg?label=pypi%20downloads&logo=PyPI&logoColor=white)](https://pypistats.org/packages/nlp_profiler)
+[![Downloads](https://static.pepy.tech/personalized-badge/nlp-profiler?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/nlp-profiler)
 
 
 A simple NLP library that allows profiling datasets with one or more text columns. 
@@ -40,7 +41,7 @@ In short: Think of it as using the `pandas.describe()` function or running [Pand
 
 - Input a Pandas dataframe series as an input parameter.
 - You get back a new dataframe with various features about the parsed text per row.
-  - High-level: sentiment analysis, objectivity/subjectivity analysis, spelling quality check, grammar quality check, etc...
+  - High-level: sentiment analysis, objectivity/subjectivity analysis, spelling quality check, grammar quality check, ease of readability check, etc...
   - Low-level/granular: number of characters in the sentence, number of words, number of emojis, number of words, etc...
 - From the above numerical data in the resulting dataframe descriptive statistics can be drawn using the `pandas.describe()` on the dataframe.
 

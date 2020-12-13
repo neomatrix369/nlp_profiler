@@ -20,7 +20,7 @@ import pandas as pd
 
 from nlp_profiler.constants import \
     PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, \
-    GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION
+    GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION, EASE_OF_READING_CHECK_OPTION
 from nlp_profiler.generate_features import get_progress_bar
 from nlp_profiler.granular_features import apply_granular_features
 from nlp_profiler.high_level_features import apply_high_level_features
@@ -28,6 +28,8 @@ from nlp_profiler.high_level_features.grammar_quality_check \
     import apply_grammar_check
 from nlp_profiler.high_level_features.spelling_quality_check \
     import apply_spelling_check
+from nlp_profiler.high_level_features.ease_of_reading_check \
+    import apply_ease_of_reading_check
 
 
 def apply_text_profiling(dataframe: pd.DataFrame,
@@ -41,6 +43,7 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         GRANULAR_OPTION: True,
         GRAMMAR_CHECK_OPTION: False,  # default: False as slow process but can Enabled
         SPELLING_CHECK_OPTION: True,  # default: True although slightly slow process but can Disabled
+        EASE_OF_READING_CHECK_OPTION: True,
         PARALLELISATION_METHOD_OPTION: DEFAULT_PARALLEL_METHOD
     }
 
@@ -51,7 +54,8 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         (GRANULAR_OPTION, "Granular features", apply_granular_features),
         (HIGH_LEVEL_OPTION, "High-level features", apply_high_level_features),
         (GRAMMAR_CHECK_OPTION, "Grammar checks", apply_grammar_check),
-        (SPELLING_CHECK_OPTION, "Spelling checks", apply_spelling_check)
+        (SPELLING_CHECK_OPTION, "Spelling checks", apply_spelling_check),
+        (EASE_OF_READING_CHECK_OPTION, "Ease of reading check", apply_ease_of_reading_check)
     ]
 
     for index, item in enumerate(actions_mappings.copy()):

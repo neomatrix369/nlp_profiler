@@ -3,7 +3,7 @@ import pandas as pd
 import math
 
 from nlp_profiler.constants import NOT_APPLICABLE, NaN, DEFAULT_PARALLEL_METHOD, \
-    EASE_OF_READING_SCORE_COL, EASE_OF_READING_COL
+    EASE_OF_READING_SCORE_COL, EASE_OF_READING_COL, EASE_OF_READING_SUMMARISED_COL
 from nlp_profiler.generate_features import generate_features
 
 
@@ -12,7 +12,7 @@ def apply_ease_of_reading_check(heading: str,
                         text_column: dict,
                         parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     ease_of_reading_steps = [
-        (EASE_OF_READING_SCORE_COL, text_column, EASE_OF_READING_SCORE),
+        (EASE_OF_READING_SCORE_COL, text_column, ease_of_reading_score),
         (EASE_OF_READING_COL, EASE_OF_READING_SCORE_COL, ease_of_reading),
         (EASE_OF_READING_SUMMARISED_COL, EASE_OF_READING_COL, ease_of_reading_summarised),
     ]
