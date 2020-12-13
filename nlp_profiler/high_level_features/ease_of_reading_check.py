@@ -58,9 +58,6 @@ def ease_of_reading(score: int) -> str:
     if math.isnan(score):
         return NOT_APPLICABLE
 
-    if math.isnan(score):
-        return NOT_APPLICABLE
-
     score = float(score)
     for _, each_slab in enumerate(ease_of_reading_to_words_mapping):  # pragma: no cover
         # pragma: no cover => early termination leads to loss of test coverage info
