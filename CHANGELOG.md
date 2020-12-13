@@ -109,5 +109,14 @@ Now the build and test action runs on Windows instances as well. Fixes issue rep
 
 ---
 
+### GitHub branch `add-spacy-version-dependency-for-conda` Add spacy related docs info for Conda users
+
+Conda user(s) could not install the library using the `pip install` this is now possible following the docs on the [README](./README.md) page. 
+Fixes issue #57 via PR https://github.com/neomatrix369/nlp_profiler/pull/58
+
+[ae91f5c](https://github.com/neomatrix369/nlp_profiler/commit/ae91f5c) [@neomatrix369](https://github.com/neomatrix369) _Sun Dec 13 10:17:17 2020 +0000_
+
+---
+
 
 Return to [README.md](README.md)
