@@ -82,6 +82,8 @@ Producing the Code coverage report with each commit. And uploading the artifacts
 
 ---
 
+## 0.0.3
+
 ### GitHub branch `add-docs-for-developers` and `add-github-templates` Update docs for Developers and Add Github templates for issues and pull request
 
 To improve communication with developers and also to create a streamlined process for the same, docs and templates have been added and updated to the repo. These do not change the functionality of the library in any form or shape.
