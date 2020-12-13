@@ -6,6 +6,7 @@ emoji >= 0.5.4
 tqdm == 4.46.0
 joblib >= 0.14.1
 ipython >= 7.12.0
+spacy >= 2.3.0,<3.0.0
 pandas
 swifter >= 1.0.3
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.0/en_core_web_sm-2.3.0.tar.gz
