@@ -7,14 +7,15 @@ from nlp_profiler.constants import \
 from nlp_profiler.constants import \
     DEFAULT_PARALLEL_METHOD
 from nlp_profiler.constants import \
-    DUPLICATES_COUNT_COL, COUNT_WORDS_COL, SPACES_COUNT_COL, \
+    DUPLICATES_COUNT_COL, COUNT_WORDS_COL, SPACES_COUNT_COL, REPEATED_SPACES_COUNT_COL, \
     ALPHA_NUMERIC_COUNT_COL, REPEATED_LETTERS_COUNT_COL, WHOLE_NUMBERS_COUNT_COL, \
     REPEATED_DIGITS_COUNT_COL, EMOJI_COUNT_COL, CHARS_EXCL_SPACES_COUNT_COL, \
     NOUN_PHASE_COUNT_COL
 from nlp_profiler.generate_features import generate_features
 from nlp_profiler.granular_features.alphanumeric import count_alpha_numeric
 from nlp_profiler.granular_features.chars_and_spaces \
-    import count_spaces, count_chars, count_characters_excluding_spaces
+    import count_spaces, count_chars, count_characters_excluding_spaces, \
+    count_repeated_spaces
 from nlp_profiler.granular_features.dates import count_dates
 from nlp_profiler.granular_features.duplicates import count_duplicates
 from nlp_profiler.granular_features.emojis import count_emojis
@@ -34,6 +35,7 @@ def get_steps_for_features(text_column: str) -> list:
         (CHARACTERS_COUNT_COL, text_column, count_chars),
         (REPEATED_LETTERS_COUNT_COL, text_column, count_repeated_letters),
         (SPACES_COUNT_COL, text_column, count_spaces),
+        (REPEATED_SPACES_COUNT_COL, text_column, count_repeated_spaces),
         (COUNT_WORDS_COL, text_column, count_words),
         (DUPLICATES_COUNT_COL, text_column, count_duplicates),
         (CHARS_EXCL_SPACES_COUNT_COL, text_column, count_characters_excluding_spaces),

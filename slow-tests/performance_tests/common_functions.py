@@ -115,9 +115,10 @@ def generate_data() -> list:
                                  'I think they have a goodd traittttt.'
     text_with_repeated_digits = '283047 people live in this area3333 22224444'
     text_with_repeated_punctuations = '283047 people live in this area[[[ ]]] :::;;;;'
+    text_with_repeated_spaces = '283047   people live in this  area'
     data = [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
             text_with_repeated_digits, text_with_punctuations, text_with_repeated_punctuations,
-            text_with_a_date, text_with_dates, text_with_duplicates]
+            text_with_a_date, text_with_dates, text_with_duplicates, text_with_repeated_spaces]
 
     new_data = []
     for _ in range(1):

@@ -24,3 +24,17 @@ def count_chars(text: str) -> int:
         return NaN
 
     return len(text)
+
+
+def gather_repeated_spaces(text: str) -> list:
+    if not isinstance(text, str):
+        return NaN
+
+    return re.findall('(([ ])\\2{1,})', text)
+
+
+def count_repeated_spaces(text: str) -> int:
+    if not isinstance(text, str):
+        return NaN
+
+    return len(gather_repeated_spaces(text))
