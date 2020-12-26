@@ -2,7 +2,8 @@ import pandas as pd
 
 from nlp_profiler.constants import CHARACTERS_COUNT_COL, SENTENCES_COUNT_COL
 from nlp_profiler.constants import \
-    DATES_COUNT_COL, STOP_WORDS_COUNT_COL, PUNCTUATIONS_COUNT_COL, NON_ALPHA_NUMERIC_COUNT_COL
+    DATES_COUNT_COL, STOP_WORDS_COUNT_COL, PUNCTUATIONS_COUNT_COL, \
+    REPEATED_PUNCTUATIONS_COUNT_COL, NON_ALPHA_NUMERIC_COUNT_COL
 from nlp_profiler.constants import \
     DEFAULT_PARALLEL_METHOD
 from nlp_profiler.constants import \
@@ -21,7 +22,7 @@ from nlp_profiler.granular_features.letters import count_repeated_letters
 from nlp_profiler.granular_features.non_alphanumeric import count_non_alpha_numeric
 from nlp_profiler.granular_features.noun_phase_count import count_noun_phase
 from nlp_profiler.granular_features.numbers import count_whole_numbers, count_repeated_digits
-from nlp_profiler.granular_features.punctuations import count_punctuations
+from nlp_profiler.granular_features.punctuations import count_punctuations, count_repeated_punctuations
 from nlp_profiler.granular_features.sentences import count_sentences
 from nlp_profiler.granular_features.stop_words import count_stop_words
 from nlp_profiler.granular_features.words import count_words
@@ -42,6 +43,7 @@ def get_steps_for_features(text_column: str) -> list:
         (ALPHA_NUMERIC_COUNT_COL, text_column, count_alpha_numeric),
         (NON_ALPHA_NUMERIC_COUNT_COL, text_column, count_non_alpha_numeric),
         (PUNCTUATIONS_COUNT_COL, text_column, count_punctuations),
+        (REPEATED_PUNCTUATIONS_COUNT_COL, text_column, count_repeated_punctuations),
         (STOP_WORDS_COUNT_COL, text_column, count_stop_words),
         (DATES_COUNT_COL, text_column, count_dates),
         (NOUN_PHASE_COUNT_COL, text_column, count_noun_phase)
