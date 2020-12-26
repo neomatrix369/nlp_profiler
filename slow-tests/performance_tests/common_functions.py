@@ -1,4 +1,6 @@
 import os
+import shutil
+import tempfile
 from contextlib import redirect_stdout
 from datetime import datetime
 from time import time
@@ -20,6 +22,18 @@ def internal_assert_benchmark(expected_execution_time: float,
     # given
     if not os.path.exists(TARGET_PROFILE_REPORT_FOLDER):
         os.makedirs(TARGET_PROFILE_REPORT_FOLDER)
+    OS_TEMP_DIR = tempfile.gettempdir()
+    if OS_TEMP_DIR:
+        CACHE_FOLDER = f'{OS_TEMP_DIR}/joblib/nlp_profiler'
+        print()
+        if os.path.exists(CACHE_FOLDER):
+            print(f"~~~ Found the NLP Profiler cache folder at {CACHE_FOLDER}, will be removed.")
+            shutil.rmtree(CACHE_FOLDER)
+            print(f"~~~ Successfully deleted the NLP Profiler cache folder at {CACHE_FOLDER}.")
+        else:
+            print(f"~~~ The NLP Profiler cache folder {CACHE_FOLDER} was NOT found. Nothing to remove.")
+        print()
+
     profile = LineProfiler()
     source_data = generate_data()
 
@@ -99,8 +113,10 @@ def generate_data() -> list:
                            'I think hardworking people are a good trait in our company.'
     text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard. ' \
                                  'I think they have a goodd traittttt.'
+    text_with_repeated_digits = '283047 people live in this area3333 22224444'
     data = [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
-            text_with_punctuations, text_with_a_date, text_with_dates, text_with_duplicates]
+            text_with_repeated_digits, text_with_punctuations, text_with_a_date,
+            text_with_dates, text_with_duplicates]
 
     new_data = []
     for _ in range(1):

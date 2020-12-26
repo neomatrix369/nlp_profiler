@@ -62,6 +62,8 @@ def create_source_dataframe():
                            'I think hardworking people are a good trait in our company.'
     text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard. ' \
                            'I think they have a goodd traittttt.'
+    text_with_repeated_digits = '283047 people live in this area3333 22224444'
     data = [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
-            text_with_punctuations, text_with_a_date, text_with_dates, text_with_duplicates]
+            text_with_repeated_digits, text_with_punctuations, text_with_a_date,
+            text_with_dates, text_with_duplicates]
     return pd.DataFrame(data, columns=['text'])
