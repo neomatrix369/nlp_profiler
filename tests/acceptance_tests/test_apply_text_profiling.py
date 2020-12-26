@@ -48,10 +48,13 @@ def test_given_a_text_column_when_profiler_is_applied_without_high_level_analysi
     # when
     actual_dataframe = apply_text_profiling(
         source_dataframe, "text", {
-            HIGH_LEVEL_OPTION: False, SPELLING_CHECK_OPTION: False, EASE_OF_READING_CHECK_OPTION: False
+            HIGH_LEVEL_OPTION: False,
+            SPELLING_CHECK_OPTION: False,
+            GRANULAR_OPTION: True,
+            EASE_OF_READING_CHECK_OPTION: False
         }
     )
-    
+
     # then
     assert_frame_equal(expected_dataframe, actual_dataframe, check_like=True)
 
@@ -99,6 +102,8 @@ def create_source_dataframe():
     text_with_dates = "The date today is 28/04/2020 and tomorrow's date is 29/04/2020."
     text_with_duplicates = 'Everyone here works so hard. People work hard. ' \
                            'I think they have a good trait.'
-    data = [text_with_emojis, text_with_a_number, text_with_two_numbers,
+    text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard. ' \
+                                 'I think they have a goodd traittttt.'
+    data = [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
             text_with_punctuations, text_with_a_date, text_with_dates, text_with_duplicates]
     return pd.DataFrame(data, columns=['text'])
