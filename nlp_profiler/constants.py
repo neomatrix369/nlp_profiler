@@ -44,6 +44,7 @@ PUNCTUATIONS_COUNT_COL = 'punctuations_count'
 NON_ALPHA_NUMERIC_COUNT_COL = 'non_alpha_numeric_count'
 ALPHA_NUMERIC_COUNT_COL = 'alpha_numeric_count'
 REPEATED_LETTERS_COUNT_COL = 'repeated_letters_count'
+REPEATED_DIGITS_COUNT_COL="repeated_digits_count"
 WHOLE_NUMBERS_COUNT_COL = 'whole_numbers_count'
 EMOJI_COUNT_COL = 'emoji_count'
 CHARS_EXCL_SPACES_COUNT_COL = 'chars_excl_spaces_count'
