@@ -2,6 +2,7 @@ text,grammar_check_score,grammar_check
 I love ⚽ very much 😁.,0,No issues
 2833047 people live in this area. It is not a good area.,0,No issues
 2833047 and 1111 people live in this area.,0,No issues
+Harrington PPPPPPpppppeople work hard. I think they have a goodd traittttt.,3,3 issues
 "This sentence doesn't seem to too many commas, periods or semi-colons (;).",1,1 issue
 "Todays date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020.",3,3 issues
 Todays date is 28/04/2020 and tomorrow's date is 29/04/2020.,1,1 issue

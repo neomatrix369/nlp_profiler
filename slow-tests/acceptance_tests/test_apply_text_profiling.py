@@ -60,6 +60,8 @@ def create_source_dataframe():
     text_with_dates = "Todays date is 28/04/2020 and tomorrow's date is 29/04/2020."
     text_with_duplicates = 'Everyone here is so hardworking. Hardworking people. ' \
                            'I think hardworking people are a good trait in our company.'
-    data = [text_with_emojis, text_with_a_number, text_with_two_numbers,
+    text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard. ' \
+                           'I think they have a goodd traittttt.'
+    data = [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
             text_with_punctuations, text_with_a_date, text_with_dates, text_with_duplicates]
     return pd.DataFrame(data, columns=['text'])
