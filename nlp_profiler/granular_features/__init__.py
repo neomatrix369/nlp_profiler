@@ -14,11 +14,11 @@ from nlp_profiler.granular_features.alphanumeric import count_alpha_numeric
 from nlp_profiler.granular_features.alphanumeric import count_alpha_numeric
 from nlp_profiler.granular_features.chars_and_spaces \
     import count_spaces, count_chars, count_characters_excluding_spaces
-from nlp_profiler.granular_features.letters \
-    import count_repeated_letters
 from nlp_profiler.granular_features.dates import count_dates
 from nlp_profiler.granular_features.duplicates import count_duplicates
 from nlp_profiler.granular_features.emojis import count_emojis
+from nlp_profiler.granular_features.letters \
+    import count_repeated_letters
 from nlp_profiler.granular_features.non_alphanumeric import count_non_alpha_numeric
 from nlp_profiler.granular_features.noun_phase_count import count_noun_phase
 from nlp_profiler.granular_features.noun_phase_count import count_noun_phase
@@ -29,11 +29,8 @@ from nlp_profiler.granular_features.stop_words import count_stop_words
 from nlp_profiler.granular_features.words import count_words
 
 
-def apply_granular_features(heading: str,
-                            new_dataframe: pd.DataFrame,
-                            text_column: dict,
-                            parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
-    granular_features_steps = [
+def get_steps_for_features(text_column: str) -> list:
+    return [
         (SENTENCES_COUNT_COL, text_column, count_sentences),
         (CHARACTERS_COUNT_COL, text_column, count_chars),
         (REPEATED_LETTERS_COUNT_COL, text_column, count_repeated_letters),
@@ -50,7 +47,13 @@ def apply_granular_features(heading: str,
         (DATES_COUNT_COL, text_column, count_dates),
         (NOUN_PHASE_COUNT_COL, text_column, count_noun_phase)
     ]
+
+
+def apply_granular_features(heading: str,
+                            new_dataframe: pd.DataFrame,
+                            text_column: str,
+                            parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     generate_features(
-        heading, granular_features_steps,
+        heading, get_steps_for_features(text_column),
         new_dataframe, parallelisation_method
     )

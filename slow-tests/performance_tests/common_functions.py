@@ -4,6 +4,7 @@ from datetime import datetime
 from time import time
 
 import git
+import pandas as pd
 from line_profiler import LineProfiler
 
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
@@ -11,10 +12,11 @@ EXPECTED_DATA_PATH = f'{os.path.dirname(CURRENT_SOURCE_FILEPATH)}/data'
 TARGET_PROFILE_REPORT_FOLDER = '.cprofile/'
 
 
-def assert_benchmark(expected_execution_time: float,
-                     target_function,
-                     profile_filename_prefix: str,
-                     commit_id: str):
+def internal_assert_benchmark(expected_execution_time: float,
+                              target_function,
+                              profile_filename_prefix: str,
+                              commit_id: str,
+                              custom_processing_function):
     # given
     if not os.path.exists(TARGET_PROFILE_REPORT_FOLDER):
         os.makedirs(TARGET_PROFILE_REPORT_FOLDER)
@@ -24,8 +26,7 @@ def assert_benchmark(expected_execution_time: float,
     # when: using default method (joblib Parallel) for parallelisation
     start_execution_time = time()
     profile_wrapper = profile(target_function)
-    for each in source_data:
-        profile_wrapper(each)
+    custom_processing_function(source_data, profile_wrapper)
     actual_execution_time = time() - start_execution_time
     output_filename = f'{TARGET_PROFILE_REPORT_FOLDER}/{profile_filename_prefix}-' \
                       f'{datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}-' \
@@ -40,6 +41,42 @@ def assert_benchmark(expected_execution_time: float,
         f"Expected duration: {expected_execution_time}, Actual duration: {actual_execution_time}. " \
         f"Slow down by: {abs(actual_execution_time - expected_execution_time)} seconds. " \
         f"We have crossed the benchmark limit after a speed up via commit {commit_id}."
+
+
+def assert_benchmark(expected_execution_time: float,
+                     target_function,
+                     profile_filename_prefix: str,
+                     commit_id: str):
+    def custom_processing_function(source_data, profile_wrapper):
+        for each in source_data:
+            profile_wrapper(each)
+
+    internal_assert_benchmark(
+        expected_execution_time,
+        target_function,
+        profile_filename_prefix,
+        commit_id,
+        custom_processing_function
+    )
+
+
+def assert_benchmark_multiple_features(expected_execution_time: float,
+                                       target_function,
+                                       heading: str,
+                                       parallelisation_method: str,
+                                       profile_filename_prefix: str,
+                                       commit_id: str):
+    def custom_processing_function(source_data, profile_wrapper):
+        dataframe = pd.DataFrame(source_data, columns=['text'])
+        profile_wrapper(heading, dataframe, 'text', parallelisation_method)
+
+    internal_assert_benchmark(
+        expected_execution_time,
+        target_function,
+        profile_filename_prefix,
+        commit_id,
+        custom_processing_function
+    )
 
 
 def shorten_sha(long_sha):
@@ -60,7 +97,9 @@ def generate_data() -> list:
     text_with_dates = "Todays date is 28/04/2020 and tomorrow's date is 29/04/2020."
     text_with_duplicates = 'Everyone here is so hardworking. Hardworking people. ' \
                            'I think hardworking people are a good trait in our company.'
-    data = [text_with_emojis, text_with_a_number, text_with_two_numbers,
+    text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard. ' \
+                                 'I think they have a goodd traittttt.'
+    data = [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
             text_with_punctuations, text_with_a_date, text_with_dates, text_with_duplicates]
 
     new_data = []

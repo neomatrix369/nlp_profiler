@@ -37,7 +37,7 @@ def test_given_a_text_when_parsed_then_return_empty_or_a_valid_list(
 
     # then
     assert expected_result == actual_result, \
-        "Didn't find the expected alpha numeric chars in the text"
+        "Didn't find the expected letters in the text"
     f"Expected: {expected_result}, Actual: {actual_result}"
 
 
@@ -65,5 +65,5 @@ def test_given_a_text_when_counted_then_return_NaN_or_count_of_letters(
 
     # then
     assert expected_result is actual_result, \
-        "Didn't find the expected number of alpha numeric chars in the text"
+        "Didn't find the expected number of letters in the text"
     f"Expected: {expected_result}, Actual: {actual_result}"
