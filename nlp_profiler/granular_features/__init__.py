@@ -11,22 +11,20 @@ from nlp_profiler.constants import \
     REPEATED_SPACES_COUNT_COL, WHITESPACES_COUNT_COL, CHARS_EXCL_WHITESPACES_COUNT_COL, \
     REPEATED_WHITESPACES_COUNT_COL, ALPHA_NUMERIC_COUNT_COL, REPEATED_LETTERS_COUNT_COL, \
     WHOLE_NUMBERS_COUNT_COL, REPEATED_DIGITS_COUNT_COL, EMOJI_COUNT_COL, \
-    NOUN_PHASE_COUNT_COL
+    NOUN_PHASE_COUNT_COL, ENGLISH_CHARACTERS_COUNT_COL, NON_ENGLISH_CHARACTERS_COUNT_COL
 from nlp_profiler.generate_features import generate_features
-from nlp_profiler.granular_features import count_sentences, count_chars, count_repeated_letters, \
-    count_spaces, count_characters_excluding_spaces, count_repeated_spaces, count_whitespaces, \
-    count_characters_excluding_whitespaces, count_repeated_whitespaces, count_words, count_duplicates, \
-    count_emojis, count_repeated_digits, count_whole_numbers, count_alpha_numeric, \
-    count_non_alpha_numeric, count_punctuations, count_repeated_punctuations, count_stop_words, \
-    count_dates, count_noun_phase
 from nlp_profiler.granular_features.alphanumeric import count_alpha_numeric
 from nlp_profiler.granular_features.chars_spaces_and_whitespaces \
     import count_spaces, count_chars, count_characters_excluding_spaces, \
-    count_repeated_spaces, count_whitespaces, count_characters_excluding_whitespaces, \
+    count_repeated_spaces
+from nlp_profiler.granular_features.chars_spaces_and_whitespaces import \
+    count_whitespaces, count_characters_excluding_whitespaces, \
     count_repeated_whitespaces
 from nlp_profiler.granular_features.dates import count_dates
 from nlp_profiler.granular_features.duplicates import count_duplicates
 from nlp_profiler.granular_features.emojis import count_emojis
+from nlp_profiler.granular_features.english_non_english_chars \
+    import count_english_chars, count_non_english_chars
 from nlp_profiler.granular_features.letters import count_repeated_letters
 from nlp_profiler.granular_features.non_alphanumeric import count_non_alpha_numeric
 from nlp_profiler.granular_features.noun_phase_count import count_noun_phase
@@ -62,7 +60,9 @@ def apply_granular_features(heading: str,
         (REPEATED_PUNCTUATIONS_COUNT_COL, text_column, count_repeated_punctuations),
         (STOP_WORDS_COUNT_COL, text_column, count_stop_words),
         (DATES_COUNT_COL, text_column, count_dates),
-        (NOUN_PHASE_COUNT_COL, text_column, count_noun_phase)
+        (NOUN_PHASE_COUNT_COL, text_column, count_noun_phase),
+        (ENGLISH_CHARACTERS_COUNT_COL, text_column, count_english_chars),
+        (NON_ENGLISH_CHARACTERS_COUNT_COL, text_column, count_non_english_chars)
     ]
     generate_features(
         heading, steps_for_features,

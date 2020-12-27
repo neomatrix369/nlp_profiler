@@ -4,13 +4,15 @@ import string as string_module
 
 from nlp_profiler.constants import NaN
 
+ADDITIONAL_SYMBOLS = '£€±§'
+
 
 ### Punctuations
 def gather_punctuations(text: str) -> list:
     if not isinstance(text, str):
         return []
 
-    line = re.findall('[' + string_module.punctuation + ']*', text)
+    line = re.findall('[' + string_module.punctuation + ADDITIONAL_SYMBOLS + ']*', text)
     string = "".join(line)
     return list(string)
 
@@ -27,7 +29,7 @@ def gather_repeated_punctuations(text: str) -> list:
         return []
 
     ### Gather 2 or more repeated punctuations
-    return re.findall(r'(([\\' + string_module.punctuation + '])\\2{1,})', text)
+    return re.findall(r'(([\\' + string_module.punctuation + ADDITIONAL_SYMBOLS + '])\\2{1,})', text)
 
 
 def count_repeated_punctuations(text: str) -> int:

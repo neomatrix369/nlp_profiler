@@ -6,7 +6,9 @@ import pytest
 
 from nlp_profiler.constants import NaN
 from nlp_profiler.granular_features.punctuations \
-    import gather_repeated_punctuations, count_repeated_punctuations  # noqa
+    import gather_repeated_punctuations, count_repeated_punctuations, ADDITIONAL_SYMBOLS  # noqa
+
+REPEATED_SYMBOLS = ADDITIONAL_SYMBOLS[0] + ADDITIONAL_SYMBOLS[0]
 
 text_with_repeated_punctuations1 = "This sentence doesn't seem to too many repeated commas,, " \
                                    "periods or semi-colons (;;).."
@@ -14,10 +16,10 @@ text_with_repeated_punctuations2 = '283047 some chars ((((area'
 text_with_repeated_punctuations3 = '283047 some chars [[area]] ))))'
 text_with_repeated_punctuations4 = '283047 some chars area;; ::::'
 text_with_repeated_punctuations5 = '283047 some chars [area];;; ::::----'
-text_with_repeated_punctuations6 = '283047 some chars [[]]. area'
+text_with_repeated_punctuations6 = '283047 some chars [[]]. area' + REPEATED_SYMBOLS
 text_with_repeated_punctuations7 = '283047 some chars [] """ \\ area'
 text_with_repeated_punctuations8 = '283047 some chars //// \\\\\\ area'
-text_with_repeated_punctuations9 = string_module.punctuation
+text_with_repeated_punctuations9 = string_module.punctuation + ADDITIONAL_SYMBOLS
 
 text_to_return_value_mapping = [
     (np.nan, []),
@@ -28,7 +30,8 @@ text_to_return_value_mapping = [
     (text_with_repeated_punctuations3, [('[[', '['), (']]', ']'), ('))))', ')')]),
     (text_with_repeated_punctuations4, [(';;', ';'), ('::::', ':')]),
     (text_with_repeated_punctuations5, [(';;;', ';'), ('::::', ':'), ('----', '-')]),
-    (text_with_repeated_punctuations6, [('[[', '['), (']]', ']')]),
+    (text_with_repeated_punctuations6,
+     [('[[', '['), (']]', ']'), (REPEATED_SYMBOLS, ADDITIONAL_SYMBOLS[0])]),
     (text_with_repeated_punctuations7, [('"""', '"')]),
     (text_with_repeated_punctuations8, [('////', '/'), ('\\\\\\', '\\')]),
     (text_with_repeated_punctuations9, []),
@@ -58,7 +61,7 @@ text_to_group_count_mapping = [
     (text_with_repeated_punctuations3, 3),
     (text_with_repeated_punctuations4, 2),
     (text_with_repeated_punctuations5, 3),
-    (text_with_repeated_punctuations6, 2),
+    (text_with_repeated_punctuations6, 3),
     (text_with_repeated_punctuations7, 1),
     (text_with_repeated_punctuations8, 2),
     (text_with_repeated_punctuations9, 0)

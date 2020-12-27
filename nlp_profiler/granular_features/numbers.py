@@ -18,6 +18,20 @@ def count_whole_numbers(text: str) -> int:
     return len(gather_whole_numbers(text))
 
 
+def gather_digits(text: str) -> list:
+    if not isinstance(text, str):
+        return []
+
+    return re.findall('[0-9]', text)
+
+
+def count_digits(text: str) -> int:
+    if not isinstance(text, str):
+        return NaN
+
+    return len(gather_digits(text))
+
+
 def gather_repeated_digits(text: str) -> list:
     if not isinstance(text, str):
         return []

@@ -10,12 +10,13 @@ text_to_return_value_mapping = [
     (np.nan, []),
     (float('nan'), []),
     (None, []),
+    (text_with_a_number, ['2833047']),
 ]
 
 
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_value_mapping)
-def test_given_invalid_text_when_parsed_then_return_empty_list(
+def test_given_text_when_counted_for_whole_numbers_then_return_an_empty_or_valid_list(
         text: str, expected_result: str
 ):
     # given, when
@@ -23,6 +24,7 @@ def test_given_invalid_text_when_parsed_then_return_empty_list(
 
     # then
     assert expected_result == actual_result, \
+        "Didn't find the expected number(s) in the text" \
         f"Expected: {expected_result}, Actual: {actual_result}"
 
 
@@ -30,12 +32,13 @@ text_to_return_count_mapping = [
     (np.nan, NaN),
     (float('nan'), NaN),
     (None, NaN),
+    (text_with_a_number, 1),
 ]
 
 
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_count_mapping)
-def test_given_invalid_text_when_counted_then_return_NaN(
+def test_given_text_when_counted_for_whole_numbers_then_return_NaN_or_a_count(
         text: str, expected_result: float
 ):
     # given, when
@@ -43,25 +46,5 @@ def test_given_invalid_text_when_counted_then_return_NaN(
 
     # then
     assert expected_result is actual_result, \
+        "Didn't find the expected number(s) in the text" \
         f"Expected: {expected_result}, Actual: {actual_result}"
-
-
-def test_given_a_text_with_numbers_when_parsed_then_return_only_the_numbers():
-    # given
-    expected_results = ['2833047']
-
-    # when
-    actual_results = gather_whole_numbers(text_with_a_number)
-
-    # then
-    assert expected_results == actual_results, \
-        "Didn't find the number '2833047' in the text"
-
-
-def test_given_a_text_with_a_number_when_counted_then_return_count_of_numbers_found():
-    # given, when
-    actual_results = count_whole_numbers(text_with_a_number)
-
-    # then
-    assert actual_results == 1, \
-        "Didn't find the expected single number in the text"

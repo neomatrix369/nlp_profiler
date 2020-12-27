@@ -13,7 +13,7 @@ very_confusing_text2 = '. a323# asdft asdlkassdsdsd'
 
 # textstat.flesch_reading_ease() returned a score of 53.88
 fairly_difficult = 'Everyone here is so hardworking. Hardworking people. ' \
-                      'I think hardworking people are a good trait in our company.'
+                   'I think hardworking people are a good trait in our company.'
 
 # textstat.flesch_reading_ease() returned a score of 36.62
 difficult_text = 'asfl;a089v'
@@ -39,6 +39,16 @@ very_easy_emoji_text = '๑۞๑,¸¸,ø¤º°`°๑۩ ℍ𝑒ˡ𝔩σ ϻⓨ ⓝ
 # textstat.flesch_reading_ease() returned a score of 120.21
 very_easy_unicode_text = '乇乂丅尺卂 丅卄工匚匚'
 
+text_with_punctuations = '283047 people live in this area[[[ ]]] :::;;;;££'
+
+text_with_non_english_chars = '2833047 pe\nople li\tve i\rn this area' \
+                              '‚ƒ„…†‡ˆ‰Š‹ŒŽ•™š›œžŸ¡¢¤¥¦¨©ª«¬­®¯°²³´"' \
+                              'µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß' \
+                              'àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' \
+                              'This sentence is in japanese (kana) ろぬふうえおやゆゆわほへへて' \
+                              'This sentence is in japanese (kana compact) おっあこおおがおんわお' \
+                              'فصصصشببلااتنخمككك This sentence is in arabic'
+
 text_to_return_value_mapping = [
     (np.nan, NaN, NOT_APPLICABLE),
     (float('nan'), NaN, NOT_APPLICABLE),
@@ -50,12 +60,15 @@ text_to_return_value_mapping = [
     (fairly_difficult_latin_text, 57.27, "Fairly Difficult"),
     (fairly_difficult, 53.88, "Fairly Difficult"),
     (standard_text, 66.40, "Standard"),
+    (text_with_non_english_chars, 69.45, 'Standard'),
     (easy_text, 80.28, 'Easy'),
     (fairly_easy_text, 75.88, 'Fairly Easy'),
+    (text_with_punctuations, 89.75, 'Easy'),
     (very_easy_arabic_text, 119.19, 'Very Easy'),
     (very_easy_emoji_text, 114.12, 'Very Easy'),
     (very_easy_unicode_text, 120.21, 'Very Easy')
 ]
+
 
 ### These tests are in place to ring-fench the functionality provided by textstat.
 ### They do not validate if these are right or wrong, that discussion is best to be taken up with the maintainer of the library.
@@ -85,14 +98,18 @@ def test_given_a_correct_text_when_ease_of_reading_check_is_applied_then_respect
 
 ease_of_reading_check_score_to_words_mapping = [
     (NaN, NOT_APPLICABLE),
+    (0, "Very Confusing"),
     (15, "Very Confusing"),
     (40, "Difficult"),
     (55, "Fairly Difficult"),
     (65, "Standard"),
     (75, "Fairly Easy"),
     (85, "Easy"),
+    (87.5, "Easy"),
     (95, "Very Easy"),
+    (100, "Very Easy"),
 ]
+
 
 @pytest.mark.parametrize("score,expected_result",
                          ease_of_reading_check_score_to_words_mapping)
@@ -106,6 +123,7 @@ def test_given_ease_of_reading_score_when_converted_to_words_then_return_right_w
     assert expected_result == actual_result, \
         f"Expected: {expected_result}, Actual: {actual_result}"
 
+
 ease_of_reading_to_summarised_mapping = [
     (NaN, NOT_APPLICABLE),
     ("Very Confusing", "Confusing"),
@@ -116,6 +134,7 @@ ease_of_reading_to_summarised_mapping = [
     ("Easy", "Easy"),
     ("Very Easy", "Easy"),
 ]
+
 
 @pytest.mark.parametrize("reading,expected_result",
                          ease_of_reading_to_summarised_mapping)

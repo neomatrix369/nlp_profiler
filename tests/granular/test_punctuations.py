@@ -2,20 +2,22 @@ import numpy as np
 import pytest
 
 from nlp_profiler.constants import NaN
-from nlp_profiler.granular_features.punctuations import gather_punctuations, count_punctuations  # noqa
+from nlp_profiler.granular_features.punctuations import gather_punctuations, count_punctuations, \
+    ADDITIONAL_SYMBOLS  # noqa
 
-text_with_punctuations = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
+text_with_punctuations = "This sentence doesn't seem to too many commas, periods or semi-colons (;)." + ADDITIONAL_SYMBOLS
 
 text_to_return_value_mapping = [
     (np.nan, []),
     (float('nan'), []),
     (None, []),
+    (text_with_punctuations, ["'", ',', '-', '(', ';', ')', '.'] + list(ADDITIONAL_SYMBOLS)),
 ]
 
 
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_value_mapping)
-def test_given_invalid_text_when_parsed_then_return_empty_list(
+def test_given_a_text_when_parsed_then_return_an_empty_list_or_list_of_punctuations(
         text: str, expected_result: str
 ):
     # given, when
@@ -23,6 +25,7 @@ def test_given_invalid_text_when_parsed_then_return_empty_list(
 
     # then
     assert expected_result == actual_result, \
+        "Didn't find the expected punctuations in the text" \
         f"Expected: {expected_result}, Actual: {actual_result}"
 
 
@@ -30,12 +33,13 @@ text_to_return_count_mapping = [
     (np.nan, NaN),
     (float('nan'), NaN),
     (None, NaN),
+    (text_with_punctuations, 11),
 ]
 
 
 @pytest.mark.parametrize("text,expected_result",
                          text_to_return_count_mapping)
-def test_given_invalid_text_when_counted_then_return_NaN(
+def test_given_a_text_when_counted_then_return_NaN_or_count_of_punctuations(
         text: str, expected_result: float
 ):
     # given, when
@@ -43,25 +47,5 @@ def test_given_invalid_text_when_counted_then_return_NaN(
 
     # then
     assert expected_result is actual_result, \
+        "Didn't find the expected number of punctuation marks in the text" \
         f"Expected: {expected_result}, Actual: {actual_result}"
-
-
-def test_given_a_text_with_punctuations_when_parsed_then_return_only_punctuations():
-    # given
-    expected_results = ["'", ',', '-', '(', ';', ')', '.']
-
-    # when
-    actual_results = gather_punctuations(text_with_punctuations)
-
-    # then
-    assert expected_results == actual_results, \
-        "Didn't find the expected punctuations in the text"
-
-
-def test_given_a_text_with_punctuations_when_counted_then_return_count_of_punctuations():
-    # given, when
-    actual_results = count_punctuations(text_with_punctuations)
-
-    # then
-    assert actual_results == 7, \
-        "Didn't find the expected number of punctuation marks in the text"

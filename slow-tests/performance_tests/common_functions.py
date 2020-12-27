@@ -9,6 +9,8 @@ import git
 import pandas as pd
 from line_profiler import LineProfiler
 
+from nlp_profiler.granular_features.punctuations import ADDITIONAL_SYMBOLS
+
 CURRENT_SOURCE_FILEPATH = os.path.abspath(__file__)
 EXPECTED_DATA_PATH = f'{os.path.dirname(CURRENT_SOURCE_FILEPATH)}/data'
 TARGET_PROFILE_REPORT_FOLDER = '.cprofile/'
@@ -103,6 +105,7 @@ def git_current_head_sha():
 
 
 def generate_data() -> list:
+    repeated_symbols = ADDITIONAL_SYMBOLS[0] + ADDITIONAL_SYMBOLS[0]
     text_with_emojis = "I love ⚽ very much 😁."
     text_with_a_number = '2833047 people live in this area. It is not a good area.'
     text_with_two_numbers = '2833047 and 1111 people live in this area.'
@@ -114,14 +117,23 @@ def generate_data() -> list:
     text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard. ' \
                                  'I think they have a goodd traittttt.'
     text_with_repeated_digits = '283047 people live in this area3333 22224444'
-    text_with_repeated_punctuations = '283047 people live in this area[[[ ]]] :::;;;;'
+    text_with_repeated_punctuations = '283047 people live in this area[[[ ]]] :::;;;;' + repeated_symbols
     text_with_repeated_spaces = '283047   people live in this  area'
     text_with_whitespaces = '2833047 pe\nople li\tve i\rn this area'
     text_with_repeated_whitespaces = '2833047   \r\rpeople\n\n   live in   th\nis are\t\ta'
+    text_with_english_chars = '±§£ABCDEabcdef0123456789\nis are\t\n' + r"""!#$%&()*+-./:;<=>?@[\]^_`{|}~"""
+    text_with_non_english_chars = '2833047 pe\nople li\tve i\rn this area' \
+                                  '‚ƒ„…†‡ˆ‰Š‹ŒŽ•™š›œžŸ¡¢¤¥¦¨©ª«¬­®¯°²³´"' \
+                                  'µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß' \
+                                  'àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' \
+                                  'This sentence is in japanese (kana) ろぬふうえおやゆゆわほへへて' \
+                                  'This sentence is in japanese (kana compact) おっあこおおがおんわお' \
+                                  'فصصصشببلااتنخمككك This sentence is in arabic'
     data = [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
             text_with_repeated_digits, text_with_punctuations, text_with_repeated_punctuations,
             text_with_a_date, text_with_dates, text_with_duplicates, text_with_repeated_spaces,
-            text_with_whitespaces, text_with_repeated_whitespaces]
+            text_with_whitespaces, text_with_repeated_whitespaces,
+            text_with_english_chars, text_with_non_english_chars]
 
     new_data = []
     for _ in range(1):
