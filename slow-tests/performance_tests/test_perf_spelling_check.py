@@ -1,6 +1,7 @@
 from nlp_profiler.high_level_features.spelling_quality_check \
     import spelling_quality_score
-from .common_functions import assert_benchmark
+
+from tests.common_functions import assert_benchmark
 
 
 def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_then_it_finishes_quick():

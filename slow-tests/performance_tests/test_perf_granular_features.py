@@ -1,6 +1,7 @@
 from nlp_profiler.granular_features \
     import apply_granular_features
-from .common_functions import assert_benchmark_multiple_features
+
+from tests.common_functions import assert_benchmark_multiple_features
 
 
 def test_given_a_text_column_when_profiler_is_applied_with_granular_analysis_then_it_finishes_quick():

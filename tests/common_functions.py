@@ -24,17 +24,8 @@ def internal_assert_benchmark(expected_execution_time: float,
     # given
     if not os.path.exists(TARGET_PROFILE_REPORT_FOLDER):
         os.makedirs(TARGET_PROFILE_REPORT_FOLDER)
-    OS_TEMP_DIR = tempfile.gettempdir()
-    if OS_TEMP_DIR:
-        CACHE_FOLDER = f'{OS_TEMP_DIR}/joblib/nlp_profiler'
-        print()
-        if os.path.exists(CACHE_FOLDER):
-            print(f"~~~ Found the NLP Profiler cache folder at {CACHE_FOLDER}, will be removed.")
-            shutil.rmtree(CACHE_FOLDER)
-            print(f"~~~ Successfully deleted the NLP Profiler cache folder at {CACHE_FOLDER}.")
-        else:
-            print(f"~~~ The NLP Profiler cache folder {CACHE_FOLDER} was NOT found. Nothing to remove.")
-        print()
+
+    remove_joblib_cache()
 
     profile = LineProfiler()
     source_data = generate_data()
@@ -109,13 +100,13 @@ def generate_data() -> list:
     text_with_emojis = "I love ⚽ very much 😁."
     text_with_a_number = '2833047 people live in this area. It is not a good area.'
     text_with_two_numbers = '2833047 and 1111 people live in this area.'
-    text_with_punctuations = "This sentence doesn't seem to too many commas, periods or semi-colons (;)."
-    text_with_a_date = "Todays date is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020."
-    text_with_dates = "Todays date is 28/04/2020 and tomorrow's date is 29/04/2020."
-    text_with_duplicates = 'Everyone here is so hardworking. Hardworking people. ' \
-                           'I think hardworking people are a good trait in our company.'
-    text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard. ' \
-                                 'I think they have a goodd traittttt.'
+    text_with_punctuations = "This sentence does not seem to have too many commas, periods or semicolons (;)."
+    text_with_a_date = "The date today is 04/28/2020 for format mm/dd/yyyy, not 28/04/2020."
+    text_with_dates = "The date today is 28/04/2020 and tomorrow's date is 29/04/2020."
+    text_with_duplicates = 'Everyone here works so hard. People work hard. ' \
+                           'I think they have a good trait.'
+    text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard.' \
+                                 ' I think they have a goodd traittttt.'
     text_with_repeated_digits = '283047 people live in this area3333 22224444'
     text_with_repeated_punctuations = '283047 people live in this area[[[ ]]] :::;;;;' + repeated_symbols
     text_with_repeated_spaces = '283047   people live in this  area'
@@ -129,13 +120,22 @@ def generate_data() -> list:
                                   'This sentence is in japanese (kana) ろぬふうえおやゆゆわほへへて' \
                                   'This sentence is in japanese (kana compact) おっあこおおがおんわお' \
                                   'فصصصشببلااتنخمككك This sentence is in arabic'
-    data = [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
+    return [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
             text_with_repeated_digits, text_with_punctuations, text_with_repeated_punctuations,
             text_with_a_date, text_with_dates, text_with_duplicates, text_with_repeated_spaces,
             text_with_whitespaces, text_with_repeated_whitespaces,
             text_with_english_chars, text_with_non_english_chars]
 
-    new_data = []
-    for _ in range(1):
-        new_data.extend(data)
-    return new_data
+
+def remove_joblib_cache():
+    os_temp_dir = tempfile.gettempdir()
+    if os_temp_dir:
+        cache_folder = f'{os_temp_dir}/joblib/nlp_profiler'
+        print()
+        if os.path.exists(cache_folder):
+            print(f"~~~ Found the NLP Profiler cache folder at {cache_folder}, will be removed.")
+            shutil.rmtree(cache_folder)
+            print(f"~~~ Successfully deleted the NLP Profiler cache folder at {cache_folder}.")
+        else:
+            print(f"~~~ The NLP Profiler cache folder {cache_folder} was NOT found. Nothing to remove.")
+        print()

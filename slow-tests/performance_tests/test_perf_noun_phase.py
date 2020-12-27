@@ -1,5 +1,6 @@
 from nlp_profiler.granular_features.noun_phase_count import count_noun_phase
-from .common_functions import assert_benchmark
+
+from tests.common_functions import assert_benchmark
 
 
 def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_then_it_finishes_quick():
