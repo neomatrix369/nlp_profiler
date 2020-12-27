@@ -2,66 +2,66 @@ import numpy as np
 import pytest
 
 from nlp_profiler.granular_features.numbers import \
-    NaN, gather_whole_numbers, count_whole_numbers  # noqa
+    NaN, gather_whole_numbers, count_whole_numbers, gather_digits, count_digits  # noqa
 
 text_with_a_number = '2833047 people live in this area'
 
-text_to_return_value_mapping = [
-    (np.nan, []),
-    (float('nan'), []),
-    (None, []),
+text_to_whole_numbers_mapping = [
+    (np.nan, [], NaN),
+    (float('nan'), [], NaN),
+    (None, [], NaN),
+    (text_with_a_number, ['2833047'], 1),
 ]
 
 
-@pytest.mark.parametrize("text,expected_result",
-                         text_to_return_value_mapping)
-def test_given_invalid_text_when_parsed_then_return_empty_list(
-        text: str, expected_result: str
+@pytest.mark.parametrize("text,expected_result,expected_count",
+                         text_to_whole_numbers_mapping)
+def test_given_text_when_counted_for_whole_numbers_then_return_the_respective_values(
+        text: str, expected_result: str, expected_count: int
 ):
     # given, when
     actual_result = gather_whole_numbers(text)
 
     # then
     assert expected_result == actual_result, \
+        "Didn't find the expected number(s) in the text" \
         f"Expected: {expected_result}, Actual: {actual_result}"
 
-
-text_to_return_count_mapping = [
-    (np.nan, NaN),
-    (float('nan'), NaN),
-    (None, NaN),
-]
-
-
-@pytest.mark.parametrize("text,expected_result",
-                         text_to_return_count_mapping)
-def test_given_invalid_text_when_counted_then_return_NaN(
-        text: str, expected_result: float
-):
     # given, when
     actual_result = count_whole_numbers(text)
 
     # then
-    assert expected_result is actual_result, \
+    assert expected_count is actual_result, \
+        "Didn't find the expected number of whole numbers in the text" \
+        f"Expected: {expected_count}, Actual: {actual_result}"
+
+
+text_to_digits_result_mapping = [
+    (np.nan, [], NaN),
+    (float('nan'), [], NaN),
+    (None, [], NaN),
+    (text_with_a_number, ['2', '8', '3', '3', '0', '4', '7'], 7),
+    ('0123456789', ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], 10),
+]
+
+
+@pytest.mark.parametrize("text,expected_result,expected_count",
+                         text_to_digits_result_mapping)
+def test_given_text_when_counted_for_digits_then_return_the_respective_values(
+        text: str, expected_result: float, expected_count: int
+):
+    # given, when
+    actual_result = gather_digits(text)
+
+    # then
+    assert expected_result == actual_result, \
+        "Didn't find the expected digit(s) in the text" \
         f"Expected: {expected_result}, Actual: {actual_result}"
 
-
-def test_given_a_text_with_numbers_when_parsed_then_return_only_the_numbers():
-    # given
-    expected_results = ['2833047']
-
-    # when
-    actual_results = gather_whole_numbers(text_with_a_number)
-
-    # then
-    assert expected_results == actual_results, \
-        "Didn't find the number '2833047' in the text"
-
-
-def test_given_a_text_with_a_number_when_counted_then_return_count_of_numbers_found():
     # given, when
-    actual_results = count_whole_numbers(text_with_a_number)
+    actual_result = count_digits(text)
 
     # then
-    assert actual_results == 1, \
-        "Didn't find the expected single number in the text"
+    assert expected_count is actual_result, \
+        "Didn't find the expected number of digits in the text" \
+        f"Expected: {expected_count}, Actual: {actual_result}"

@@ -130,6 +130,18 @@ It returns values between 0 and 100 (I have seen values go past 0 and 100 depend
 
 ---
 
+### GitHub branch `add-granular-features` Granular features: Add granular features: count letters, digits, spaces, whitespaces, and punctuations 
+
+Implemented functionality via PR [#60](https://github.com/neomatrix369/nlp_profiler/pull/60) - details described in the body of the PR.
+In short, counting repeated letters, digits, spaces, whitespaces, and punctuations in the text. Counting English and 
+non-English language characters in the text.  Also, amending existing functionality of punctuations count, digits count 
+and fixing a bug in ease of reading scoring.
+Housekeeping: removing duplicates, removing cached folders before running tests.
+
+
+[68bee76](https://github.com/neomatrix369/nlp_profiler/commit/68bee76) [@neomatrix369](https://github.com/neomatrix369) _Sun Dec 27 12:45:59 2020 +0000_
+
+---
 
 
 
