@@ -10,9 +10,15 @@ from nlp_profiler.constants import \
     DUPLICATES_COUNT_COL, COUNT_WORDS_COL, SPACES_COUNT_COL, CHARS_EXCL_SPACES_COUNT_COL, \
     REPEATED_SPACES_COUNT_COL, WHITESPACES_COUNT_COL, CHARS_EXCL_WHITESPACES_COUNT_COL, \
     REPEATED_WHITESPACES_COUNT_COL, ALPHA_NUMERIC_COUNT_COL, REPEATED_LETTERS_COUNT_COL, \
-    WHOLE_NUMBERS_COUNT_COL, REPEATED_DIGITS_COUNT_COL, EMOJI_COUNT_COL,  \
+    WHOLE_NUMBERS_COUNT_COL, REPEATED_DIGITS_COUNT_COL, EMOJI_COUNT_COL, \
     NOUN_PHASE_COUNT_COL
 from nlp_profiler.generate_features import generate_features
+from nlp_profiler.granular_features import count_sentences, count_chars, count_repeated_letters, \
+    count_spaces, count_characters_excluding_spaces, count_repeated_spaces, count_whitespaces, \
+    count_characters_excluding_whitespaces, count_repeated_whitespaces, count_words, count_duplicates, \
+    count_emojis, count_repeated_digits, count_whole_numbers, count_alpha_numeric, \
+    count_non_alpha_numeric, count_punctuations, count_repeated_punctuations, count_stop_words, \
+    count_dates, count_noun_phase
 from nlp_profiler.granular_features.alphanumeric import count_alpha_numeric
 from nlp_profiler.granular_features.chars_spaces_and_whitespaces \
     import count_spaces, count_chars, count_characters_excluding_spaces, \
@@ -31,8 +37,11 @@ from nlp_profiler.granular_features.stop_words import count_stop_words
 from nlp_profiler.granular_features.words import count_words
 
 
-def get_steps_for_features(text_column: str) -> list:
-    return [
+def apply_granular_features(heading: str,
+                            new_dataframe: pd.DataFrame,
+                            text_column: str,
+                            parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
+    steps_for_features = [
         (SENTENCES_COUNT_COL, text_column, count_sentences),
         (CHARACTERS_COUNT_COL, text_column, count_chars),
         (REPEATED_LETTERS_COUNT_COL, text_column, count_repeated_letters),
@@ -55,13 +64,7 @@ def get_steps_for_features(text_column: str) -> list:
         (DATES_COUNT_COL, text_column, count_dates),
         (NOUN_PHASE_COUNT_COL, text_column, count_noun_phase)
     ]
-
-
-def apply_granular_features(heading: str,
-                            new_dataframe: pd.DataFrame,
-                            text_column: str,
-                            parallelisation_method: str = DEFAULT_PARALLEL_METHOD):
     generate_features(
-        heading, get_steps_for_features(text_column),
+        heading, steps_for_features,
         new_dataframe, parallelisation_method
     )
