@@ -103,12 +103,16 @@ def create_source_dataframe():
     text_with_dates = "The date today is 28/04/2020 and tomorrow's date is 29/04/2020."
     text_with_duplicates = 'Everyone here works so hard. People work hard. ' \
                            'I think they have a good trait.'
-    text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard. ' \
-                                 'I think they have a goodd traittttt.'
+    text_with_repeated_letters = 'Harrington PPPPPPpppppeople work hard.' \
+                                 ' I think they have a goodd traittttt.'
     text_with_repeated_digits = '283047 people live in this area3333 22224444'
     text_with_repeated_punctuations = '283047 people live in this area[[[ ]]] :::;;;;'
     text_with_repeated_spaces = '283047   people live in this  area'
+    text_with_whitespaces = '2833047 pe\nople li\tve i\rn this area'
+    text_with_repeated_whitespaces = '2833047   \r\rpeople\n\n   live in   th\nis are\t\ta'
     data = [text_with_emojis, text_with_a_number, text_with_two_numbers, text_with_repeated_letters,
             text_with_repeated_digits, text_with_punctuations, text_with_repeated_punctuations,
-            text_with_a_date, text_with_dates, text_with_duplicates, text_with_repeated_spaces]
+            text_with_a_date, text_with_dates, text_with_duplicates, text_with_repeated_spaces,
+            text_with_whitespaces, text_with_repeated_whitespaces]
+
     return pd.DataFrame(data, columns=['text'])
