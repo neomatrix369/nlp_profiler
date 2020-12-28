@@ -24,10 +24,10 @@ In short: Think of it as using the `pandas.describe()` function or running [Pand
 - [What do you get from the library?](#what-do-you-get-from-the-library)
 - [Requirements](#requirements)
 - [Getting started](#getting-started)
-  - [Demo and presentations](#Demo-and-presentations)
   - [Installation](#installation)
   - [Usage](#usage)
   - [Developer guide](#developer-guide)
+  - [Demo and presentations](#Demo-and-presentations)
 - [Notebooks](#notebooks)
 - [Screenshots](#screenshots)
 - [Credits and supporters](#credits-and-supporters)
@@ -72,20 +72,6 @@ A simple [notebook](#Notebooks) have been provided to illustrate the usage of th
     - Java 8 or higher
   
 ## Getting started
-
-### Demo and presentations
-
-Look at a short demo of the NLP Profiler library at one of these:
-
-<table>
-  <tr>
-    <td align="center"><a href="https://youtu.be/sdPOyqMfK7M?t=2274"><img alt="Demo of the NLP Profiler library (Abhishek talks #6)" src=https://user-images.githubusercontent.com/1570917/88474968-8fb48980-cf23-11ea-944d-0a1069174ede.png></a> or you find the rest of the <a href=https://www.youtube.com/watch?v=sdPOyqMfK7M>talk here</a> or here for <a href="https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/presentations/awesome-ai-ml-dl/02-abhishektalks-2020/README.md">slides</a></td>
-<td>
-  <td align="center"><a href="https://youtu.be/wHIcQWeOugI?t=808"><img alt="Demo of the NLP Profiler library (NLP Zurich talk)" src=https://secure.meetupstatic.com/photos/event/5/7/3/highres_492541395.jpeg></a> or you find the rest of the <a href=https://www.youtube.com/watch?v=wHIcQWeOugI>talk here or here for <a href="https://github.com/neomatrix369/nlp_profiler/blob/master/presentations/01-nlp-zurich-2020/README.md">slides</a></a></td>
-  
-  </tr>
-</table>
-
 
 ### Installation
 
@@ -144,6 +130,19 @@ See [Notebooks](./notebooks/README.md) section for further illustrations.
 ### Developer guide
 
 See [Developer guide](developer-guide.md) to know how to build, test, and contribute to the library.
+
+### Demo and presentations
+
+Look at a short demo of the NLP Profiler library at one of these:
+
+<table>
+  <tr>
+    <td align="center"><a href="https://youtu.be/sdPOyqMfK7M?t=2274"><img alt="Demo of the NLP Profiler library (Abhishek talks #6)" src=https://user-images.githubusercontent.com/1570917/88474968-8fb48980-cf23-11ea-944d-0a1069174ede.png></a> or you find the rest of the <a href=https://www.youtube.com/watch?v=sdPOyqMfK7M>talk here</a> or here for <a href="https://github.com/neomatrix369/awesome-ai-ml-dl/blob/master/presentations/awesome-ai-ml-dl/02-abhishektalks-2020/README.md">slides</a></td>
+<td>
+  <td align="center"><a href="https://youtu.be/wHIcQWeOugI?t=808"><img alt="Demo of the NLP Profiler library (NLP Zurich talk)" src=https://secure.meetupstatic.com/photos/event/5/7/3/highres_492541395.jpeg></a> or you find the rest of the <a href=https://www.youtube.com/watch?v=wHIcQWeOugI>talk here or here for <a href="https://github.com/neomatrix369/nlp_profiler/blob/master/presentations/01-nlp-zurich-2020/README.md">slides</a></a></td>
+  
+  </tr>
+</table>
 
 ## Notebooks
 
