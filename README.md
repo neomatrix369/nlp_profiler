@@ -89,7 +89,7 @@ Look at a short demo of the NLP Profiler library at one of these:
 
 ### Installation
 
-For Conda/Miniconda environments:
+**For Conda/Miniconda environments:**
 
 ```bash
 conda config --set pip_interop_enabled True
@@ -99,19 +99,29 @@ python -m spacy download en_core_web_sm
 ### now perform any of the below pathways/options
 ```
 
-From PyPi:
+**For Kaggle environments:**
+
+```
+pip uninstall typing      # this can cause issues on Kaggle hence removing it helps
+```
+
+_Follow any of the remaining installation steps but "avoid" using `-U` with `pip install` -- again this can cause issues on Kaggle hence not using it helps_.
+
+**From PyPi:**
 
 ```bash
 pip install -U nlp_profiler
 ```
 
-From the GitHub repo:
+**From the GitHub repo:**
 
 ```bash
 pip install -U git+https://github.com/neomatrix369/nlp_profiler.git@master
 ```
 
-From the source (only for development purposes), see [Developer guide](#developer-guide)
+**From the source:**
+
+For library development purposes, see [Developer guide](#developer-guide)
 
 ### Usage
 
