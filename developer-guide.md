@@ -90,7 +90,7 @@ In order to know how to change notebooks, see [How to update the notebooks?](./n
 
 We are using GitHub actions to enable this feature. See [.github/workflows](.github/workflows) to find out about the different actions configured to achieve this. See [GitHub Actions docs](https://docs.github.com/en/free-pro-team@latest/actions) for further help.
 
-At the moment we have only implemented the CI part of CI/CD. This is work in progress as of the writing of this doc.
+At the moment we have only implemented the CI part of CI/CD. This is work in progress as of the writing of this doc. Deploying to PyPi is done manually.
 
 ### Contribution steps
 

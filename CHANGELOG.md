@@ -143,6 +143,18 @@ Housekeeping: removing duplicates, removing cached folders before running tests.
 
 ---
 
+### GitHub branch `add-syllables-count` Add granular feature: syllables count applied to text 
+
+Implemented functionality via PR [#61](https://github.com/neomatrix369/nlp_profiler/pull/61) - details described in the body of the PR.
+
+Added new feature(s) to the granular features groups: count syllables extracted from the text provided.
+
+Credits: Gunes Evitan (https://www.kaggle.com/gunesevitan) -- inspired by the discussion on https://www.kaggle.com/c/commonlitreadabilityprize/discussion/238375
+
+[498338e](https://github.com/neomatrix369/nlp_profiler/commit/498338e) [@neomatrix369](https://github.com/neomatrix369) _Sat May 15 00:50:01 2021 +0100_
+
+---
+
 
 
 Return to [README.md](README.md)
