@@ -21,7 +21,7 @@ def gather_nouns(sentence: str):
     return tags
 
 
-def count_noun_phase(text: str):
+def count_noun_phrase(text: str):
     if not isinstance(text, str):
         return NaN
 

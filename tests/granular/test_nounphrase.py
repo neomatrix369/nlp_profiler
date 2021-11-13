@@ -1,6 +1,6 @@
 import pytest
 
-from nlp_profiler.granular_features.noun_phase_count import count_noun_phase, gather_nouns
+from nlp_profiler.granular_features.noun_phrase_count import count_noun_phrase, gather_nouns
 
 sentence = "European authorities fined Google a record $5.1 billion on Wednesday \
             for abusing its power in the mobile phone market and ordered the company \
@@ -49,7 +49,7 @@ text_to_return_value_mapping = [
                          text_to_return_value_mapping)
 def test_count_noun(text: str, expected_result: str): 
 
-    actual_result = count_noun_phase(text)
+    actual_result = count_noun_phrase(text)
 
     assert actual_result == expected_result, \
         f"Expected Result: {expected_result} \
