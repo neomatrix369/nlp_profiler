@@ -11,7 +11,8 @@ from nlp_profiler.constants import \
     REPEATED_SPACES_COUNT_COL, WHITESPACES_COUNT_COL, CHARS_EXCL_WHITESPACES_COUNT_COL, \
     REPEATED_WHITESPACES_COUNT_COL, ALPHA_NUMERIC_COUNT_COL, REPEATED_LETTERS_COUNT_COL, \
     WHOLE_NUMBERS_COUNT_COL, REPEATED_DIGITS_COUNT_COL, EMOJI_COUNT_COL, \
-    NOUN_PHASE_COUNT_COL, ENGLISH_CHARACTERS_COUNT_COL, NON_ENGLISH_CHARACTERS_COUNT_COL
+    NOUN_PHASE_COUNT_COL, ENGLISH_CHARACTERS_COUNT_COL, NON_ENGLISH_CHARACTERS_COUNT_COL, \
+    SYLLABLES_COUNT_COL
 from nlp_profiler.generate_features import generate_features
 from nlp_profiler.granular_features.alphanumeric import count_alpha_numeric
 from nlp_profiler.granular_features.chars_spaces_and_whitespaces \
@@ -28,6 +29,7 @@ from nlp_profiler.granular_features.english_non_english_chars \
 from nlp_profiler.granular_features.letters import count_repeated_letters
 from nlp_profiler.granular_features.non_alphanumeric import count_non_alpha_numeric
 from nlp_profiler.granular_features.noun_phase_count import count_noun_phase
+from nlp_profiler.granular_features.syllables import count_syllables
 from nlp_profiler.granular_features.numbers import count_whole_numbers, count_repeated_digits
 from nlp_profiler.granular_features.punctuations import count_punctuations, count_repeated_punctuations
 from nlp_profiler.granular_features.sentences import count_sentences
@@ -62,7 +64,8 @@ def apply_granular_features(heading: str,
         (DATES_COUNT_COL, text_column, count_dates),
         (NOUN_PHASE_COUNT_COL, text_column, count_noun_phase),
         (ENGLISH_CHARACTERS_COUNT_COL, text_column, count_english_chars),
-        (NON_ENGLISH_CHARACTERS_COUNT_COL, text_column, count_non_english_chars)
+        (NON_ENGLISH_CHARACTERS_COUNT_COL, text_column, count_non_english_chars),
+        (SYLLABLES_COUNT_COL, text_column, count_syllables)
     ]
     generate_features(
         heading, steps_for_features,
