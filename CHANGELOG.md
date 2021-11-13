@@ -165,4 +165,15 @@ Moving notebooks to github releases from the `notebooks` folder to prevent Githu
 
 ---
 
+### GitHub branch `moving-notebooks-to-github-release` Moving notebooks to github releases
+
+Implemented functionality via PR [#63](https://github.com/neomatrix369/nlp_profiler/pull/63) - details described in the body of the PR.
+
+Fixing dependency issues leading to tests to fail as API changes in the respective libraries i.e. `language_tool_python` and `pandas`.
+
+
+[5b87b03](https://github.com/neomatrix369/nlp_profiler/commit/5b87b032a213224f2734e5a6f8b1188772ec38f0) [@neomatrix369](https://github.com/neomatrix369) _Sat Nov 13 23:35:38 2021 +0000_
+
+---
+
 Return to [README.md](README.md)
