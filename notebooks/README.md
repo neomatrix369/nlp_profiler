@@ -3,6 +3,8 @@
 # Table of contents
 
 - [Requirements](#requirements)
+- [Download the notebooks](#download-the-notebooks)
+- [How to run the notebooks?](#how-to-run-the-notebooks)
 - [How to update the notebooks?](#how-to-update-the-notebooks)
 - [Jupyter and Google Colab](#jupyter-and-google-colab)
 - [Kaggle kernels](#kaggle-kernels)
@@ -29,11 +31,18 @@ pre-commit run --all
 
 (This is automatically run in the CI/CD when commits are pushed and/or pull request is created on the repo).
 
-## How to update the notebooks?
+## Download the notebooks
 
-In order to change the notebooks:
+Go to https://github.com/neomatrix369/nlp_profiler/releases and select the latest release for e.g. https://github.com/neomatrix369/nlp_profiler/releases/tag/v0.0.3 and then download the [notebooks archive (v0.0.3)](https://github.com/neomatrix369/nlp_profiler/releases/download/v0.0.3/nlp_profiler_notebooks.zip) attached to the release.
 
-- First run `jupyter` by doing the following:
+The archive should contain `.ipynb` files. 
+
+## How to run the notebooks?
+
+In order to run the notebooks:
+
+- Unzip the archive in the current folder
+- Then run `jupyter` by doing the following:
 
 ```
 $ jupyter labs .
@@ -43,20 +52,20 @@ or
 $ jupyter notebook .
 ```
 
-- Regenerate the relevant notebook(s) by running all the cells. 
-- Fix any error, issues in it/them
-- Run the formatting as mentioned in the [Developer guide: Notebooks](../developer-guide.md#notebooks)
-- Once you are happy, then commit your changes.
-- Push commits to remote branch
-- Create pull request
+## How to update the notebooks?
+
+- In case you wish to add new changes to the notebook, feel free to do so but do note the release/package version for which you are making these changes
+- Zip them up and create pull request with the changes in the zipped archive
+- Ensure you have done all the testing and checking
+- Please maintain the same formatting as in the original notebooks
+
+Why this method? We are not adding `.ipynb` files to this repo as it makes GitHub think the repo is a Jupyter notebook repo and not a `python` language repo.
 
 ## Jupyter and Google Colab
 
-Open [Notebook](./nlp_profiler.ipynb) in Jupyter on your local machine or you can open these notebooks directly in [Google Colab](./nlp_profiler.ipynb) by clicking on the ![colab-badge](https://colab.research.google.com/assets/colab-badge.svg) button.
+The notebooks can be opened in both Jupyter and Google Colab, here is a sample view of what one of the notebook looks like:
 
 ![](https://user-images.githubusercontent.com/1570917/88475060-73651c80-cf24-11ea-8c44-21352f7be5bc.png)
-
-All the notebooks in this folder are dual notebooks - you should be able to use them in both Google Colab and in Jupyter.
 
 ## Kaggle kernels
 
