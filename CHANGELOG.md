@@ -155,6 +155,14 @@ Credits: Gunes Evitan (https://www.kaggle.com/gunesevitan) -- inspired by the di
 
 ---
 
+### GitHub branch `moving-notebooks-to-github-release` Moving notebooks to github releases
 
+Implemented functionality via PR [#62](https://github.com/neomatrix369/nlp_profiler/pull/62) - details described in the body of the PR.
+
+Moving notebooks to github releases from the `notebooks` folder to prevent Github from misclassifying the repo/library.
+
+[5ba447e](https://github.com/neomatrix369/nlp_profiler/commit/5ba447ee0ea94c01133f6b9f5923a536720e225a) [@neomatrix369](https://github.com/neomatrix369) _Sat Nov 13 21:02:21 2021 +0000_
+
+---
 
 Return to [README.md](README.md)
