@@ -15,8 +15,7 @@ on:
   schedule:
     # cron expression placeholders (https://crontab.guru/#0_16_*_*_5):
     #       minute hour day(month) month day(week)
-    cron: '0 16 * * 5'    # At 16:00 on Friday
-    branches: [master]
+    - cron: '0 16 * * 5'    # At 16:00 on Friday
 
 jobs:
   analyze:

@@ -12,8 +12,7 @@ on:
   schedule:
     # cron expression placeholders (https://crontab.guru/#0_1_*_*_*): 
     #       minute hour day(month) month day(week)
-    cron: '0 1 * * *'   # at 01:00 every night
-    branches: [ master ]
+    - cron: '0 1 * * *'   # at 01:00 every night
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
