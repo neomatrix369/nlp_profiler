@@ -1,4 +1,4 @@
-text,sentences_count,characters_count,repeated_letters_count,spaces_count,chars_excl_spaces_count,repeated_spaces_count,whitespaces_count,chars_excl_whitespaces_count,repeated_whitespaces_count,count_words,duplicates_count,emoji_count,repeated_digits_count,whole_numbers_count,alpha_numeric_count,non_alpha_numeric_count,punctuations_count,repeated_punctuations_count,stop_words_count,dates_count,noun_phase_count,english_characters_count,non_english_characters_count,syllables_count,sentiment_polarity_score,sentiment_polarity,sentiment_polarity_summarised,sentiment_subjectivity_score,sentiment_subjectivity,sentiment_subjectivity_summarised,spelling_quality_score,spelling_quality,spelling_quality_summarised,ease_of_reading_score,ease_of_reading_quality,ease_of_reading_summarised
+text,sentences_count,characters_count,repeated_letters_count,spaces_count,chars_excl_spaces_count,repeated_spaces_count,whitespaces_count,chars_excl_whitespaces_count,repeated_whitespaces_count,count_words,duplicates_count,emoji_count,repeated_digits_count,whole_numbers_count,alpha_numeric_count,non_alpha_numeric_count,punctuations_count,repeated_punctuations_count,stop_words_count,dates_count,noun_phrase_count,english_characters_count,non_english_characters_count,syllables_count,sentiment_polarity_score,sentiment_polarity,sentiment_polarity_summarised,sentiment_subjectivity_score,sentiment_subjectivity,sentiment_subjectivity_summarised,spelling_quality_score,spelling_quality,spelling_quality_summarised,ease_of_reading_score,ease_of_reading_quality,ease_of_reading_summarised
 I love ⚽ very much 😁.,1,21,0,5,16,0,5,16,0,4,0,2,0,0,13,8,1,0,1,0,3,19,2,6,0.38,Pretty positive,Positive,0.43,Objective/subjective,Objective/subjective,1.0,Very good,Good,116.15,Very Easy,Easy
 2833047 people live in this area. It is not a good area.,2,56,0,11,45,0,11,45,0,11,2,0,1,1,43,13,2,0,5,0,4,56,0,13,-0.10681818181818181,Pretty negative,Negative,0.55,Objective/subjective,Objective/subjective,1.0,Very good,Good,107.69,Very Easy,Easy
 2833047 and 1111 people live in this area.,1,42,0,7,35,0,7,35,0,6,0,0,2,2,34,8,1,0,3,0,2,42,0,9,0.13636363636363635,Pretty positive,Positive,0.5,Objective/subjective,Objective/subjective,1.0,Very good,Good,105.66,Very Easy,Easy
@@ -11,8 +11,11 @@ The date today is 28/04/2020 and tomorrow's date is 29/04/2020.,1,63,0,9,54,0,9,
 Everyone here works so hard. People work hard. I think they have a good trait.,3,78,0,14,64,0,14,64,0,15,2,0,0,0,61,17,3,0,5,0,5,78,0,18,0.03888888888888886,Pretty positive,Positive,0.5611111111111111,Objective/subjective,Objective/subjective,1.0,Very good,Good,100.24,Very Easy,Easy
 283047   people live in this  area,1,34,0,8,26,2,8,26,2,5,0,0,0,1,26,8,0,0,2,0,2,34,0,10,0.13636363636363635,Pretty positive,Positive,0.5,Objective/subjective,Objective/subjective,1.0,Very good,Good,56.93,Fairly Difficult,Difficult
 "2833047 pe
-ople li	ve in this area",1,35,0,5,30,0,8,27,0,8,0,0,1,1,27,8,0,0,3,0,6,35,0,7,0.0,Neutral,Neutral,0.0,Very objective,Objective,0.8888888888888888,Bad,Bad,130.02,Very Easy,Easy
-"2833047   people
+ople li	ve i
+n this area",1,35,0,5,30,0,8,27,0,8,0,0,1,1,27,8,0,0,3,0,6,35,0,7,0.0,Neutral,Neutral,0.0,Very objective,Objective,0.8888888888888888,Bad,Bad,130.02,Very Easy,Easy
+"2833047   
+
+people
 
    live in   th
 is are		a",1,45,0,11,34,3,18,27,6,7,0,0,1,1,27,18,0,0,4,0,2,45,0,13,0.13636363636363635,Pretty positive,Positive,0.5,Objective/subjective,Objective/subjective,1.0,Very good,Good,63.36,Standard,Standard
@@ -20,4 +23,5 @@ is are		a",1,45,0,11,34,3,18,27,6,7,0,0,1,1,27,18,0,0,4,0,2,45,0,13,0.1363636363
 is are	
 !#$%&()*+-./:;<=>?@[\]^_`{|}~",2,62,0,1,61,0,4,58,0,3,0,0,0,1,26,36,31,0,2,0,11,61,1,4,0.0,Neutral,Neutral,0.0,Very objective,Objective,0.8928571428571429,Bad,Bad,93.81,Very Easy,Easy
 "2833047 pe
-ople li	ve in this area‚ƒ„…†‡ˆ‰Š‹ŒŽ•™š›œžŸ¡¢¤¥¦¨©ª«¬­®¯°²³´""µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿThis sentence is in japanese (kana) ろぬふうえおやゆゆわほへへてThis sentence is in japanese (kana compact) おっあこおおがおんわおفصصصشببلااتنخمككك This sentence is in arabic",1,298,0,23,275,0,26,272,0,42,8,3,1,1,112,186,5,0,9,0,20,143,155,34,0.0,Neutral,Neutral,0.0,Very objective,Objective,0.7435897435897436,Bad,Bad,69.45,Standard,Standard
+ople li	ve i
+n this area‚ƒ„…†‡ˆ‰Š‹ŒŽ•™š›œžŸ¡¢¤¥¦¨©ª«¬­®¯°²³´""µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿThis sentence is in japanese (kana) ろぬふうえおやゆゆわほへへてThis sentence is in japanese (kana compact) おっあこおおがおんわおفصصصشببلااتنخمككك This sentence is in arabic",1,298,0,23,275,0,26,272,0,42,8,3,1,1,112,186,5,0,9,0,20,143,155,34,0.0,Neutral,Neutral,0.0,Very objective,Objective,0.7435897435897436,Bad,Bad,69.45,Standard,Standard
