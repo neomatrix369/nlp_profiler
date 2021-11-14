@@ -11,8 +11,12 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [master]
+  # Docs: https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#onschedule
   schedule:
-    - cron: '0 16 * * 5'
+    # cron expression placeholders (https://crontab.guru/#0_16_*_*_5):
+    #       minute hour day(month) month day(week)
+    - cron: '0 16 * * 5'    # At 16:00 on Friday
+    - branches: [master]
 
 jobs:
   analyze:
