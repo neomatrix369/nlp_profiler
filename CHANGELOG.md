@@ -186,4 +186,14 @@ Correct the misspelt term "noun phrase" or "noun phrases" across the codebase
 
 ---
 
+### GitHub branch `enabled-nightly-builds` Github actions: enabled nightly run of build and test
+
+Implemented functionality via PR [#65](https://github.com/neomatrix369/nlp_profiler/pull/65) - details described in the body of the PR.
+
+Enabled nightly run of build and test via Github actions
+
+[dde3172](https://github.com/neomatrix369/nlp_profiler/commit/dde31723b7cb1c1105b9df828bf7429094113de4) [@neomatrix369](https://github.com/neomatrix369) _Sun Nov 14 09:12:33 2021 +0000_
+
+---
+
 Return to [README.md](README.md)
