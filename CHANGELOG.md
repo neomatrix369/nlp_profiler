@@ -165,7 +165,7 @@ Moving notebooks to github releases from the `notebooks` folder to prevent Githu
 
 ---
 
-### GitHub branch `moving-notebooks-to-github-release` Moving notebooks to github releases
+### GitHub branch `fix-failing-high-level-tests` Make the acceptance tests pass, fixing dependency versions
 
 Implemented functionality via PR [#63](https://github.com/neomatrix369/nlp_profiler/pull/63) - details described in the body of the PR.
 
@@ -173,6 +173,16 @@ Fixing dependency issues leading to tests to fail as API changes in the respecti
 
 
 [5b87b03](https://github.com/neomatrix369/nlp_profiler/commit/5b87b032a213224f2734e5a6f8b1188772ec38f0) [@neomatrix369](https://github.com/neomatrix369) _Sat Nov 13 23:35:38 2021 +0000_
+
+---
+
+### GitHub branch `correct-spelling-of-column-to-noun-phrase` Granular features: corrected the name of the new feature column to noun phrase
+
+Implemented functionality via PR [#64](https://github.com/neomatrix369/nlp_profiler/pull/64) - details described in the body of the PR.
+
+Correct the misspelt term "noun phrase" or "noun phrases" across the codebase
+
+[a9d1e1a](https://github.com/neomatrix369/nlp_profiler/commit/a9d1e1a5560c4dcd82922470b4933ea75de77dad) [@neomatrix369](https://github.com/neomatrix369) _Sat Nov 13 21:41:56 2021 +0000_
 
 ---
 
