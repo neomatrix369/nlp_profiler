@@ -1,12 +1,14 @@
+import os
 import sys
 import tempfile
+import uuid
 
 import pandas as pd
 import swifter  # noqa
 from joblib import Memory, Parallel, delayed
 from tqdm.auto import tqdm
 
-memory = Memory(tempfile.gettempdir(), compress=9, verbose=0)
+memory = Memory(os.path.join(tempfile.gettempdir(), str(uuid.uuid4())[:10]), compress=9, verbose=0)
 
 
 def is_running_from_ipython():
