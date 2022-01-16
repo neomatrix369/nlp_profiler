@@ -7,8 +7,8 @@ import pandas as pd
 import swifter  # noqa
 from joblib import Memory, Parallel, delayed
 from tqdm.auto import tqdm
-
-memory = Memory(os.path.join(tempfile.gettempdir(), str(uuid.uuid4())[:10]), compress=9, verbose=0)
+tmp_dir = os.path.join(tempfile.gettempdir(), str(uuid.uuid4())[:10])  # CHANGED from tempfile.gettempdir()
+memory = Memory(tmp_dir, compress=9, verbose=0)
 
 
 def is_running_from_ipython():
@@ -40,7 +40,7 @@ def using_joblib_parallel(
         ) for _, each_value in enumerate(source_values_to_transform)
     )
     source_values_to_transform.update()
-    memory.clear(warn=False)
+    memory.clear(warn=False). # CHANGED: Added clear line
     return result
 
 
