@@ -40,7 +40,6 @@ def using_joblib_parallel(
         ) for _, each_value in enumerate(source_values_to_transform)
     )
     source_values_to_transform.update()
-    memory.clear(warn=False). # CHANGED: Added clear line
     return result
 
 
