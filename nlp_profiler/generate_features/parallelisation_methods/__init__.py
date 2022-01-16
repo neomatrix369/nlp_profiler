@@ -7,7 +7,10 @@ import pandas as pd
 import swifter  # noqa
 from joblib import Memory, Parallel, delayed
 from tqdm.auto import tqdm
-tmp_dir = os.path.join(tempfile.gettempdir(), str(uuid.uuid4())[:10])  # CHANGED from tempfile.gettempdir()
+# CHANGED: Added flag to specify tmp dir
+tmp_dir_rand_dir = os.environ.get("DEVRON_NLP_STATS_TMP_DIR", str(uuid.uuid4())[:10])
+
+tmp_dir = os.path.join(tempfile.gettempdir(), tmp_dir_rand_dir)  # CHANGED from tempfile.gettempdir()
 memory = Memory(tmp_dir, compress=9, verbose=0)
 
 
