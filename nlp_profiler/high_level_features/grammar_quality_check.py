@@ -1,6 +1,5 @@
-import language_tool_python
-
-language_tool = language_tool_python.LanguageTool('en-GB')
+from gingerit.gingerit import GingerIt
+parser=GingerIt()
 import pandas as pd
 import math
 
@@ -29,8 +28,8 @@ def grammar_check_score(text: str) -> int:
     if (not isinstance(text, str)) or (len(text.strip()) == 0):
         return NaN
 
-    matches = language_tool.check(text)
-    return len(matches)
+    matches = parser.parse(text)
+    return len(matches["corrections"])
 
 
 def grammar_quality(score: int) -> str:
