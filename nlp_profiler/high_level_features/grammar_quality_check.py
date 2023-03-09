@@ -25,7 +25,7 @@ def apply_grammar_check(heading: str,
 ### Grammar check: this is a very slow process
 ### take a lot of time per text it analysis
 def grammar_check_score(text: str) -> int:
-    if (not isinstance(text, str)) or (len(text.strip()) == 0):
+    if not isinstance(text, str) or not text.strip():
         return NaN
 
     matches = parser.parse(text)
@@ -39,6 +39,6 @@ def grammar_quality(score: int) -> str:
     if score == 1:
         return "1 issue"
     elif score > 1:
-        return f"{int(score)} issues"
+        return f"{score} issues"
 
     return "No issues"
