@@ -55,8 +55,8 @@ spelling_quality_score_to_words_mapping = [
     ["Very good", 99, 100],  # Very good: Certain: 100%: Give or take 0%
     ["Quite good", 97, 99],  # Quite Good: Almost Certain: 93%: Give or take 6%
     ["Good", 95, 97],  # Quite Good: Almost Certain: 93%: Give or take 6%
-    ["Pretty good", 80, 95],  # Pretty: Good: Probable: 75%: Give or take about 12%
-    ["Bad", 60, 80],  # So/so: Chances About Even: 50%: Give or take about 10%
+    ["Pretty good", 90, 95],  # Pretty: Good: Probable: 75%: Give or take about 12%
+    ["Bad", 60, 90],  # So/so: Chances About Even: 50%: Give or take about 10%
     ["Pretty bad", 12, 60],  # Pretty bad: Probably Not: 30%: Give or take about 10%
     ["Quite bad", 2, 12],  # Quite bad: Almost Certainly Not 7%: Give or take about 5%
     ["Very bad", 0, 2]  # Impossible 0%: Give or take 0%
