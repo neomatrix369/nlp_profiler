@@ -1,5 +1,6 @@
+#changing the grammar checker from language tool to gingerit for better results
 from gingerit.gingerit import GingerIt
-parser=GingerIt()
+parser = GingerIt()
 import pandas as pd
 import math
 
@@ -27,8 +28,9 @@ def apply_grammar_check(heading: str,
 def grammar_check_score(text: str) -> int:
     if not isinstance(text, str) or not text.strip():
         return NaN
-
+    #calling the parser function to parse through the text for errors
     matches = parser.parse(text)
+    #the corrections is an array of dictionaries containing the position and the word that has been changed
     return len(matches["corrections"])
 
 
