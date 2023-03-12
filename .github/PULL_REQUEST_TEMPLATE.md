@@ -1,5 +1,11 @@
 To be able to merge a pull request, there are a few checks:
 
+**DO NOT DELETE THE BELOW TEXT FROM THE BODY OF THE PULL REQUEST. ADD YOUR DESCRIPTION(S) FROM THE POINT IT SAYS "Goal or purpose of the PR". USE THIS TEMPLATE AS IS.**
+
+</BR>
+
+**USE THE CHECKLIST TO SHOW PROGRESS AND A REMINDER FOR YOURSELF.**
+    
 ## Checklist
 
 Please check the options that you have completed and strike-out the options that do not apply via this pull request:
