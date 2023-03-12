@@ -202,10 +202,7 @@ Implemented functionality via PR [#69](https://github.com/neomatrix369/nlp_profi
 Replaced language tool with Gingerit for faster calculations
 
 [b5a5dda](https://github.com/neomatrix369/nlp_profiler/pull/69/commits/b5a5ddaad01f07230cf232712671d43dd9db9862) [@bitanb1999](https://github.com/bitanb1999) _Sun March 13 00:31:31 2023 +0000_
-<<<<<<< HEAD
-=======
 
->>>>>>> c891ba3 (Update CHANGELOG.md)
 ---
 ### GitHub branch `spelling_check` Spelling_quality_check and Ease of reading check: Removed dependency on Textblob and tokenisation
 
