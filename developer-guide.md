@@ -100,6 +100,8 @@ Do these in the sequential order:
 
 - Creating a Pull request will also result in these steps to be executed on Windows and Linux instances via the GitHub action(s) (this also covers for macOS environments as it is equivalent to the Linux environment to a good extend).
 
+- Also the Pull Request description body will be populated with the contents of this [Pull Request template](https://github.com/neomatrix369/nlp_profiler/blob/master/.github/PULL_REQUEST_TEMPLATE.md), please also follow through the step mentioned in the template.
+
 - Any failures on the PR would need to be addressed. More details on specific changes will be addressed at a later time, but the failures in tests or at any other aspect should more or less indicate the reason for failure. If not, please look for past reported issues under [GitHub issues](https://github.com/neomatrix369/nlp_profiler/issues) or report a new one with the specifics of the issue in hand.
 
 - Check if all the notebooks in the repo reflect your changes, if not please regenerate them and make them part of the pull request.

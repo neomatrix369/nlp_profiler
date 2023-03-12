@@ -31,7 +31,7 @@ Furthermore, please ensure your pull request follows the following guidelines:
 * Please make an individual pull request for each suggestion.
 * Make sure your text editor is set to remove trailing whitespace.
 
-See [Developer guide](#developer-guide.md) for more specific details.
+See [Developer guide](developer-guide.md) for more specific details.
 
 Thank you for your suggestions!
 
