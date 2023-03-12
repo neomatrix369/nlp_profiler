@@ -44,11 +44,7 @@ def ease_of_reading_score(text: str) -> float:
     if (not isinstance(text, str)) or (len(text.strip()) == 0):
         return NaN
 
-    score = float(flesch_reading_ease(text))
-    if score>100:
-	return 100
-    else:
-	return score
+    return float(flesch_reading_ease(text))
 
 
 # Docs: https://textblob.readthedocs.io/en/dev/quickstart.html
