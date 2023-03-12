@@ -43,11 +43,12 @@ def ease_of_reading_summarised(text: str) -> str:
 
 
 def ease_of_reading_score(text: str) -> float:
-    if not (isinstance(text, str) or text.strip()):
+    if (not isinstance(text, str)) or (not text.strip()):
         return NaN
 
-    score = float(flesch_reading_ease(text))
-    return min(score, 100)
+    ### it may return values below 0 and above 100 because the scale is
+    ### between a high negative number to a high positive number
+    return float(flesch_reading_ease(text))
 
 
 # Docs: https://textblob.readthedocs.io/en/dev/quickstart.html
