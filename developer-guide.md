@@ -69,7 +69,7 @@ pip install --prefix .
 Run all the tests with coverage information using the below command after all packages have been successfully installed:
 
 ```bash
-./test-coverage tests slow-tests
+./test-coverage.sh tests slow-tests
 ```
 
 On the tests passing (or partially passing), these folders will be created:

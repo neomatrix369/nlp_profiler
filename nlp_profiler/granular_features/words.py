@@ -8,7 +8,7 @@ def gather_words(text: str) -> list:
     if not isinstance(text, str):
         return []
 
-    return re.findall(r'\b[^\d\W]+\b', text)
+    return re.findall(r"\b[^\d\W]+\b", text)
 
 
 def count_words(text: str) -> int:

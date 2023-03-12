@@ -6,14 +6,15 @@ from nlp_profiler.constants import NOT_APPLICABLE, NaN
 
 ### Sentiment analysis
 
+
 def sentiment_polarity_summarised(polarity: str) -> str:
     if (not polarity) or (polarity == NOT_APPLICABLE):
         return NOT_APPLICABLE
 
-    if 'negative' in polarity.lower():
-        return 'Negative'
-    if 'positive' in polarity.lower():
-        return 'Positive'
+    if "negative" in polarity.lower():
+        return "Negative"
+    if "positive" in polarity.lower():
+        return "Positive"
 
     return polarity
 
@@ -28,7 +29,7 @@ sentiment_polarity_to_words_mapping = [
     ["Neutral", 49, 51],  # Chances About Even: 50%: Give or take about 10%
     ["Pretty negative", 12, 49],  # Probably Not: 30%: Give or take about 10%
     ["Quite negative", 2, 12],  # Almost Certainly Not 7%: Give or take about 5%
-    ["Very negative", 0, 2]  # Impossible 0%: Give or take 0%
+    ["Very negative", 0, 2],  # Impossible 0%: Give or take 0%
 ]
 
 

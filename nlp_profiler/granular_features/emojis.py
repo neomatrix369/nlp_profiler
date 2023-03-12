@@ -7,12 +7,13 @@ from nlp_profiler.constants import NaN
 
 ### Emojis
 
+
 def gather_emojis(text: str) -> list:
     if (not isinstance(text, str)) or (len(text.strip()) == 0):
         return []
 
     emoji_expaned_text = emoji.demojize(text)
-    return re.findall(r'\:(.*?)\:', emoji_expaned_text)
+    return re.findall(r"\:(.*?)\:", emoji_expaned_text)
 
 
 def count_emojis(text: str) -> int:

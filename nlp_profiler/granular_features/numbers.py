@@ -8,7 +8,7 @@ def gather_whole_numbers(text: str) -> list:
     if not isinstance(text, str):
         return []
 
-    return re.findall(r'[0-9]+', text)
+    return re.findall(r"[0-9]+", text)
 
 
 def count_whole_numbers(text: str) -> int:
@@ -22,7 +22,7 @@ def gather_digits(text: str) -> list:
     if not isinstance(text, str):
         return []
 
-    return re.findall('[0-9]', text)
+    return re.findall("[0-9]", text)
 
 
 def count_digits(text: str) -> int:
@@ -37,7 +37,7 @@ def gather_repeated_digits(text: str) -> list:
         return []
 
     ### Gather 2 or more repeated digits
-    return re.findall('(([0-9])\\2{1,})', text)
+    return re.findall("(([0-9])\\2{1,})", text)
 
 
 def count_repeated_digits(text: str) -> int:

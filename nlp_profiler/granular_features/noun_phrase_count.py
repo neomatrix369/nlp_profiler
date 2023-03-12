@@ -7,7 +7,7 @@ from nltk.tokenize import word_tokenize
 
 from nlp_profiler.constants import NaN
 
-nltk.download('averaged_perceptron_tagger')
+nltk.download("averaged_perceptron_tagger")
 
 
 def gather_nouns(sentence: str):
@@ -17,7 +17,8 @@ def gather_nouns(sentence: str):
     # import pdb; pdb.set_trace();
     token = word_tokenize(emoji_decoded)
     tags = list(
-        filter(lambda x: re.match(r"(JJ|NN|NNP)", x[1]), pos_tag(token)))  # using RegEx to to check for Noun Phases.
+        filter(lambda x: re.match(r"(JJ|NN|NNP)", x[1]), pos_tag(token))
+    )  # using RegEx to to check for Noun Phases.
     return tags
 
 

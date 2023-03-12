@@ -1,4 +1,5 @@
 import re
+
 # https://www.journaldev.com/23788/python-string-module
 import string as string_module
 
@@ -9,7 +10,7 @@ def count_spaces(text: str) -> int:
     if not isinstance(text, str):
         return NaN
 
-    spaces = re.findall(r' ', text)
+    spaces = re.findall(r" ", text)
     return len(spaces)
 
 
@@ -18,7 +19,7 @@ def count_whitespaces(text: str) -> int:
     if not isinstance(text, str):
         return NaN
 
-    spaces = re.findall('(([' + string_module.whitespace + ']){1})', text)
+    spaces = re.findall("(([" + string_module.whitespace + "]){1})", text)
     return len(spaces)
 
 
@@ -47,7 +48,7 @@ def gather_repeated_spaces(text: str) -> list:
     if not isinstance(text, str):
         return NaN
 
-    return re.findall('(([ ])\\2{1,})', text)
+    return re.findall("(([ ])\\2{1,})", text)
 
 
 def count_repeated_spaces(text: str) -> int:
@@ -62,7 +63,7 @@ def gather_repeated_whitespaces(text: str) -> list:
     if not isinstance(text, str):
         return NaN
 
-    return re.findall('(([' + string_module.whitespace + '])\\2{1,})', text)
+    return re.findall("(([" + string_module.whitespace + "])\\2{1,})", text)
 
 
 def count_repeated_whitespaces(text: str) -> int:

@@ -6,16 +6,17 @@ import math
 
 ### Sentiment Subjectivity
 
+
 def sentiment_subjectivity_summarised(subjectivity: str) -> str:
     if (not subjectivity) or (subjectivity == NOT_APPLICABLE):
         return NOT_APPLICABLE
 
-    if '/' in subjectivity:
+    if "/" in subjectivity:
         return subjectivity
-    elif 'subjective' in subjectivity.lower():
-        return 'Subjective'
+    elif "subjective" in subjectivity.lower():
+        return "Subjective"
 
-    return 'Objective'
+    return "Objective"
 
 
 ### See https://en.wikipedia.org/wiki/Words_of_estimative_probability
@@ -27,7 +28,7 @@ sentiment_subjectivity_to_words_mapping = [
     ["Objective/subjective", 40, 63],  # Chances About Even: 50%: Give or take about 10%
     ["Pretty objective", 12, 40],  # Probably Not: 30%: Give or take about 10%
     ["Quite objective", 2, 12],  # Almost Certainly Not 7%: Give or take about 5%
-    ["Very objective", 0, 2]  # Impossible 0%: Give or take 0%
+    ["Very objective", 0, 2],  # Impossible 0%: Give or take 0%
 ]
 
 

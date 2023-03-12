@@ -1,16 +1,16 @@
 from nlp_profiler.constants import NaN
 from nlp_profiler.granular_features.alphanumeric import count_alpha_numeric
-from nlp_profiler.granular_features.chars_spaces_and_whitespaces \
-    import count_whitespaces, count_chars
+from nlp_profiler.granular_features.chars_spaces_and_whitespaces import count_whitespaces, count_chars
 from nlp_profiler.granular_features.punctuations import count_punctuations
 
 # Note: '±', '§', '€' and '£' have been removed from the
 # below list as it can be found on UK Qwerty Keyboards
 # and they have been added to the punctuation list
-NON_STANDARD_ASCII_CHARS = "‚ƒ„…†‡ˆ‰Š‹ŒŽ•™š›œžŸ¡¢¤¥¦¨©ª«¬­®¯°²³´" \
-                           "µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß" \
-                           "àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ"
-
+NON_STANDARD_ASCII_CHARS = (
+    "‚ƒ„…†‡ˆ‰Š‹ŒŽ•™š›œžŸ¡¢¤¥¦¨©ª«¬­®¯°²³´"
+    "µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß"
+    "àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ"
+)
 
 
 # English characters constitutes of

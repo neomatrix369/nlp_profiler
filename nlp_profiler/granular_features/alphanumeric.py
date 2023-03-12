@@ -8,7 +8,7 @@ def gather_alpha_numeric(text: str) -> list:
     if not isinstance(text, str):
         return []
 
-    return re.findall('[A-Za-z0-9]', text)
+    return re.findall("[A-Za-z0-9]", text)
 
 
 def count_alpha_numeric(text: str) -> int:

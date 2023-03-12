@@ -9,7 +9,7 @@ def gather_repeated_letters(text: str) -> list:
         return []
 
     ### Gather 3 or more repeated letters
-    return re.findall('(([a-zA-Z])\\2{2,})', text)
+    return re.findall("(([a-zA-Z])\\2{2,})", text)
 
 
 def count_repeated_letters(text: str) -> int:
