@@ -28,7 +28,7 @@ def apply_grammar_check(
 ### Grammar check: this is a very slow process
 ### take a lot of time per text it analysis
 def grammar_check_score(text: str) -> int:
-    if not (isinstance(text, str) or text.strip()):
+    if (not isinstance(text, str)) or (not text.strip()):
         return NaN
     # calling the parser function to parse through the text for errors
     matches = parser.parse(text)
