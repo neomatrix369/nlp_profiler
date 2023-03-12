@@ -65,33 +65,29 @@ def symspell_corrector(input_term: str) -> str:
         ignore_non_words=True,
         split_by_space=True,
     )
-    # display the correction
-    for suggestion in suggestions:
-        if suggestion.term:
-            return suggestion.term
-    return input_term
+    return next(
+        (suggestion.term for suggestion in suggestions if suggestion.term),
+        input_term,
+    )
 
 
 def spelling_quality_summarised(quality: str) -> str:
     if (not quality) or (quality == NOT_APPLICABLE):
         return NOT_APPLICABLE
 
-    if "good" in quality.lower():
-        return "Good"
-
-    return "Bad"
+    return "Good" if "good" in quality.lower() else "Bad"
 
 
 def spelling_quality_score(text: str) -> float:
     result = 0.0
-    if not isinstance(text, str) or len(text.strip()) == 0:
+    if not isinstance(text, str) or not text.strip():
         return NaN
 
     corrected_text = symspell_corrector(text)
     if corrected_text is not None:
         result = fuzz.token_sort_ratio(corrected_text, text) / 100
 
-    return result if result >= 0.0 else 0.0
+    return max(result, 0.0)
 
 
 @memory.cache
@@ -99,8 +95,8 @@ def spelling_quality(score: float) -> str:
     if math.isnan(score):
         return NOT_APPLICABLE
 
-    score = float(score) * 100
-    for _, each_slab in enumerate(spelling_quality_score_to_words_mapping):  # pragma: no cover
+    score *= 100
+    for each_slab in spelling_quality_score_to_words_mapping:
         # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
