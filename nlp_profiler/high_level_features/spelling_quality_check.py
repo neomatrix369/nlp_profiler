@@ -20,8 +20,7 @@ dictionary_path = pkg_resources.resource_filename(
 sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
 #importing fuzzy matching for scoring purposes
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
+from fuzzywuzzy import fuzz,process
 
 from nlp_profiler.constants import \
     DEFAULT_PARALLEL_METHOD
