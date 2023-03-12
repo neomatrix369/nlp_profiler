@@ -205,4 +205,12 @@ Replaced language tool with Gingerit for faster calculations
 
 ---
 
+### GitHub branch `spelling_check` Spelling_quality_check and Ease of reading check: Removed dependency on Textblob and tokenisation
+
+Implemented functionality via PR [#71](https://github.com/neomatrix369/nlp_profiler/pull/71) - details described in the body of the PR.
+
+I used fuzzy-matching techniques that compare the original text and the rectified text and mark the score of the text accordingly. Removed small bugs from ease of reading function scoring.
+
+[fe92433](https://github.com/neomatrix369/nlp_profiler/pull/71/commits/fe924333a8a5e402b8893e07c1df8f065e9eee7b) [@bitanb1999](https://github.com/bitanb1999) _Sun March 13 00:43:31 2023 +0000_
+
 Return to [README.md](README.md)
