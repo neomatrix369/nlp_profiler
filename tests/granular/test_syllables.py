@@ -13,7 +13,7 @@ english_text_to_count_mapping = [
     (float('nan'), NaN),
     (None, NaN),
     (text_with_english_chars1, 7),
-    (text_with_english_chars2, 18)
+    (text_with_english_chars2, 17)
 ]
 
 
@@ -50,11 +50,11 @@ non_english_text_to_count_mapping = [
     (None, NaN),
     (text_with_non_english_chars1, 7),
     (text_with_non_english_chars2, 17),
-    (text_with_non_english_chars3, 9),
-    (text_with_non_english_chars4, 9),
-    (text_with_non_english_chars5, 13),
+    (text_with_non_english_chars3, 8),
+    (text_with_non_english_chars4, 8),
+    (text_with_non_english_chars5, 8),
     (text_with_non_english_chars6, 8),
-    (text_with_non_english_chars7, 14),
+    (text_with_non_english_chars7, 8),
     (text_with_japanese_kana_chars, 10),
     # why is syllable count for text without japanese (kana) characters
     # NOT the same as with japanese (kana) characters?
