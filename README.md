@@ -57,7 +57,7 @@ A simple [notebook](#Notebooks) have been provided to illustrate the usage of th
 
 ## Requirements
 
-- Python 3.6.x or higher.
+- Python 3.7.x or higher.
 - Dependencies described in the `requirements.txt`.
 - High-level including Grammar checks:
   - faster processor
