@@ -201,7 +201,7 @@ Implemented functionality via PR [#69](https://github.com/neomatrix369/nlp_profi
 
 Replaced language tool with Gingerit for faster calculations
 
-[b5a5dda](https://github.com/neomatrix369/nlp_profiler/pull/69/commits/b5a5ddaad01f07230cf232712671d43dd9db9862) [@bitanb1999](https://github.com/bitanb1999) _Sun Nov 14 09:12:33 2021 +0000_
+[b5a5dda](https://github.com/neomatrix369/nlp_profiler/pull/69/commits/b5a5ddaad01f07230cf232712671d43dd9db9862) [@bitanb1999](https://github.com/bitanb1999) _Sun March 13 00:31:31 2023 +0000_
 
 ---
 
