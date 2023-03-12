@@ -29,9 +29,6 @@ pip install -r requirements-nix-dev.txt
 Install `line-profiler` for Windows depending on the Python version:
 
 ```bash
-# Python 3.6
-python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/line_profiler-3.0.2-cp36-cp36m-win_amd64.whl
-
 # Python 3.7
 python -m pip install line-profiler@https://download.lfd.uci.edu/pythonlibs/x2tqcw5k/line_profiler-3.0.2-cp37-cp37m-win_amd64.whl
 
