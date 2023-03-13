@@ -41,7 +41,7 @@ def ease_of_reading_summarised(text: str) -> str:
 
 
 def ease_of_reading_score(text: str) -> float:
-    if (not isinstance(text, str)) or (len(text.strip()) == 0):
+    if not isinstance(text, str) or not text.strip():
         return NaN
 
     return float(flesch_reading_ease(text))
@@ -66,7 +66,7 @@ def ease_of_reading(score: int) -> str:
         return NOT_APPLICABLE
 
     score = float(score)
-    for _, each_slab in enumerate(ease_of_reading_to_words_mapping):  # pragma: no cover
+    for each_slab in ease_of_reading_to_words_mapping:
         # pragma: no cover => early termination leads to loss of test coverage info
         if ((score <= 0) and (each_slab[1] == 0)) or \
                 ((score >= 100) and (each_slab[2] == 100)):

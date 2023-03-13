@@ -50,24 +50,22 @@ def spelling_quality_summarised(quality: str) -> str:
     if (not quality) or (quality == NOT_APPLICABLE):
         return NOT_APPLICABLE
 
-    if 'good' in quality.lower():
-        return 'Good'
-
-    return 'Bad'
+    return 'Good' if 'good' in quality.lower() else 'Bad'
 
 
 def spelling_quality_score(text: str) -> float:
-    if (not isinstance(text, str)) or (len(text.strip()) == 0):
+    if not isinstance(text, str) or not text.strip():
         return NaN
 
     tokenized_text = get_tokenized_text(text)
     misspelt_words = [
-        each_word for _, each_word in enumerate(tokenized_text)
+        each_word
+        for each_word in tokenized_text
         if actual_spell_check(each_word) is not None
     ]
     result = 1 - (len(misspelt_words) / len(tokenized_text))
 
-    return result if result >= 0.0 else 0.0
+    return max(result, 0.0)
 
 
 def get_tokenized_text(text: str) -> list:
@@ -87,8 +85,8 @@ def spelling_quality(score: float) -> str:
     if math.isnan(score):
         return NOT_APPLICABLE
 
-    score = float(score) * 100
-    for _, each_slab in enumerate(spelling_quality_score_to_words_mapping):  # pragma: no cover
+    score *= 100
+    for each_slab in spelling_quality_score_to_words_mapping:
         # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
