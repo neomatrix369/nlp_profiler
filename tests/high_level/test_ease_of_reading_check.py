@@ -8,11 +8,11 @@ from nlp_profiler.high_level_features.ease_of_reading_check import (
     ease_of_reading_summarised,
 )  # noqa
 
-# textstat.flesch_reading_ease() returned a score of -175.9
-very_confusing_text1 = "...asasdasdasdasdasd  djas;ODLaskjdf."
+# textstat.flesch_reading_ease() returned a score of -133.6 (previously -175.9)
+very_confusing_text1 = '...asasdasdasdasdasd  djas;ODLaskjdf.'
 
-# textstat.flesch_reading_ease() returned a score of -50.02
-very_confusing_text2 = ". a323# asdft asdlkassdsdsd"
+# textstat.flesch_reading_ease() returned a score of -24.64 (previously -50.02)
+very_confusing_text2 = '. a323# asdft asdlkassdsdsd'
 
 # textstat.flesch_reading_ease() returned a score of 53.88
 fairly_difficult = (
@@ -31,8 +31,8 @@ fairly_difficult_latin_text = (
 # textstat.flesch_reading_ease() returned a score of 66.4
 standard_text = "Python is a programming language."
 
-# textstat.flesch_reading_ease() returned a score of 80.28
-easy_text = "يح going to.. asfl;as ๑۞๑ asdlkas Kadv as"
+# textstat.flesch_reading_ease() returned a score of 84.34 (previously 80.28)
+easy_text = 'يح going to.. asfl;as ๑۞๑ asdlkas Kadv as'
 
 # textstat.flesch_reading_ease() returned a score of 75.88
 fairly_easy_text = "Im going to.. asfl;a089v"
@@ -46,7 +46,8 @@ very_easy_emoji_text = "๑۞๑,¸¸,ø¤º°`°๑۩ ℍ𝑒ˡ𝔩σ ϻⓨ ⓝ
 # textstat.flesch_reading_ease() returned a score of 120.21
 very_easy_unicode_text = "乇乂丅尺卂 丅卄工匚匚"
 
-text_with_punctuations = "283047 people live in this area[[[ ]]] :::;;;;££"
+# textstat.flesch_reading_ease() returned a score of 99.23 (previously 89.xx)
+text_with_punctuations = '283047 people live [[[ ]]] in this area[[[ ]]] :::;;;;££'
 
 text_with_non_english_chars = (
     "2833047 pe\nople li\tve i\rn this area"
@@ -63,19 +64,19 @@ text_to_return_value_mapping = [
     (float("nan"), NaN, NOT_APPLICABLE),
     (None, NaN, NOT_APPLICABLE),
     ("", NaN, NOT_APPLICABLE),
-    (very_confusing_text1, -175.9, "Very Confusing"),
-    (very_confusing_text2, -50.02, "Very Confusing"),
-    (difficult_text, 36.62, "Difficult"),
+    (very_confusing_text1, -133.6, 'Very Confusing'),
+    (very_confusing_text2, -24.64, 'Very Confusing'),
+    (difficult_text, 36.62, 'Difficult'),
     (fairly_difficult_latin_text, 57.27, "Fairly Difficult"),
     (fairly_difficult, 53.88, "Fairly Difficult"),
     (standard_text, 66.40, "Standard"),
-    (text_with_non_english_chars, 69.45, "Standard"),
-    (easy_text, 80.28, "Easy"),
-    (fairly_easy_text, 75.88, "Fairly Easy"),
-    (text_with_punctuations, 89.75, "Easy"),
-    (very_easy_arabic_text, 119.19, "Very Easy"),
-    (very_easy_emoji_text, 114.12, "Very Easy"),
-    (very_easy_unicode_text, 120.21, "Very Easy"),
+    (text_with_non_english_chars, 69.45, 'Standard'),
+    (easy_text, 84.34, 'Easy'),
+    (fairly_easy_text, 75.88, 'Fairly Easy'),
+    (text_with_punctuations, 99.23, 'Very Easy'),
+    (very_easy_arabic_text, 119.19, 'Very Easy'),
+    (very_easy_emoji_text, 114.12, 'Very Easy'),
+    (very_easy_unicode_text, 120.21, 'Very Easy')
 ]
 
 
