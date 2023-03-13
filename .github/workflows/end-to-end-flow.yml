@@ -55,7 +55,11 @@ jobs:
         if: matrix.os != 'windows-latest'
 
       - name: install-line-profiler-on-windows-python-3.7
-        run: python -m pip install line-profiler@https://github.com/neomatrix369/nlp_profiler/releases/download/v0.0.2-dev/line_profiler-3.2.6-cp37-cp37m-win_amd64.whl
+        run: |
+          ### https://stackoverflow.com/questions/5419/python-unicode-and-the-windows-console
+          set PYTHONIOENCODING="utf-8"
+          pip install win-unicode-console
+          python -m pip install line-profiler@https://github.com/neomatrix369/nlp_profiler/releases/download/v0.0.2-dev/line_profiler-3.2.6-cp37-cp37m-win_amd64.whl
         if: matrix.python-version == '3.7' &&  matrix.os == 'windows-latest'
 
       - name: install-line-profiler-on-windows-python-3.8
