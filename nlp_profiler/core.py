@@ -35,7 +35,11 @@ from nlp_profiler.high_level_features.spelling_quality_check import apply_spelli
 from nlp_profiler.high_level_features.ease_of_reading_check import apply_ease_of_reading_check
 
 
-def apply_text_profiling(dataframe: pd.DataFrame, text_column: str, params: dict = {}) -> pd.DataFrame:
+def apply_text_profiling(dataframe: pd.DataFrame, text_column: str, params: dict = None) -> pd.DataFrame:
+    if params is None:
+        params = {}
+
+    # sourcery skip: dict-assign-update-to-union
     columns_to_drop = list(set(dataframe.columns) - {text_column})
     new_dataframe = dataframe.drop(columns=columns_to_drop, axis=1).copy()
 
@@ -46,7 +50,10 @@ def apply_text_profiling(dataframe: pd.DataFrame, text_column: str, params: dict
         SPELLING_CHECK_OPTION: True,  # default: True although slightly slow process but can Disabled
         EASE_OF_READING_CHECK_OPTION: True,
         PARALLELISATION_METHOD_OPTION: DEFAULT_PARALLEL_METHOD,
-    } | params
+    }
+
+    default_params.update(params)
+
     print(f"final params: {default_params}")
     actions_mappings = [
         (GRANULAR_OPTION, "Granular features", apply_granular_features),

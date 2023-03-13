@@ -135,8 +135,9 @@ def generate_data() -> list:
     ]
 
 
-def remove_joblib_cache():
-    if os_temp_dir := tempfile.gettempdir():
+def remove_joblib_cache():  # sourcery skip: use-named-expression
+    os_temp_dir = tempfile.gettempdir()
+    if os_temp_dir:
         cache_folder = f"{os_temp_dir}/joblib/nlp_profiler"
         print()
         if os.path.exists(cache_folder):
