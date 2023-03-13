@@ -18,24 +18,29 @@
 
 import pandas as pd
 
-from nlp_profiler.constants import \
-    PARALLELISATION_METHOD_OPTION, DEFAULT_PARALLEL_METHOD, GRANULAR_OPTION, HIGH_LEVEL_OPTION, \
-    GRAMMAR_CHECK_OPTION, SPELLING_CHECK_OPTION, EASE_OF_READING_CHECK_OPTION
+from nlp_profiler.constants import (
+    PARALLELISATION_METHOD_OPTION,
+    DEFAULT_PARALLEL_METHOD,
+    GRANULAR_OPTION,
+    HIGH_LEVEL_OPTION,
+    GRAMMAR_CHECK_OPTION,
+    SPELLING_CHECK_OPTION,
+    EASE_OF_READING_CHECK_OPTION,
+)
 from nlp_profiler.generate_features import get_progress_bar
 from nlp_profiler.granular_features import apply_granular_features
 from nlp_profiler.high_level_features import apply_high_level_features
-from nlp_profiler.high_level_features.grammar_quality_check \
-    import apply_grammar_check
-from nlp_profiler.high_level_features.spelling_quality_check \
-    import apply_spelling_check
-from nlp_profiler.high_level_features.ease_of_reading_check \
-    import apply_ease_of_reading_check
+from nlp_profiler.high_level_features.grammar_quality_check import apply_grammar_check
+from nlp_profiler.high_level_features.spelling_quality_check import apply_spelling_check
+from nlp_profiler.high_level_features.ease_of_reading_check import apply_ease_of_reading_check
 
 
-def apply_text_profiling(dataframe: pd.DataFrame,
-                         text_column: str,
-                         params: dict = {}) -> pd.DataFrame:
-    columns_to_drop = list(set(dataframe.columns) - set([text_column]))
+def apply_text_profiling(dataframe: pd.DataFrame, text_column: str, params: dict = None) -> pd.DataFrame:
+    if params is None:
+        params = {}
+
+    # sourcery skip: dict-assign-update-to-union
+    columns_to_drop = list(set(dataframe.columns) - {text_column})
     new_dataframe = dataframe.drop(columns=columns_to_drop, axis=1).copy()
 
     default_params = {
@@ -44,7 +49,7 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         GRAMMAR_CHECK_OPTION: False,  # default: False as slow process but can Enabled
         SPELLING_CHECK_OPTION: True,  # default: True although slightly slow process but can Disabled
         EASE_OF_READING_CHECK_OPTION: True,
-        PARALLELISATION_METHOD_OPTION: DEFAULT_PARALLEL_METHOD
+        PARALLELISATION_METHOD_OPTION: DEFAULT_PARALLEL_METHOD,
     }
 
     default_params.update(params)
@@ -55,21 +60,17 @@ def apply_text_profiling(dataframe: pd.DataFrame,
         (HIGH_LEVEL_OPTION, "High-level features", apply_high_level_features),
         (GRAMMAR_CHECK_OPTION, "Grammar checks", apply_grammar_check),
         (SPELLING_CHECK_OPTION, "Spelling checks", apply_spelling_check),
-        (EASE_OF_READING_CHECK_OPTION, "Ease of reading check", apply_ease_of_reading_check)
+        (EASE_OF_READING_CHECK_OPTION, "Ease of reading check", apply_ease_of_reading_check),
     ]
 
-    for index, item in enumerate(actions_mappings.copy()):
+    for item in actions_mappings.copy():
         (param, _, _) = item
         if not default_params[param]:
             actions_mappings.remove(item)
 
     apply_profiling_progress_bar = get_progress_bar(actions_mappings)
-    for _, (param, action_description, action_function) in \
-            enumerate(apply_profiling_progress_bar):
+    for param, action_description, action_function in apply_profiling_progress_bar:
         apply_profiling_progress_bar.set_description(action_description)
-        action_function(
-            action_description, new_dataframe,
-            text_column, default_params[PARALLELISATION_METHOD_OPTION]
-        )
+        action_function(action_description, new_dataframe, text_column, default_params[PARALLELISATION_METHOD_OPTION])
 
     return new_dataframe

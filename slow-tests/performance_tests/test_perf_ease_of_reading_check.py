@@ -1,5 +1,4 @@
-from nlp_profiler.high_level_features.ease_of_reading_check \
-    import ease_of_reading_score
+from nlp_profiler.high_level_features.ease_of_reading_check import ease_of_reading_score
 
 from tests.common_functions import assert_benchmark
 
@@ -10,7 +9,4 @@ def test_given_a_text_column_when_profiler_is_applied_with_high_level_analysis_t
     #   (cached): 0.0048389434814453125 seconds
     expected_execution_time = 2.8
 
-    assert_benchmark(expected_execution_time,
-                     ease_of_reading_score,
-                     'ease_of_reading_score',
-                     'aaceb9d')
+    assert_benchmark(expected_execution_time, ease_of_reading_score, "ease_of_reading_score", "aaceb9d")

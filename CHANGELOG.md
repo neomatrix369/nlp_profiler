@@ -205,4 +205,24 @@ Replaced language tool with Gingerit for faster calculations
 
 ---
 
+### GitHub branch `revert-76-sourcery/revert-71-spelling_check` Granular features: reverted change made to spell checks
+
+Implemented functionality via PR [#75](https://github.com/neomatrix369/nlp_profiler/pull/75) - details described in the body of the PR.
+
+Reverting spell check functionality as it is not tested and tests change/break with new implementation.
+
+[2cddf51](https://github.com/neomatrix369/nlp_profiler/commit/2cddf51a605b434d12604d2dba9457c415808bfe) [@neomatrix369](https://github.com/neomatrix369) _Mon Mar 13 02:56:40 2023 +0000_
+
+---
+
+### GitHub branch `reformating-code-and-minor-fixes` Reformatting code, refactoring as per Sourcery, minor fixes and test fixes
+
+Implemented functionality via PR [#73](https://github.com/neomatrix369/nlp_profiler/pull/73) - details described in the body of the PR.
+
+Reformatting code, refactoring as per Sourcery, minor fixes and test fixes. Bringing back the build system in order. Fixes old regressed tests.
+
+[7caeb47](https://github.com/neomatrix369/nlp_profiler/commit/7caeb47e3795a22c1884731320a02d4b0c39ca0c) [@neomatrix369](https://github.com/neomatrix369) _Mon Mar 13 11:23:49 2023 +0000_
+
+---
+
 Return to [README.md](README.md)
