@@ -57,7 +57,9 @@ jobs:
       - name: install-line-profiler-on-windows-python-3.7
         run: |
           ### https://stackoverflow.com/questions/5419/python-unicode-and-the-windows-console
+          ### https://github.com/conda/conda/issues/7445#issuecomment-774579800
           set PYTHONIOENCODING="utf-8"
+          set PYTHONLEGACYWINDOWSSTDIO="utf-8"
           pip install win-unicode-console
           python -m pip install line-profiler@https://github.com/neomatrix369/nlp_profiler/releases/download/v0.0.2-dev/line_profiler-3.2.6-cp37-cp37m-win_amd64.whl
         if: matrix.python-version == '3.7' &&  matrix.os == 'windows-latest'
@@ -65,7 +67,7 @@ jobs:
       - name: install-line-profiler-on-windows-python-3.8
         run: |
           ### https://stackoverflow.com/questions/5419/python-unicode-and-the-windows-console
-          set PYTHONIOENCODING="utf-8"
+          ### https://github.com/conda/conda/issues/7445#issuecomment-774579800
           pip install win-unicode-console
           python -m pip install line-profiler@https://github.com/neomatrix369/nlp_profiler/releases/download/v0.0.2-dev/line_profiler-3.2.6-cp38-cp38-win_amd64.whl
         if: matrix.python-version == '3.8' &&  matrix.os == 'windows-latest'
@@ -76,8 +78,12 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: run-test-coverage-shell-script
         shell: bash
+        env:
+          PYTHONUTF8: 1
+          PYTHONIOENCODING: utf-8
+          PYTHONLEGACYWINDOWSSTDIO: utf-8
         run: |
-          ./test-coverage.sh "tests slow-tests"
+           ./test-coverage.sh "tests slow-tests"
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         if: matrix.python-version == '3.8' && matrix.os == 'ubuntu-18.04'
