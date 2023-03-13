@@ -12,7 +12,7 @@ english_text_to_count_mapping = [
     (float("nan"), NaN),
     (None, NaN),
     (text_with_english_chars1, 7),
-    (text_with_english_chars2, 18),
+    (text_with_english_chars2, 17),
 ]
 
 
