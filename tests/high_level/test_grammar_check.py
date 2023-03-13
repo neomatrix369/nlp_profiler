@@ -5,8 +5,9 @@ from nlp_profiler.constants import NaN, NOT_APPLICABLE
 from nlp_profiler.high_level_features.grammar_quality_check \
     import grammar_check_score, grammar_quality  # noqa
 
-grammar_issues_text = 'Everyone here is so hardworking. Hardworking people. ' \
-                      'I think hardworking people are a good trait in our company.'
+grammar_issues_text = "We sold software hardware and computer parts. " \
+                      "We also sell oem parts servers and gaming machines."
+
 no_grammar_issues = 'Python is a programming language.'
 
 text_to_return_value_mapping = [

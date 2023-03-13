@@ -27,7 +27,7 @@ setup(
     download_url=download_url,
     keywords="nlp profiler nlpprofiler nlp_profiler nlp-profiler nlpprof profile profiling",
     install_requires=install_requirements,
-    python_requires=">=3.6.0",
+    python_requires=">=3.7.0",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Topic :: Software Development :: Build Tools",
