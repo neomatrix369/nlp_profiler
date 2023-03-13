@@ -70,8 +70,8 @@ def ease_of_reading(score: int) -> str:
         return NOT_APPLICABLE
 
     score = float(score)
-    for each_slab in ease_of_reading_to_words_mapping:
-        # pragma: no cover => early termination leads to loss of test coverage info
+    # early termination leads to loss of test coverage info hence use of pragma: no cover
+    for each_slab in ease_of_reading_to_words_mapping:   # pragma: no cover
         if ((score <= 0) and (each_slab[1] == 0)) or ((score >= 100) and (each_slab[2] == 100)):
             return each_slab[0]
         elif (score >= each_slab[1]) and (score <= each_slab[2]):
