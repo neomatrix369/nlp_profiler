@@ -1,6 +1,5 @@
 textblob >= 0.15.3
 nltk >= 3.5
-language_tool_python >= 2.6.1
 requests >= 2.23.0
 emoji >= 0.5.4
 tqdm == 4.64.1 ## previously 4.46.0
