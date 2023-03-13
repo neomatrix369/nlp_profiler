@@ -38,8 +38,8 @@ def sentiment_subjectivity(score: float) -> str:
 
     score *= 100
 
-    for each_slab in sentiment_subjectivity_to_words_mapping:
-        # pragma: no cover => early termination leads to loss of test coverage info
+    # early termination leads to loss of test coverage info, hence using below notation
+    for each_slab in sentiment_subjectivity_to_words_mapping: # pragma: no cover
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
