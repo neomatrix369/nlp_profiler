@@ -13,10 +13,7 @@ def sentiment_polarity_summarised(polarity: str) -> str:
 
     if "negative" in polarity.lower():
         return "Negative"
-    if "positive" in polarity.lower():
-        return "Positive"
-
-    return polarity
+    return "Positive" if "positive" in polarity.lower() else polarity
 
 
 # Docs: https://textblob.readthedocs.io/en/dev/quickstart.html
@@ -37,17 +34,17 @@ def sentiment_polarity(score: float) -> str:
     if math.isnan(score):
         return NOT_APPLICABLE
 
-    score = float(score)
+    score = score
     score = (score + 1) / 2  # see https://stats.stackexchange.com/questions/70801/how-to-normalize-data-to-0-1-range
     score *= 100
-    for _, each_slab in enumerate(sentiment_polarity_to_words_mapping):  # pragma: no cover
+    for each_slab in sentiment_polarity_to_words_mapping:
         # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
 
 def sentiment_polarity_score(text: str) -> float:
-    if (not isinstance(text, str)) or (len(text.strip()) == 0):
+    if not isinstance(text, str) or not text.strip():
         return NaN
 
     return TextBlob(text).sentiment.polarity

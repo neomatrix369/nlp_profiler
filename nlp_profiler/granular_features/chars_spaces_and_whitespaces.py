@@ -19,55 +19,38 @@ def count_whitespaces(text: str) -> int:
     if not isinstance(text, str):
         return NaN
 
-    spaces = re.findall("(([" + string_module.whitespace + "]){1})", text)
+    spaces = re.findall(f"(([{string_module.whitespace}" + "]){1})", text)
     return len(spaces)
 
 
 def count_characters_excluding_spaces(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(text) - count_spaces(text)
+    return len(text) - count_spaces(text) if isinstance(text, str) else NaN
 
 
 def count_characters_excluding_whitespaces(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(text) - count_whitespaces(text)
+    return len(text) - count_whitespaces(text) if isinstance(text, str) else NaN
 
 
 def count_chars(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(text)
+    return len(text) if isinstance(text, str) else NaN
 
 
 def gather_repeated_spaces(text: str) -> list:
-    if not isinstance(text, str):
-        return NaN
-
-    return re.findall("(([ ])\\2{1,})", text)
+    return re.findall("(([ ])\\2{1,})", text) if isinstance(text, str) else NaN
 
 
 def count_repeated_spaces(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_repeated_spaces(text))
+    return len(gather_repeated_spaces(text)) if isinstance(text, str) else NaN
 
 
 # ' \t\n\r\x0b\x0c'
 def gather_repeated_whitespaces(text: str) -> list:
-    if not isinstance(text, str):
-        return NaN
-
-    return re.findall("(([" + string_module.whitespace + "])\\2{1,})", text)
+    return (
+        re.findall(f"(([{string_module.whitespace}" + "])\\2{1,})", text)
+        if isinstance(text, str)
+        else NaN
+    )
 
 
 def count_repeated_whitespaces(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_repeated_whitespaces(text))
+    return len(gather_repeated_whitespaces(text)) if isinstance(text, str) else NaN

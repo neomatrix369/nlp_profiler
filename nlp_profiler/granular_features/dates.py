@@ -15,7 +15,4 @@ def gather_dates(text: str, date_format: str = "dd/mm/yyyy") -> list:
 
 
 def count_dates(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_dates(text))
+    return len(gather_dates(text)) if isinstance(text, str) else NaN

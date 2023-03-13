@@ -44,10 +44,10 @@ def test_given_a_text_when_counted_for_English_chars_then_return_NaN_or_count_of
     f"Expected: {expected_result}, Actual: {actual_result}"
 
 
-text_with_non_english_chars1 = "©2833047 people live in this area" + NON_STANDARD_ASCII_CHARS[0:10]
-text_with_non_english_chars2 = (
-    "«This sentence doesn't seem to too many commas, periods or semi-colons (;)." + NON_STANDARD_ASCII_CHARS[11:20]
+text_with_non_english_chars1 = (
+    f"©2833047 people live in this area{NON_STANDARD_ASCII_CHARS[:10]}"
 )
+text_with_non_english_chars2 = f"«This sentence doesn't seem to too many commas, periods or semi-colons (;).{NON_STANDARD_ASCII_CHARS[11:20]}"
 text_with_non_english_chars3 = "¦2833047   \t\tpeople live in th\ris area" + NON_STANDARD_ASCII_CHARS[21:30]
 text_with_non_english_chars4 = "½¼¢2833047   \t\tpeople live in th\ris area" + NON_STANDARD_ASCII_CHARS[31:40]
 text_with_non_english_chars5 = "¬2833047   people\r\r     live in th\tis area" + NON_STANDARD_ASCII_CHARS[41:50]

@@ -22,7 +22,7 @@ def generate_features(
     if parallelisation_method == SWIFTER_METHOD:
         parallelisation_method_function = using_swifter
 
-    for _, (new_column, source_column, transformation_function) in enumerate(generate_feature_progress_bar):
+    for new_column, source_column, transformation_function in generate_feature_progress_bar:
         source_field = new_dataframe[source_column]
         generate_feature_progress_bar.set_description(f"{main_header}: {source_column} => {new_column}")
 

@@ -36,7 +36,7 @@ from nlp_profiler.high_level_features.ease_of_reading_check import apply_ease_of
 
 
 def apply_text_profiling(dataframe: pd.DataFrame, text_column: str, params: dict = {}) -> pd.DataFrame:
-    columns_to_drop = list(set(dataframe.columns) - set([text_column]))
+    columns_to_drop = list(set(dataframe.columns) - {text_column})
     new_dataframe = dataframe.drop(columns=columns_to_drop, axis=1).copy()
 
     default_params = {
@@ -46,10 +46,7 @@ def apply_text_profiling(dataframe: pd.DataFrame, text_column: str, params: dict
         SPELLING_CHECK_OPTION: True,  # default: True although slightly slow process but can Disabled
         EASE_OF_READING_CHECK_OPTION: True,
         PARALLELISATION_METHOD_OPTION: DEFAULT_PARALLEL_METHOD,
-    }
-
-    default_params.update(params)
-
+    } | params
     print(f"final params: {default_params}")
     actions_mappings = [
         (GRANULAR_OPTION, "Granular features", apply_granular_features),
@@ -59,13 +56,13 @@ def apply_text_profiling(dataframe: pd.DataFrame, text_column: str, params: dict
         (EASE_OF_READING_CHECK_OPTION, "Ease of reading check", apply_ease_of_reading_check),
     ]
 
-    for index, item in enumerate(actions_mappings.copy()):
+    for item in actions_mappings.copy():
         (param, _, _) = item
         if not default_params[param]:
             actions_mappings.remove(item)
 
     apply_profiling_progress_bar = get_progress_bar(actions_mappings)
-    for _, (param, action_description, action_function) in enumerate(apply_profiling_progress_bar):
+    for param, action_description, action_function in apply_profiling_progress_bar:
         apply_profiling_progress_bar.set_description(action_description)
         action_function(action_description, new_dataframe, text_column, default_params[PARALLELISATION_METHOD_OPTION])
 

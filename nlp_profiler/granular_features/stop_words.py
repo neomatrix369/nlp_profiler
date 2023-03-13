@@ -15,11 +15,8 @@ def gather_stop_words(text: str) -> list:
         return []
 
     word_tokens = word_tokenize(text)
-    return [word for _, word in enumerate(word_tokens) if word in STOP_WORDS]
+    return [word for word in word_tokens if word in STOP_WORDS]
 
 
 def count_stop_words(text: str) -> int:
-    if not isinstance(text, str):
-        return NaN
-
-    return len(gather_stop_words(text))
+    return len(gather_stop_words(text)) if isinstance(text, str) else NaN

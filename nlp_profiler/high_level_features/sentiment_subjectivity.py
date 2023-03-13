@@ -36,16 +36,16 @@ def sentiment_subjectivity(score: float) -> str:
     if math.isnan(score):
         return NOT_APPLICABLE
 
-    score = float(score) * 100
+    score *= 100
 
-    for _, each_slab in enumerate(sentiment_subjectivity_to_words_mapping):  # pragma: no cover
+    for each_slab in sentiment_subjectivity_to_words_mapping:
         # pragma: no cover => early termination leads to loss of test coverage info
         if (score >= each_slab[1]) and (score <= each_slab[2]):
             return each_slab[0]
 
 
 def sentiment_subjectivity_score(text: str) -> float:
-    if (not isinstance(text, str)) or (len(text.strip()) == 0):
+    if not isinstance(text, str) or not text.strip():
         return NaN
 
     return TextBlob(text).sentiment.subjectivity

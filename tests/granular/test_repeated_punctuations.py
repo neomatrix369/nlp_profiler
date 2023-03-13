@@ -20,7 +20,9 @@ text_with_repeated_punctuations2 = "283047 some chars ((((area"
 text_with_repeated_punctuations3 = "283047 some chars [[area]] ))))"
 text_with_repeated_punctuations4 = "283047 some chars area;; ::::"
 text_with_repeated_punctuations5 = "283047 some chars [area];;; ::::----"
-text_with_repeated_punctuations6 = "283047 some chars [[]]. area" + REPEATED_SYMBOLS
+text_with_repeated_punctuations6 = (
+    f"283047 some chars [[]]. area{REPEATED_SYMBOLS}"
+)
 text_with_repeated_punctuations7 = '283047 some chars [] """ \\ area'
 text_with_repeated_punctuations8 = "283047 some chars //// \\\\\\ area"
 text_with_repeated_punctuations9 = string_module.punctuation + ADDITIONAL_SYMBOLS

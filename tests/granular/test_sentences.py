@@ -7,7 +7,7 @@ from nlp_profiler.granular_features.sentences import gather_sentences, count_sen
 text_with_emojis = "I love ⚽ very much 😁"
 text_with_emojis_ends_with_period = "I love ⚽ very much 😁."
 text_with_a_number = "2833047 people live in this area."
-text_with_two_sentences = text_with_a_number + " " + text_with_emojis
+text_with_two_sentences = f"{text_with_a_number} {text_with_emojis}"
 
 text_to_return_value_mapping = [
     (np.nan, []),

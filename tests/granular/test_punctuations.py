@@ -8,9 +8,7 @@ from nlp_profiler.granular_features.punctuations import (
     ADDITIONAL_SYMBOLS,
 )  # noqa
 
-text_with_punctuations = (
-    "This sentence doesn't seem to too many commas, periods or semi-colons (;)." + ADDITIONAL_SYMBOLS
-)
+text_with_punctuations = f"This sentence doesn't seem to too many commas, periods or semi-colons (;).{ADDITIONAL_SYMBOLS}"
 
 text_to_return_value_mapping = [
     (np.nan, []),

@@ -35,7 +35,8 @@ def using_joblib_parallel(
     source_values_to_transform.set_description(new_column)
 
     result = Parallel(n_jobs=-1)(
-        delayed(run_task)(apply_function, each_value) for _, each_value in enumerate(source_values_to_transform)
+        delayed(run_task)(apply_function, each_value)
+        for each_value in source_values_to_transform
     )
     source_values_to_transform.update()
     return result

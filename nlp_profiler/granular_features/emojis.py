@@ -9,7 +9,7 @@ from nlp_profiler.constants import NaN
 
 
 def gather_emojis(text: str) -> list:
-    if (not isinstance(text, str)) or (len(text.strip()) == 0):
+    if not isinstance(text, str) or not text.strip():
         return []
 
     emoji_expaned_text = emoji.demojize(text)

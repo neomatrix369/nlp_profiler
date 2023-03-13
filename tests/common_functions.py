@@ -136,8 +136,7 @@ def generate_data() -> list:
 
 
 def remove_joblib_cache():
-    os_temp_dir = tempfile.gettempdir()
-    if os_temp_dir:
+    if os_temp_dir := tempfile.gettempdir():
         cache_folder = f"{os_temp_dir}/joblib/nlp_profiler"
         print()
         if os.path.exists(cache_folder):
