@@ -1,4 +1,6 @@
-FROM python:3.7
+ARG python_version
+
+FROM python:$python_version
 
 RUN apt-get update 
 
