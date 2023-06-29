@@ -6,11 +6,11 @@ RUN apt-get update
 
 RUN apt-get install -y cmake
 
-RUN apt-get install -y git
+RUN pip install --upgrade pip
 
-RUN git clone https://github.com/neomatrix369/nlp_profiler.git
+WORKDIR /nlp_profiler
 
-WORKDIR nlp_profiler
+COPY . .
 
 RUN pip install -r requirements-dev.txt
 
