@@ -2,12 +2,14 @@ textblob >= 0.15.3
 nltk >= 3.5
 requests >= 2.23.0
 emoji >= 0.5.4
-tqdm == 4.64.1 ## previously 4.46.0
+tqdm == 4.64.1 ## previously 4.46.0 ## 26Jan2023 changed to >= 4.64.1
 joblib == 0.14.1
 ipython >= 7.12.0
 spacy >= 2.3.0,<3.0.0
 swifter == 1.0.5 # pinned to 1.0.5 for now
 pandas == 1.3.0
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.0/en_core_web_sm-2.3.0.tar.gz
+# en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.0/ # 26Jan2023 commented out
+
+en_core_web_sm-2.3.0.tar.gz
 textstat >= 0.7.0
 gingerit == 0.9.0
